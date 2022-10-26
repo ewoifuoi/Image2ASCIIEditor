@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Image2ASCIIEditor.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -25,10 +26,29 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         this.InitializeComponent();
+        
+        this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
+        this.SetTitleBar(AppTitleBar);
+
     }
 
-    private void myButton_Click(object sender, RoutedEventArgs e)
+    private void nvSample_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
     {
-        myButton.Content = "Clicked";
+        FrameNavigationOptions options = new FrameNavigationOptions();
+        options.TransitionInfoOverride = args.RecommendedNavigationTransitionInfo;
+
+        string navItemTag = args.InvokedItemContainer.Tag.ToString();
+        Type pageType = null;
+
+        if(navItemTag == "AddImage")
+        {
+            pageType = typeof(AddImage);
+        }
+
+        if(pageType == null)
+        {
+            return;
+        }
+        contentFrame.NavigateToType(pageType, null, options);
     }
 }
