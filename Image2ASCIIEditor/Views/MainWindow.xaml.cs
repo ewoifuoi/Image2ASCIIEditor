@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Image2ASCIIEditor.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -16,6 +15,8 @@ using Windows.Foundation.Collections;
 using Image2ASCIIEditor.Common;
 using Console = Image2ASCIIEditor.Common.Console;
 using System.Runtime.InteropServices;
+using Image2ASCIIEditor.ViewModels;
+using Image2ASCIIEditor.Views;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -26,21 +27,18 @@ namespace Image2ASCIIEditor;
 /// </summary>
 public partial class MainWindow : Window
 {
-    [DllImport("User32", CharSet = CharSet.Unicode)]
-    static extern IntPtr GetSystemMetrics(int nIndex);
 
+    MainWindowViewModel viewModel;
 
     public MainWindow()
     {
         this.InitializeComponent();
-
-        Console.console = this.lv;
+        viewModel = new MainWindowViewModel(this);
+        grid.DataContext = viewModel;
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
         this.SetTitleBar(AppTitleBar);
-        IntPtr hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-        var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
-        var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-        appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1400, Height = 1000});
+        Console.console = console;
+        
 
         Console.log("开始测试");
 
@@ -50,23 +48,15 @@ public partial class MainWindow : Window
 
 
 
-    private void nvSample_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+    private void UseIMG(object sender, RoutedEventArgs e)
     {
-        FrameNavigationOptions options = new FrameNavigationOptions();
-        options.TransitionInfoOverride = args.RecommendedNavigationTransitionInfo;
-        
-        string navItemTag = args.InvokedItemContainer.Tag.ToString();
-        Type pageType = null;
-
-        if(navItemTag == "AddImage")
-        {
-            pageType = typeof(AddImage);
-        }
-
-        if(pageType == null)
-        {
-            return;
-        }
+        viewModel.GetImgFile();
         
     }
+
+    private void Generate(object sender, RoutedEventArgs e)
+    {
+
+    }
+    
 }

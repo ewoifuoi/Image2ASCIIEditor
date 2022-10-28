@@ -10,7 +10,7 @@
     <UseWinUI>true</UseWinUI>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Views\AddImage.xaml" />
+    <None Remove="Views\Editor.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Views\AddImage.xaml">
+    <Page Update="Views\Editor.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

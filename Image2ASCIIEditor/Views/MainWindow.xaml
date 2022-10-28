@@ -7,11 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     x:Name="window"
-    
+    xmlns:viewmodels="using:Image2ASCIIEditor.ViewModels"
     >
+    
 
-
-    <Grid Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}">
+    <Grid Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
+          Opacity="70"
+          x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="34"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -19,39 +21,36 @@
         <Border Background="Transparent" x:Name="AppTitleBar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="1">
             <TextBlock x:Name="AppTitle" Text="字符串图像大杀器" VerticalAlignment="Top" Margin="10,8,0,9" />
         </Border>
-        
-            
+
+
         <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1"
-                Orientation="Horizontal"
-                Margin="5">
+                    Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    Margin="5">
             <StackPanel
-                Width="1000"
                 Orientation="Horizontal"
-                Margin="10">
-                <TextBlock Width="150"></TextBlock>
-                <StackPanel 
-                            >
-                    <TextBlock/>
-                    <Button Height="90" Width="180"
+                HorizontalAlignment="Center">
+                <StackPanel
+                    >
+                    <Button Height="90" Width="200"
                             Margin="20"
-                            Content="使用图片生成"></Button>
-                    <Button Height="90" Width="180"
+                            Content="使用图片生成"
+                            Click="UseIMG"></Button>
+                    <Button Height="90" Width="200"
                             Margin="20"
-                            Content="直接生成"></Button>
+                            Content="直接生成"
+                            Click="Generate"></Button>
                 </StackPanel>
-                
             </StackPanel>
-            <StackPanel>
-                <ListView
-            Margin="5"
-            x:Name="lv"
-            Height="600"
-            Width="200"/>
-            </StackPanel>
-            
         </StackPanel>
-
-
+        
+        
+        <ListView
+            Grid.Row="1"
+            Margin="900 0 0 0"
+                Height="300"
+                Width="400"
+                x:Name="console"/>
     </Grid>
 
 
