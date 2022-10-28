@@ -6,11 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    x:Name="window"
     
     >
 
 
-    <Grid>
+    <Grid Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="34"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -18,21 +19,38 @@
         <Border Background="Transparent" x:Name="AppTitleBar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="1">
             <TextBlock x:Name="AppTitle" Text="字符串图像大杀器" VerticalAlignment="Top" Margin="10,8,0,9" />
         </Border>
-        <NavigationView x:Name="nvSample" Grid.Row="1" Grid.Column="0" PaneDisplayMode="LeftCompact" Grid.RowSpan="1" Grid.ColumnSpan="1" ItemInvoked="nvSample_ItemInvoked">
-            <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Pictures" Content="Menu Item1" Tag="AddImage" />
-                <NavigationViewItem Icon="Save" Content="Menu Item2" Tag="SamplePage2" />
-                <NavigationViewItem Icon="Refresh" Content="Menu Item3" Tag="SamplePage3" />
-                <NavigationViewItem Icon="Download" Content="Menu Item4" Tag="SamplePage4" />
-            </NavigationView.MenuItems>
-            <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="Account" Tag="SamplePage4" Icon="Contact" />
-                <NavigationViewItem Content="Your Cart" Tag="SamplePage5" Icon="Shop" />
-                <NavigationViewItem Content="Help" Tag="SamplePage5" Icon="Help" />
-            </NavigationView.FooterMenuItems>
+        
+            
+        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1"
+                Orientation="Horizontal"
+                Margin="5">
+            <StackPanel
+                Width="1000"
+                Orientation="Horizontal"
+                Margin="10">
+                <TextBlock Width="150"></TextBlock>
+                <StackPanel 
+                            >
+                    <TextBlock/>
+                    <Button Height="90" Width="180"
+                            Margin="20"
+                            Content="使用图片生成"></Button>
+                    <Button Height="90" Width="180"
+                            Margin="20"
+                            Content="直接生成"></Button>
+                </StackPanel>
+                
+            </StackPanel>
+            <StackPanel>
+                <ListView
+            Margin="5"
+            x:Name="lv"
+            Height="600"
+            Width="200"/>
+            </StackPanel>
+            
+        </StackPanel>
 
-            <Frame x:Name="contentFrame"/>
-        </NavigationView>
 
     </Grid>
 
