@@ -19,36 +19,27 @@
         <Border Background="Transparent" x:Name="AppTitleBar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="1">
             <TextBlock x:Name="AppTitle" Text="字符串图像大杀器" VerticalAlignment="Top" Margin="10,8,0,9" />
         </Border>
-        
-            
+
+
         <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1"
-                Orientation="Horizontal"
-                Margin="5">
+                    Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    Margin="5">
             <StackPanel
-                Width="1000"
                 Orientation="Horizontal"
-                Margin="10">
-                <TextBlock Width="150"></TextBlock>
-                <StackPanel 
-                            >
-                    <TextBlock/>
-                    <Button Height="90" Width="180"
+                HorizontalAlignment="Center">
+                <StackPanel
+                    Orientation="Vertical"
+                    VerticalAlignment="Bottom"
+                    >
+                    <Button Height="90" Width="200"
                             Margin="20"
                             Content="使用图片生成"></Button>
-                    <Button Height="90" Width="180"
+                    <Button Height="90" Width="200"
                             Margin="20"
                             Content="直接生成"></Button>
                 </StackPanel>
-                
             </StackPanel>
-            <StackPanel>
-                <ListView
-            Margin="5"
-            x:Name="lv"
-            Height="600"
-            Width="200"/>
-            </StackPanel>
-            
         </StackPanel>
 
 
