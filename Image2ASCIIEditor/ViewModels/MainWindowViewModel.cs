@@ -9,6 +9,8 @@ using Console = Image2ASCIIEditor.Common.Console;
 using Image2ASCIIEditor.Models;
 using Microsoft.UI.Xaml;
 using Image2ASCIIEditor.Views;
+using Microsoft.UI.Xaml.Media.Imaging;
+using Windows.Storage.Streams;
 
 namespace Image2ASCIIEditor.ViewModels;
 
@@ -59,7 +61,8 @@ public class MainWindowViewModel : DependencyObject
             Console.log(hwnd.ToString());
             // 将句柄用于初始化Picker。
             WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
-            
+            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            picker.ViewMode = PickerViewMode.Thumbnail;
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
@@ -68,9 +71,20 @@ public class MainWindowViewModel : DependencyObject
             
             if(file != null)
             {
-                ImageHelper.Path = file.Path;
-                path = file.Path;
-                Console.log(file.Path.ToString());
+                using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                {
+
+                    BitmapImage bitmapImage = new BitmapImage();
+
+                    //获取或设置要用于图像编码操作的高度。
+                    bitmapImage.DecodePixelHeight = 250;
+                    bitmapImage.DecodePixelWidth = 250;
+
+                    await bitmapImage.SetSourceAsync(fileStream);
+                    ImageHelper.InputIMG = bitmapImage;
+                }
+
+                Console.log(file.Name.ToString());
                 var t = new Editor();
                 t.Activate();
                 window.Close();
