@@ -7,11 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     x:Name="window"
-    
+    xmlns:viewmodels="using:Image2ASCIIEditor.ViewModels"
     >
+    
 
-
-    <Grid Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}">
+    <Grid Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
+          Opacity="70"
+          x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="34"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -29,20 +31,26 @@
                 Orientation="Horizontal"
                 HorizontalAlignment="Center">
                 <StackPanel
-                    Orientation="Vertical"
-                    VerticalAlignment="Bottom"
                     >
                     <Button Height="90" Width="200"
                             Margin="20"
-                            Content="使用图片生成"></Button>
+                            Content="使用图片生成"
+                            Click="UseIMG"></Button>
                     <Button Height="90" Width="200"
                             Margin="20"
-                            Content="直接生成"></Button>
+                            Content="直接生成"
+                            Click="Generate"></Button>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-
-
+        
+        
+        <ListView
+            Grid.Row="1"
+            Margin="900 0 0 0"
+                Height="300"
+                Width="400"
+                x:Name="console"/>
     </Grid>
 
 
