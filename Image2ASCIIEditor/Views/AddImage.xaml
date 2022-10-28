@@ -9,6 +9,59 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel>
-        <TextBlock FontSize="25">2333</TextBlock>
+        <InfoBar
+            Margin="10"
+            IsOpen="True"
+            Severity="Informational"
+            Title="本地添加图片"
+            Message="Essential app message for your users to be informed of, acknowledge, or take action on." />
+        <StackPanel 
+            Orientation="Horizontal"
+            Margin="0 30 0 0">
+            <StackPanel 
+                Orientation="Vertical">
+                <TextBox
+                    x:Name="tb"
+                    Margin="10"></TextBox>
+                <Button 
+                    Content="建立矩阵" 
+                    Width="200" Height="70" FontSize="18"
+                    Click="Button_Click"
+                    Margin="10"></Button>
+                <ColorPicker
+                    x:Name="p"
+                    Margin="10"
+      ColorSpectrumShape="Ring"
+      IsMoreButtonVisible="True"
+      IsColorSliderVisible="True"
+      IsColorChannelTextInputVisible="True"
+      IsHexInputVisible="True"
+      IsAlphaEnabled="False"
+      IsAlphaSliderVisible="True"
+      IsAlphaTextInputVisible="True" />
+            </StackPanel>
+            <StackPanel>
+                <Grid
+                Margin="10"
+                x:Name="g"
+                Height="300"
+                Width="300"
+                Background="Gray"></Grid>
+            </StackPanel>
+            <StackPanel>
+                <ListView
+                Margin="10"
+                x:Name="lb"
+                Width="300"
+                    Height="400"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                ></ListView>
+            </StackPanel>
+            
+        </StackPanel>
+        
+        
+        
     </StackPanel>
 </Page>
