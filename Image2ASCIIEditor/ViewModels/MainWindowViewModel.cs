@@ -8,17 +8,25 @@ using Image2ASCIIEditor.Common;
 using Console = Image2ASCIIEditor.Common.Console;
 using Image2ASCIIEditor.Models;
 using Microsoft.UI.Xaml;
+using Image2ASCIIEditor.Views;
 
 namespace Image2ASCIIEditor.ViewModels;
 
 public class MainWindowViewModel : DependencyObject
 {
-    public MainWindowViewModel(IntPtr hwnd)
+    public MainWindowViewModel(Window window)
     {
-        this.hwnd = hwnd;
+        this.window = window;
+        var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+        this.hwnd = hWnd;
+        var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
+        var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
+        appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1400, Height = 1000 });
+        
     }
 
     private IntPtr hwnd;
+    private Window window;
 
 
 
@@ -57,11 +65,15 @@ public class MainWindowViewModel : DependencyObject
             picker.FileTypeFilter.Add(".png");
             // 正常使用Picker。
             var file = await picker.PickSingleFileAsync();
+            
             if(file != null)
             {
                 ImageHelper.Path = file.Path;
                 path = file.Path;
                 Console.log(file.Path.ToString());
+                var t = new Editor();
+                t.Activate();
+                window.Close();
             }
            
 
@@ -74,6 +86,7 @@ public class MainWindowViewModel : DependencyObject
 
 
     }
+
 
 
 }

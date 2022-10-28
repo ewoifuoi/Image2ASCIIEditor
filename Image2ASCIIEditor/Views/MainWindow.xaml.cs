@@ -16,6 +16,7 @@ using Image2ASCIIEditor.Common;
 using Console = Image2ASCIIEditor.Common.Console;
 using System.Runtime.InteropServices;
 using Image2ASCIIEditor.ViewModels;
+using Image2ASCIIEditor.Views;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -32,17 +33,12 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         this.InitializeComponent();
-        var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
-        viewModel = new MainWindowViewModel(hWnd);
+        viewModel = new MainWindowViewModel(this);
         grid.DataContext = viewModel;
-
-        Console.console = console;
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
         this.SetTitleBar(AppTitleBar);
-
-        var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
-        var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-        appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1400, Height = 1000});
+        Console.console = console;
+        
 
         Console.log("开始测试");
 
@@ -55,10 +51,12 @@ public partial class MainWindow : Window
     private void UseIMG(object sender, RoutedEventArgs e)
     {
         viewModel.GetImgFile();
+        
     }
 
     private void Generate(object sender, RoutedEventArgs e)
     {
 
     }
+    
 }
