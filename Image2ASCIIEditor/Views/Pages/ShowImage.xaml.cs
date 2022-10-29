@@ -26,6 +26,6 @@ public sealed partial class ShowImage : Page
     public ShowImage()
     {
         this.InitializeComponent();
-        ImageModel.IMG.showImage(ref image);
+        ImageModel.IMG.showImage(ref this.image);
     }
 }

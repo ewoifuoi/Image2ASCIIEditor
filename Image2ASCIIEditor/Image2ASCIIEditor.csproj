@@ -13,6 +13,7 @@
     <None Remove="Views\GetText.xaml" />
     <None Remove="Views\Pages\EditText.xaml" />
     <None Remove="Views\Pages\GetTextMessage.xaml" />
+    <None Remove="Views\Pages\Welcome.xaml" />
     <None Remove="Views\ShowImage.xaml" />
   </ItemGroup>
 
@@ -20,6 +21,12 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.3" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
     <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Pages\Welcome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
@@ -35,19 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Views\Windows\GetText.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Update="Views\Pages\ShowImage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Views\Windows\Editor.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

@@ -8,12 +8,15 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.Graphics.Imaging;
 using Image2ASCIIEditor.Common;
 using Console = Image2ASCIIEditor.Common.Console;
+using System.Formats.Asn1;
+using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 
 namespace Image2ASCIIEditor.Models;
 public class ImageModel
 {
     public static ImageModel IMG = null;
-    public SoftwareBitmap InputIMG;
+    public SoftwareBitmap InputIMG = null;
     private int Width;
     private int Height;
     private Image imageControl;
@@ -25,16 +28,9 @@ public class ImageModel
     /// <param name="img"></param>
     public void showImage(ref Image img)
     {
-        try
-        {
-            imageControl = img;
-            CreateBitMap();
-        }
-        catch
-        {
-            Console.log("图片载入失败");
-        }
-        
+        if (InputIMG == null) return;
+        imageControl = img;
+        CreateBitMap();     
     }
 
     private async void CreateBitMap()
@@ -50,6 +46,35 @@ public class ImageModel
 
         // Set the source of the Image control
         imageControl.Source = source;
+    }
+
+    public async void GetImgFile()
+    {
+        var picker = new FileOpenPicker();
+        // 传入MainWindow实例，获取窗口句柄。
+
+        // 将句柄用于初始化Picker。
+        WinRT.Interop.InitializeWithWindow.Initialize(picker, MainWindow.hWnd);
+        picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+        picker.ViewMode = PickerViewMode.Thumbnail;
+        picker.FileTypeFilter.Add(".jpg");
+        picker.FileTypeFilter.Add(".jpeg");
+        picker.FileTypeFilter.Add(".png");
+        
+        // 打开文件选择对话框
+        var file = await picker.PickSingleFileAsync();
+
+        // 用户选择图片
+        if (file != null)
+        {
+            using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+            {
+                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(fileStream);
+                // Get the SoftwareBitmap representation of the file
+                SoftwareBitmap bitmapImage = await decoder.GetSoftwareBitmapAsync();
+                ImageModel.IMG.InputIMG = bitmapImage;
+            }
+        }
     }
 
 

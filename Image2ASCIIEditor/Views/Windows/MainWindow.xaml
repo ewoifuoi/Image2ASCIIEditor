@@ -9,7 +9,7 @@
     x:Name="window"
     xmlns:viewmodels="using:Image2ASCIIEditor.ViewModels"
     >
-    
+
 
     <Grid Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
           Opacity="70"
@@ -21,29 +21,31 @@
         <Border Background="Transparent" x:Name="AppTitleBar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="1">
             <TextBlock x:Name="AppTitle" Text="字符串图像大杀器" VerticalAlignment="Top" Margin="10,8,0,9" />
         </Border>
+        <NavigationView 
+            x:Name="nvSample" Grid.Row="1" Grid.Column="0" PaneDisplayMode="LeftCompact" Grid.RowSpan="1" Grid.ColumnSpan="1" 
+            ItemInvoked="nvSample_ItemInvoked"
+            IsPaneToggleButtonVisible="False"
+            IsBackEnabled="True"
+            IsSettingsVisible="False"
+            
+            >
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="Welcome" Icon="Home" Content="欢迎" Tag="Welcome" />
+                <NavigationViewItem x:Name="ShowImage" Icon="Pictures" Content="图像处理" Tag="ShowImage" />
+                <NavigationViewItem x:Name="EditText" Icon="Save" Content="编辑文本" Tag="EditText" />
 
 
-        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1"
-                    Orientation="Vertical"
-                    VerticalAlignment="Center"
-                    Margin="5">
-            <StackPanel
-                Orientation="Horizontal"
-                HorizontalAlignment="Center">
-                <StackPanel
-                    >
-                    <Button Height="90" Width="200"
-                            Margin="20"
-                            Content="使用图片生成"
-                            Click="UseIMG"></Button>
-                    <Button Height="90" Width="200"
-                            Margin="20"
-                            Content="直接生成"
-                            Click="Generate"></Button>
-                </StackPanel>
-            </StackPanel>
-        </StackPanel>
-        
+            </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Content="阅读源码" Tag="Web" Icon="Globe" />
+            </NavigationView.FooterMenuItems>
+
+            <Frame x:Name="contentFrame">
+
+            </Frame>
+        </NavigationView>
+
+
     </Grid>
 
 

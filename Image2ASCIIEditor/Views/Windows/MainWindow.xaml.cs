@@ -17,6 +17,7 @@ using Console = Image2ASCIIEditor.Common.Console;
 using System.Runtime.InteropServices;
 using Image2ASCIIEditor.ViewModels;
 using Image2ASCIIEditor.Views;
+using Image2ASCIIEditor.Views.Pages;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -30,37 +31,64 @@ public partial class MainWindow : Window
 
     MainWindowViewModel viewModel;
     public static IntPtr hWnd;
-
+    public static Frame frame;
+    public static NavigationViewItem welcome;
+    public static NavigationViewItem showImage;
 
     public MainWindow()
     {
         this.InitializeComponent();
+        welcome = this.Welcome;
+        frame = this.contentFrame;
+        showImage = this.ShowImage;
         viewModel = new MainWindowViewModel(this);
         grid.DataContext = viewModel;
 
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
         this.SetTitleBar(AppTitleBar);
-        //Console.console = console;
+
+        Welcome.IsSelected = true;
         
 
-        Console.log("开始测试");
+        contentFrame.NavigateToType(typeof(Welcome), null, null);
 
 
 
     }
 
-
-
-    private void UseIMG(object sender, RoutedEventArgs e)
+    private void nvSample_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
     {
-        viewModel.GetImgFile();
-        
+        FrameNavigationOptions options = new FrameNavigationOptions();
+        options.TransitionInfoOverride = args.RecommendedNavigationTransitionInfo;
+
+        string navItemTag = args.InvokedItemContainer.Tag.ToString();
+        Type pageType = null;
+
+        if (navItemTag == "ShowImage" && ShowImage.IsSelected == false)
+        {
+            pageType = typeof(ShowImage);
+            contentFrame.NavigateToType(pageType, null, options);
+        }
+        if (navItemTag == "EditText" && EditText.IsSelected == false)
+        {
+            pageType = typeof(EditText);
+            contentFrame.NavigateToType(pageType, null, options);
+        }
+        if (navItemTag == "Welcome" && Welcome.IsSelected == false)
+        {
+            pageType = typeof(Welcome);
+            contentFrame.NavigateToType(pageType, null, options);
+        }
+        if (navItemTag == "Web")
+        {
+            Windows.System.Launcher.LaunchUriAsync(new Uri("https://github.com/ewoifuoi/Image2ASCIIEditor"));
+        }
+
+        if (pageType == null)
+        {
+            return;
+        }
+
     }
 
-    private void Generate(object sender, RoutedEventArgs e)
-    {
-        var t = new GetText();
-        t.Activate();
-    }
-    
 }
