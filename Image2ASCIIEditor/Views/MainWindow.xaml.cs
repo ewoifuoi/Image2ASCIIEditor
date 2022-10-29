@@ -17,6 +17,7 @@ using Console = Image2ASCIIEditor.Common.Console;
 using System.Runtime.InteropServices;
 using Image2ASCIIEditor.ViewModels;
 using Image2ASCIIEditor.Views;
+using System.Security.AccessControl;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -43,10 +44,8 @@ public partial class MainWindow : Window
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
         this.SetTitleBar(AppTitleBar);
         Console.console = console;
-        
-
         Console.log("开始测试");
-
+        contentFrame.NavigateToType(typeof(Start), null, null);
 
 
     }
