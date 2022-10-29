@@ -11,6 +11,8 @@ using Microsoft.UI.Xaml;
 using Image2ASCIIEditor.Views;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.Storage.Streams;
+using System.IO;
+using Windows.Graphics.Imaging;
 
 namespace Image2ASCIIEditor.ViewModels;
 
@@ -70,14 +72,12 @@ public class MainWindowViewModel : DependencyObject
             {
                 using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
                 {
+                    
 
-                    BitmapImage bitmapImage = new BitmapImage();
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(fileStream);
 
-                    //获取或设置要用于图像编码操作的高度。
-                    bitmapImage.DecodePixelHeight = 250;
-                    bitmapImage.DecodePixelWidth = 250;
-
-                    await bitmapImage.SetSourceAsync(fileStream);
+                    // Get the SoftwareBitmap representation of the file
+                    SoftwareBitmap bitmapImage = await decoder.GetSoftwareBitmapAsync();
                     ImageModel.IMG.InputIMG = bitmapImage;
                 }
 

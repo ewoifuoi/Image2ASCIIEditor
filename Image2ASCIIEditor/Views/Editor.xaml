@@ -21,7 +21,7 @@
 
         <StackPanel Grid.Row="1"
             Orientation="Horizontal"
-            Background="Black">
+            >
             <StackPanel
                 Width="300"
                 Orientation="Vertical"
@@ -46,7 +46,7 @@
             <StackPanel
                 Width="700"
                 Orientation="Vertical"
-                Background="Azure">
+                >
                 
             </StackPanel>
         </StackPanel>
