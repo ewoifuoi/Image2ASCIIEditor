@@ -32,6 +32,37 @@ public sealed partial class Editor : Window
         viewModel = new EditorViewModel(this);
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
         this.SetTitleBar(AppTitleBar);
-        ImageModel.IMG.showImage(ref image);
+    }
+
+    private void nvSample_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+    {
+        FrameNavigationOptions options = new FrameNavigationOptions();
+        options.TransitionInfoOverride = args.RecommendedNavigationTransitionInfo;
+
+        string navItemTag = args.InvokedItemContainer.Tag.ToString();
+        Type pageType = null;
+
+        if (navItemTag == "ShowImage" && ShowImage.IsSelected==false)
+        {
+            pageType = typeof(ShowImage);
+            contentFrame.NavigateToType(pageType, null, options);
+        }
+        if (navItemTag == "Web")
+        {
+            Windows.System.Launcher.LaunchUriAsync(new Uri("https://github.com/ewoifuoi/Image2ASCIIEditor"));
+        }
+
+        if (pageType == null)
+        {
+            return;
+        }
+        
+    }
+
+    private void BackEventHandler(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+    {
+        var t = new MainWindow();
+        t.Activate();
+        this.Close();
     }
 }

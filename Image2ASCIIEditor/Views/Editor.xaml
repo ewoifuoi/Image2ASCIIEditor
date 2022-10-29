@@ -20,17 +20,19 @@
         <NavigationView 
             x:Name="nvSample" Grid.Row="1" Grid.Column="0" PaneDisplayMode="LeftCompact" Grid.RowSpan="1" Grid.ColumnSpan="1" 
             ItemInvoked="nvSample_ItemInvoked"
-            IsPaneVisible="False">
+            IsPaneToggleButtonVisible="False"
+            IsBackEnabled="True"
+            IsSettingsVisible="False"
+            BackRequested="BackEventHandler"
+            >
             <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Pictures" Content="图像处理" Tag="ShowImage" />
+                <NavigationViewItem x:Name="ShowImage" Icon="Pictures" Content="图像处理" Tag="ShowImage" />
                 <NavigationViewItem Icon="Save" Content="Menu Item2" Tag="SamplePage2" />
                 <NavigationViewItem Icon="Refresh" Content="Menu Item3" Tag="SamplePage3" />
                 <NavigationViewItem Icon="Download" Content="Menu Item4" Tag="SamplePage4" />
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="Account" Tag="SamplePage4" Icon="Contact" />
-                <NavigationViewItem Content="Your Cart" Tag="SamplePage5" Icon="Shop" />
-                <NavigationViewItem Content="Help" Tag="SamplePage5" Icon="Help" />
+                <NavigationViewItem Content="阅读源码" Tag="Web" Icon="Globe" />
             </NavigationView.FooterMenuItems>
 
             <Frame x:Name="contentFrame"/>
