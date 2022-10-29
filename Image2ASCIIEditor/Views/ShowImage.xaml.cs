@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Image2ASCIIEditor.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -25,5 +26,6 @@ public sealed partial class ShowImage : Page
     public ShowImage()
     {
         this.InitializeComponent();
+        ImageModel.IMG.showImage(ref image);
     }
 }

@@ -8,7 +8,35 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <StackPanel Grid.Row="1"
+            Orientation="Horizontal"
+            >
+        <StackPanel
+                Width="300"
+                Orientation="Vertical"
+                >
+            <TextBlock Text="当前图片："
+                           Foreground="Gray"
+                           Margin="20"
+                           FontWeight="Bold"
+                           FontSize="24"/>
+            <Image 
+                    x:Name="image" 
+                    Height="250" Width="250" 
+                    
+                    Margin="10"/>
+            <StackPanel Margin="10"
+                            Width="250" Height="100"
+                            Orientation="Horizontal">
+                <Button Content="灰度" Margin="12 10" Width="100" Height="100"></Button>
 
-    </Grid>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel
+                Width="700"
+                Orientation="Vertical"
+                >
+
+        </StackPanel>
+    </StackPanel>
 </Page>
