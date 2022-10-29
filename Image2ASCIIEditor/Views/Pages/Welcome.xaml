@@ -9,15 +9,15 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     NavigationCacheMode="Enabled">
 
+    <Grid Background="Black" >
     <StackPanel 
-        
         Orientation="Horizontal"
         HorizontalAlignment="Left">
-        <StackPanel Background="Black" Margin="10" Width="800"
+        <StackPanel Margin="10" Width="800"
                     Orientation="Horizontal" HorizontalAlignment="Left">
             <StackPanel>
                 <RichTextBlock Margin="20 30 0 0">
-                    <Paragraph TextIndent="12" FontSize="50" Margin="5 0 0 3">欢迎</Paragraph>
+                    <Paragraph TextIndent="0" FontSize="50" Margin="5 0 0 3">欢迎</Paragraph>
                     <Paragraph  TextIndent="0" FontSize="22" Margin="5 15 0 0">这是一个用于编辑
                         <Bold >
                             ASCII艺术图像
@@ -51,4 +51,5 @@
         
         
     </StackPanel>
+    </Grid>
 </Page>

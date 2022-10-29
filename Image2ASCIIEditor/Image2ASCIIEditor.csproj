@@ -12,7 +12,6 @@
   <ItemGroup>
     <None Remove="Views\GetText.xaml" />
     <None Remove="Views\Pages\EditText.xaml" />
-    <None Remove="Views\Pages\GetTextMessage.xaml" />
     <None Remove="Views\Pages\Welcome.xaml" />
     <None Remove="Views\ShowImage.xaml" />
   </ItemGroup>
@@ -25,12 +24,6 @@
 
   <ItemGroup>
     <Page Update="Views\Pages\Welcome.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Views\Pages\GetTextMessage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

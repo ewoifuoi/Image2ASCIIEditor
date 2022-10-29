@@ -34,12 +34,14 @@ public partial class MainWindow : Window
     public static Frame frame;
     public static NavigationViewItem welcome;
     public static NavigationViewItem showImage;
+    public static NavigationViewItem editText;
 
     public MainWindow()
     {
         this.InitializeComponent();
         welcome = this.Welcome;
         frame = this.contentFrame;
+        editText = this.EditText;
         showImage = this.ShowImage;
         viewModel = new MainWindowViewModel(this);
         grid.DataContext = viewModel;
@@ -48,8 +50,6 @@ public partial class MainWindow : Window
         this.SetTitleBar(AppTitleBar);
 
         Welcome.IsSelected = true;
-        
-
         contentFrame.NavigateToType(typeof(Welcome), null, null);
 
 

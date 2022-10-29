@@ -31,7 +31,6 @@ public sealed partial class Welcome : Page
     private void Start(object sender, RoutedEventArgs e)
     {
         
-        
         MainWindow.frame.NavigateToType(typeof(ShowImage), null, null);
         MainWindow.welcome.IsSelected = false;
         MainWindow.showImage.IsSelected = true;
