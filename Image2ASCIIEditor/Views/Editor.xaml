@@ -32,7 +32,7 @@
                 <NavigationViewItem Icon="Download" Content="Menu Item4" Tag="SamplePage4" />
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="阅读源码" Tag="Web" Icon="Globe" />
+                <NavigationViewItem Content="阅读源码" Tag="Web" Icon="Help" />
             </NavigationView.FooterMenuItems>
 
             <Frame x:Name="contentFrame"/>
