@@ -12,25 +12,18 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Image2ASCIIEditor.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace Image2ASCIIEditor.Views;
+namespace Image2ASCIIEditor.Views.Pages;
 /// <summary>
-/// An empty window that can be used on its own or navigated to within a Frame.
+/// An empty page that can be used on its own or navigated to within a Frame.
 /// </summary>
-public sealed partial class Editor : Window
+public sealed partial class EditText : Page
 {
-    private EditorViewModel viewModel;
-    public Editor()
+    public EditText()
     {
-        
         this.InitializeComponent();
-        viewModel = new EditorViewModel(this);
-        this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
-        this.SetTitleBar(AppTitleBar);
-        viewModel.setImage(ref image);
     }
 }

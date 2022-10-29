@@ -10,7 +10,10 @@
     <UseWinUI>true</UseWinUI>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Views\Editor.xaml" />
+    <None Remove="Views\GetText.xaml" />
+    <None Remove="Views\Pages\EditText.xaml" />
+    <None Remove="Views\Pages\Welcome.xaml" />
+    <None Remove="Views\ShowImage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +23,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Views\Editor.xaml">
+    <Page Update="Views\Pages\Welcome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Pages\EditText.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Pages\ShowImage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
