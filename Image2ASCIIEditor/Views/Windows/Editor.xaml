@@ -1,0 +1,44 @@
+﻿<Window
+    x:Class="Image2ASCIIEditor.Views.Editor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Image2ASCIIEditor.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
+          Opacity="70"
+          x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Background="Transparent" x:Name="AppTitleBar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="1">
+            <TextBlock x:Name="AppTitle" Text="字符串图像大杀器" VerticalAlignment="Top" Margin="10,8,0,9" />
+        </Border>
+        <NavigationView 
+            x:Name="nvSample" Grid.Row="1" Grid.Column="0" PaneDisplayMode="LeftCompact" Grid.RowSpan="1" Grid.ColumnSpan="1" 
+            ItemInvoked="nvSample_ItemInvoked"
+            IsPaneToggleButtonVisible="False"
+            IsBackEnabled="True"
+            IsSettingsVisible="False"
+            BackRequested="BackEventHandler"
+            >
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="ShowImage" Icon="Pictures" Content="图像处理" Tag="ShowImage" />
+                <NavigationViewItem x:Name="EditText" Icon="Save" Content="编辑文本" Tag="EditText" />
+                
+            </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Content="阅读源码" Tag="Web" Icon="Globe" />
+            </NavigationView.FooterMenuItems>
+
+            <Frame x:Name="contentFrame">
+                
+            </Frame>
+        </NavigationView>
+
+
+    </Grid>
+</Window>

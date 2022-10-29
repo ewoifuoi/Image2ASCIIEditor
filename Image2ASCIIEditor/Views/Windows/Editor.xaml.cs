@@ -14,6 +14,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Image2ASCIIEditor.ViewModels;
 using Image2ASCIIEditor.Models;
+using Image2ASCIIEditor.Views.Pages;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -45,6 +46,11 @@ public sealed partial class Editor : Window
         if (navItemTag == "ShowImage" && ShowImage.IsSelected==false)
         {
             pageType = typeof(ShowImage);
+            contentFrame.NavigateToType(pageType, null, options);
+        }
+        if (navItemTag == "EditText" && EditText.IsSelected == false)
+        {
+            pageType = typeof(EditText);
             contentFrame.NavigateToType(pageType, null, options);
         }
         if (navItemTag == "Web")

@@ -44,13 +44,6 @@
             </StackPanel>
         </StackPanel>
         
-        
-        <ListView
-            Grid.Row="1"
-            Margin="900 0 0 0"
-                Height="300"
-                Width="400"
-                x:Name="console"/>
     </Grid>
 
 

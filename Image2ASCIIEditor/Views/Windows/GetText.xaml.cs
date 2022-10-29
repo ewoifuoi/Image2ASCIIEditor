@@ -12,54 +12,24 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Image2ASCIIEditor.Common;
-using Console = Image2ASCIIEditor.Common.Console;
-using System.Runtime.InteropServices;
-using Image2ASCIIEditor.ViewModels;
-using Image2ASCIIEditor.Views;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace Image2ASCIIEditor;
+namespace Image2ASCIIEditor.Views;
 /// <summary>
 /// An empty window that can be used on its own or navigated to within a Frame.
 /// </summary>
-public partial class MainWindow : Window
+public sealed partial class GetText : Window
 {
-
-    MainWindowViewModel viewModel;
-    public static IntPtr hWnd;
-
-
-    public MainWindow()
+    public GetText()
     {
         this.InitializeComponent();
-        viewModel = new MainWindowViewModel(this);
-        grid.DataContext = viewModel;
-
+        var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
         this.SetTitleBar(AppTitleBar);
-        Console.console = console;
-        
-
-        Console.log("开始测试");
-
-
-
+        var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
+        var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
+        appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1400, Height = 1000 });
     }
-
-
-
-    private void UseIMG(object sender, RoutedEventArgs e)
-    {
-        viewModel.GetImgFile();
-        
-    }
-
-    private void Generate(object sender, RoutedEventArgs e)
-    {
-
-    }
-    
 }
