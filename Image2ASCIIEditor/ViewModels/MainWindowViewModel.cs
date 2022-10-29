@@ -21,6 +21,7 @@ public class MainWindowViewModel : DependencyObject
         this.window = window;
         var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
         this.hwnd = hWnd;
+        MainWindow.hWnd = hWnd;
         var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
         var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
         appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1400, Height = 1000 });
@@ -29,29 +30,25 @@ public class MainWindowViewModel : DependencyObject
 
     private IntPtr hwnd;
     private Window window;
+    
 
 
 
-    public string path
-    {
-        get
-        {
-            return (string)GetValue(pathProperty);
-        }
-        set
-        {
-            SetValue(pathProperty, value);
-        }
-    }
-
-    // Using a DependencyProperty as the backing store for path.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty pathProperty =
-        DependencyProperty.Register("path", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(""));
 
 
 
     public async void GetImgFile()
     {
+        try
+        {
+            ImageModel.IMG = new ImageModel();
+        }
+        catch
+        {
+            Console.log("图片对象创建失败!");
+        }
+
+
         try
         {
             var picker = new FileOpenPicker();
@@ -81,7 +78,7 @@ public class MainWindowViewModel : DependencyObject
                     bitmapImage.DecodePixelWidth = 250;
 
                     await bitmapImage.SetSourceAsync(fileStream);
-                    ImageHelper.InputIMG = bitmapImage;
+                    ImageModel.IMG.InputIMG = bitmapImage;
                 }
 
                 Console.log(file.Name.ToString());

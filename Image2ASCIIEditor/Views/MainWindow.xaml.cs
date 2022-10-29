@@ -29,12 +29,15 @@ public partial class MainWindow : Window
 {
 
     MainWindowViewModel viewModel;
+    public static IntPtr hWnd;
+
 
     public MainWindow()
     {
         this.InitializeComponent();
         viewModel = new MainWindowViewModel(this);
         grid.DataContext = viewModel;
+
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
         this.SetTitleBar(AppTitleBar);
         Console.console = console;

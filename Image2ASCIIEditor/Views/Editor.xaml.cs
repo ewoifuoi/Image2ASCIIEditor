@@ -13,6 +13,7 @@ using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Image2ASCIIEditor.ViewModels;
+using Image2ASCIIEditor.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -31,6 +32,6 @@ public sealed partial class Editor : Window
         viewModel = new EditorViewModel(this);
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
         this.SetTitleBar(AppTitleBar);
-        viewModel.setImage(ref image);
+        ImageModel.IMG.showImage(ref image);
     }
 }

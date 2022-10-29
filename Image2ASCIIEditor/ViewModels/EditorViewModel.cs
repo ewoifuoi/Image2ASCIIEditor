@@ -22,8 +22,5 @@ public class EditorViewModel
         appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1800, Height = 1400 });
         
     }
-    public void setImage(ref Image img)
-    {
-        img.Source = ImageHelper.InputIMG;
-    }
+    
 }
