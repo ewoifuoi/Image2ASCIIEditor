@@ -38,6 +38,8 @@ public partial class MainWindow : Window
         viewModel = new MainWindowViewModel(this);
         grid.DataContext = viewModel;
 
+        MainWindow.hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
         this.SetTitleBar(AppTitleBar);
         Console.console = console;

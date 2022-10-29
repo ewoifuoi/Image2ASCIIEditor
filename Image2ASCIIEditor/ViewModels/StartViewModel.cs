@@ -13,22 +13,20 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.Storage.Streams;
 using System.IO;
 using Windows.Graphics.Imaging;
+using Microsoft.UI.Xaml.Controls;
+using Image2ASCIIEditor.Views;
 
 namespace Image2ASCIIEditor.ViewModels;
 public class StartViewModel
 {
-    private IntPtr hwnd;
-    private Window window;
 
-    public StartViewModel(Window window)
+    private Page page;
+    private IntPtr hwnd;
+
+    public StartViewModel(Page page)
     {
-        this.window = window;
-        var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-        this.hwnd = hWnd;
-        MainWindow.hWnd = hWnd;
-        var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
-        var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-        appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1400, Height = 1000 });
+        this.page = page;
+        hwnd = MainWindow.hWnd;
     }
 
     public async void GetImgFile()
@@ -72,9 +70,8 @@ public class StartViewModel
                 }
 
                 Console.log(file.Name.ToString());
-                var t = new Editor();
-                t.Activate();
-                window.Close();
+                
+
             }
         }
         catch

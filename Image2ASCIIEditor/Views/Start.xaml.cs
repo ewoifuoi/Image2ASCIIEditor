@@ -23,19 +23,16 @@ using Image2ASCIIEditor.Views;
 
 namespace Image2ASCIIEditor.Views;
 /// <summary>
-/// An empty window that can be used on its own or navigated to within a Frame.
+/// An empty page that can be used on its own or navigated to within a Frame.
 /// </summary>
-public sealed partial class Start : Window
+public sealed partial class Start : Page
 {
-
     StartViewModel viewModel;
-    public static IntPtr hWnd;
 
     public Start()
     {
         this.InitializeComponent();
         viewModel = new StartViewModel(this);
-        
     }
 
     private void UseIMG(object sender, RoutedEventArgs e)

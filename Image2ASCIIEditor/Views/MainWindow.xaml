@@ -28,12 +28,9 @@
                         SelectedItem="SamplePage1"
                         ItemInvoked="nvSample_ItemInvoked">
             <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="a" Icon="Play" Content="Menu Item1" Tag="SamplePage1" IsSelected="True"/>
-                
+                <NavigationViewItem x:Name="a" Icon="Play" Content="Menu Item1" Tag="Start" IsSelected="True"/>
             </NavigationView.MenuItems>
-            <Frame x:Name="contentFrame">
-                
-            </Frame>
+            <Frame x:Name="contentFrame"/>
         </NavigationView>
 
         
