@@ -68,13 +68,4 @@ public partial class MainWindow : Window
         }
         contentFrame.NavigateToType(pageType, null, options);
     }
-
-    private void UseIMG(object sender, RoutedEventArgs e)
-    {
-        viewModel.GetImgFile();
-        
-    }
-
-
-    
 }
