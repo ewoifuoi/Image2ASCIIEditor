@@ -37,8 +37,8 @@
             </Border>
         </StackPanel>
         <StackPanel Margin="10">
-            <Border BorderThickness="3" BorderBrush="CadetBlue" Margin="10 30 0 0">
-                <Canvas Height="400" Width="400"></Canvas>
+            <Border BorderThickness="3" BorderBrush="CadetBlue" Margin="5 25 0 0">
+                <Canvas Height="450" Width="450"></Canvas>
             </Border>
         </StackPanel>
                 
