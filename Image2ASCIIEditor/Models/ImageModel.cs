@@ -19,8 +19,10 @@ public class ImageModel
     public SoftwareBitmap InputIMG = null;
     private int Width;
     private int Height;
+    private bool Refreshed = false;
     private Image imageControl;
     
+    public bool isRefreshed{get { return Refreshed;}}
 
     /// <summary>
     /// 将图片在界面显示
@@ -46,6 +48,7 @@ public class ImageModel
 
         // Set the source of the Image control
         imageControl.Source = source;
+        Refreshed = false;
     }
 
     public async void GetImgFile()
@@ -73,9 +76,12 @@ public class ImageModel
                 // Get the SoftwareBitmap representation of the file
                 SoftwareBitmap bitmapImage = await decoder.GetSoftwareBitmapAsync();
                 ImageModel.IMG.InputIMG = bitmapImage;
+                Refreshed = true;
             }
         }
     }
+
+
 
 
 }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Image2ASCIIEditor.Models;
 using Image2ASCIIEditor.Views.Pages;
 using Microsoft.UI.Xaml;
@@ -39,7 +40,7 @@ public sealed partial class ShowImage : Page
         worker.DoWork += (s, e) => {
             //Some work...
             ImageModel.IMG.GetImgFile();
-            while (ImageModel.IMG.InputIMG == null) ;
+            while (ImageModel.IMG.isRefreshed == false) { Thread.Sleep(1000); };
         };
         worker.RunWorkerCompleted += (s, e) => {
             //e.Result"returned" from thread
