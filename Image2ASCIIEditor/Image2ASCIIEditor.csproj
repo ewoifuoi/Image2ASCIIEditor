@@ -10,7 +10,6 @@
     <UseWinUI>true</UseWinUI>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Views\Editor.xaml" />
     <None Remove="Views\GetText.xaml" />
     <None Remove="Views\Pages\EditText.xaml" />
     <None Remove="Views\Pages\GetTextMessage.xaml" />
