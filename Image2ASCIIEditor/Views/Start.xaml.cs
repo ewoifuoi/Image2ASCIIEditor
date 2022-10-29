@@ -12,6 +12,11 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Image2ASCIIEditor.Common;
+using Console = Image2ASCIIEditor.Common.Console;
+using System.Runtime.InteropServices;
+using Image2ASCIIEditor.ViewModels;
+using Image2ASCIIEditor.Views;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -22,8 +27,25 @@ namespace Image2ASCIIEditor.Views;
 /// </summary>
 public sealed partial class Start : Window
 {
+
+    StartViewModel viewModel;
+    public static IntPtr hWnd;
+
     public Start()
     {
         this.InitializeComponent();
+        viewModel = new StartViewModel(this);
+        
+    }
+
+    private void UseIMG(object sender, RoutedEventArgs e)
+    {
+        viewModel.GetImgFile();
+
+    }
+
+    private void Generate(object sender, RoutedEventArgs e)
+    {
+
     }
 }

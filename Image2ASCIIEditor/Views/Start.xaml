@@ -8,6 +8,24 @@
     mc:Ignorable="d">
 
     <Grid>
-
+        <StackPanel 
+                    Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    Margin="5">
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center">
+                <StackPanel>
+                    <Button Height="90" Width="200"
+                            Margin="20"
+                            Content="使用图片生成"
+                            Click="UseIMG"></Button>
+                    <Button Height="90" Width="200"
+                            Margin="20"
+                            Content="直接生成"
+                            Click="Generate"></Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

@@ -49,7 +49,25 @@ public partial class MainWindow : Window
 
     }
 
+    private void nvSample_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+    {
+        FrameNavigationOptions options = new FrameNavigationOptions();
+        options.TransitionInfoOverride = args.RecommendedNavigationTransitionInfo;
 
+        string navItemTag = args.InvokedItemContainer.Tag.ToString();
+        Type pageType = null;
+
+        if (navItemTag == "Start")
+        {
+            pageType = typeof(Start);
+        }
+
+        if (pageType == null)
+        {
+            return;
+        }
+        contentFrame.NavigateToType(pageType, null, options);
+    }
 
     private void UseIMG(object sender, RoutedEventArgs e)
     {
@@ -57,9 +75,6 @@ public partial class MainWindow : Window
         
     }
 
-    private void Generate(object sender, RoutedEventArgs e)
-    {
 
-    }
     
 }
