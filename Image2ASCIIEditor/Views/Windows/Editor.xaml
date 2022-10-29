@@ -29,6 +29,7 @@
                 <NavigationViewItem x:Name="ShowImage" Icon="Pictures" Content="图像处理" Tag="ShowImage" />
                 <NavigationViewItem x:Name="EditText" Icon="Save" Content="编辑文本" Tag="EditText" />
                 
+                
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="阅读源码" Tag="Web" Icon="Globe" />
