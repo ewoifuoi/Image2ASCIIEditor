@@ -19,7 +19,7 @@ public class EditorViewModel
         this.hwnd = hWnd;
         var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
         var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-        appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1800, Height = 1400 });
+        //appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1800, Height = 1400 });
         
     }
     
