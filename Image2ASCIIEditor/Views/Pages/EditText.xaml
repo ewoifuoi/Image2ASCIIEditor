@@ -9,19 +9,39 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     NavigationCacheMode="Enabled">
 
-    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Center">
-        <StackPanel
-            Orientation="Vertical"
-            VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+    
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
 
 
-                <StackPanel Margin="10" Width="500" Height="500" Background="Black"></StackPanel>
-                <StackPanel Margin="10" Width="500" Height="500" Background="Black"></StackPanel>
+        <StackPanel Margin="25 10 10 10">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>使用初始化字符串</TextBlock>
+                <TextBlock Width="90"></TextBlock>
                 
             </StackPanel>
+            <TextBox Margin="10" Width="300" Height="200"></TextBox>
+            <Border BorderThickness="2" BorderBrush="Gray" Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <TextBlock Text="宽度 : " Margin="5"></TextBlock>
+                            <TextBox></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <TextBlock Text="高度 : " Margin="5"></TextBlock>
+                            <TextBox></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Content="使用空字符填充" Height="90"></Button>
+                </StackPanel>
+            </Border>
         </StackPanel>
+        <StackPanel Margin="10">
+            <Border BorderThickness="3" BorderBrush="CadetBlue" Margin="10 30 0 0">
+                <Canvas Height="400" Width="400"></Canvas>
+            </Border>
+        </StackPanel>
+                
     </StackPanel>
+
 </Page>

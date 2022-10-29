@@ -35,7 +35,8 @@ public sealed partial class ShowImage : Page
 
     private void OpenFile(object sender, RoutedEventArgs e)
     {
-        
+        // 启动后台线程 手动使 GetImgFile 和 showImage 异步
+        // 使用 isRefreshed 判断是否成功打开文件
         BackgroundWorker worker = new BackgroundWorker();
         worker.DoWork += (s, e) => {
             //Some work...
