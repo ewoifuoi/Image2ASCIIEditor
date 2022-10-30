@@ -18,7 +18,7 @@
                     <TextBlock>使用初始化字符串</TextBlock>
                     <TextBlock Width="90"></TextBlock>
                 </StackPanel>
-                <TextBox AcceptsReturn="True" TextWrapping="Wrap" Margin="10" Width="300" Height="200"></TextBox>
+                <TextBox FontSize="14" AcceptsReturn="True" TextWrapping="NoWrap" Margin="10" Width="300" Height="200"></TextBox>
                 <Border BorderThickness="2" BorderBrush="Gray" Margin="10">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>
@@ -31,7 +31,13 @@
                                 <TextBox></TextBox>
                             </StackPanel>
                         </StackPanel>
-                        <Button Content="使用空字符填充" Height="90"></Button>
+                        <TextBlock Width="25"></TextBlock>
+                        <Button Content="使用空字符填充" Height="75"></Button>
+                    </StackPanel>
+                </Border>
+                <Border Margin="10" BorderThickness="3" BorderBrush="Black">
+                    <StackPanel Height="100" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="5" Height="80" Width="150" Content="生成点阵"></Button>
                     </StackPanel>
                 </Border>
             </StackPanel>
