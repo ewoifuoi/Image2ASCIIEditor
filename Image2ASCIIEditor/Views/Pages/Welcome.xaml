@@ -8,49 +8,48 @@
     mc:Ignorable="d"
     NavigationCacheMode="Enabled">
 
-
-    <Grid Background="Black" >
-
-        <StackPanel 
+    <Canvas>
+        <Grid Height="10000" Width="10000" Canvas.ZIndex="1" Background="Black" Opacity="0.7"></Grid>
+        <Grid Height="1000" Width="1000" Canvas.ZIndex="2">
+            <StackPanel 
         Orientation="Horizontal"
         HorizontalAlignment="Left">
-        <StackPanel Margin="10" Width="800"
+                <StackPanel Margin="10" Width="800"
                     Orientation="Horizontal" HorizontalAlignment="Left">
-            <StackPanel>
-                <RichTextBlock Margin="20 30 0 0">
-                    <Paragraph TextIndent="0" FontSize="50" Margin="5 0 0 3">欢迎</Paragraph>
-                    <Paragraph  TextIndent="0" FontSize="22" Margin="5 15 0 0">这是一个用于编辑
-                        <Bold >
-                            ASCII艺术图像
-                        </Bold>
-                        的 app
-                    </Paragraph>
-                    <Paragraph Margin="5 15 0 0">您可以尝试导入一张图片,获取它的灰度值
-                    </Paragraph>
-                    <Paragraph Margin="5 8 0 15">或者完全自定义生成一个由
-                        <Hyperlink NavigateUri="https://baike.baidu.com/item/ASCII/309296?fr=kg_general">
-                            ASCII字符
-                        </Hyperlink> 
-                        
-                        组成的字符串
-                    </Paragraph>
-                </RichTextBlock>
-                <StackPanel
+                    <StackPanel>
+                        <RichTextBlock Margin="20 30 0 0">
+                            <Paragraph TextIndent="0" FontSize="50" Margin="5 0 0 3">欢迎</Paragraph>
+                            <Paragraph  TextIndent="0" FontSize="22" Margin="5 15 0 0">这是一个用于编辑
+                                <Bold >
+                                    ASCII艺术图像
+                                </Bold>
+                                的 app
+                            </Paragraph>
+                            <Paragraph Margin="5 15 0 0">您可以尝试导入一张图片,获取它的灰度值
+                            </Paragraph>
+                            <Paragraph Margin="5 8 0 15">或者完全自定义生成一个由
+                                <Hyperlink NavigateUri="https://baike.baidu.com/item/ASCII/309296?fr=kg_general">
+                                    ASCII字符
+                                </Hyperlink>
+                                组成的字符串
+                            </Paragraph>
+                        </RichTextBlock>
+                        <StackPanel
                 Margin="45 20 0 0"
                 Orientation="Horizontal"
                 HorizontalAlignment="Left">
-                    <Button Margin="10" Height="50" Width="120" Content="使用教程"></Button>
-                    <Button Margin="10" Height="50" Width="120" Content="查阅源码"></Button>
+                            <Button Margin="10" Height="50" Width="120" Content="使用教程"></Button>
+                            <Button Margin="10" Height="50" Width="120" Content="查阅源码"></Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Height="250"></TextBlock>
+                        <Button x:Name="start" Click="Start" FontSize="20" Margin="120 100 0 0" Height="100" Width="180" Content="开始使用"></Button>
+                    </StackPanel>
                 </StackPanel>
+                <ListView x:Name="console" Height="600" Width="300" Margin="100"></ListView>
             </StackPanel>
-            <StackPanel>
-                <TextBlock Height="250"></TextBlock>
-                <Button x:Name="start" Click="Start" FontSize="20" Margin="120 100 0 0" Height="100" Width="180" Content="开始使用"></Button>
-            </StackPanel>
-        </StackPanel>
-            <ListView x:Name="console" Height="600" Width="300" Margin="100"></ListView>
-        
-        
-    </StackPanel>
-    </Grid>
+        </Grid>
+    </Canvas>
+    
 </Page>

@@ -52,7 +52,8 @@ public partial class MainWindow : Window
         this.InitializeComponent();
         viewModel = new MainWindowViewModel(this);
 
-        
+        this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
+        this.SetTitleBar(AppTitleBar);
 
         welcome = this.Welcome;
         frame = this.contentFrame;
@@ -60,12 +61,13 @@ public partial class MainWindow : Window
         showImage = this.ShowImage;
         grid.DataContext = viewModel;
 
+        var wh = new Acrylic();
+        wh.TrySetAcrylicBackdrop(ref window);
+        
         
 
 
-
-        this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
-        this.SetTitleBar(AppTitleBar);
+        
 
         Welcome.IsSelected = true;
         contentFrame.NavigateToType(typeof(Welcome), null, null);

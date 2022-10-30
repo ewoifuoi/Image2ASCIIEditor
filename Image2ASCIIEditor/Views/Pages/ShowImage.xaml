@@ -6,46 +6,52 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     NavigationCacheMode="Enabled">
 
-    <StackPanel Grid.Row="1"
+    <Canvas>
+        <Grid Opacity="0.6" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+            Height="800" Width="1000"></Grid>
+        <Grid Margin="20"
+            Background="{ThemeResource CustomAcrylicInAppLuminosity}" Opacity="0.5" Height="520" Width="360"></Grid>
+        <StackPanel
             Orientation="Horizontal"
             >
-        <StackPanel
+            <StackPanel
                 Width="400"
                 Orientation="Vertical"
                 >
-            <StackPanel Orientation="Horizontal" Margin="20">
-                <TextBlock Text="当前图片："
-                           Foreground="Gray"
+                <StackPanel Orientation="Horizontal" Margin="20">
+                    <TextBlock Text="当前图片："
+                           Foreground="Snow"
                            FontWeight="Bold"
                            FontSize="24"
                         Margin="20"/>
-                
-                <Button Click="OpenFile" Content="打开图片" Margin="90 0 0 0" Width="90" Height="45"></Button>
-            </StackPanel>
-            
-            <Border Height="300" Width="300" BorderThickness="3" BorderBrush="SlateGray">
-                <Image 
+
+                    <Button Click="OpenFile" Content="打开图片" Margin="90 0 0 0" Width="90" Height="45"></Button>
+                </StackPanel>
+
+                <Border Height="300" Width="300" BorderThickness="3" BorderBrush="Transparent">
+                    <Image 
                     x:Name="image" 
                     Height="250" Width="250" 
                     />
-            </Border>
-            
-            <StackPanel Margin="10"
+                </Border>
+
+                <StackPanel Margin="10"
                             Width="250" Height="100"
                             Orientation="Horizontal">
-                <Button Content="不使用图片" Click="Next" Margin="10" Width="100" Height="80"></Button>
-                <Button Content="灰度" Margin="10" Width="100" Height="80"></Button>
+                    <Button Content="不使用图片" Click="Next" Margin="10" Width="100" Height="80"></Button>
+                    <Button Content="灰度" Margin="10" Width="100" Height="80"></Button>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-        <StackPanel
+            <StackPanel
                 Width="700"
                 Orientation="Vertical"
-            Background="Black"
+            Background="Transparent"
                 >
-            <TextBlock></TextBlock>
+                <TextBlock></TextBlock>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </Canvas>
+    
 </Page>

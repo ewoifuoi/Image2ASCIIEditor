@@ -11,7 +11,7 @@
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
             <media:AcrylicBrush x:Key="CustomAcrylicInAppLuminosity"
-            TintOpacity="0.5200000246986747" TintLuminosityOpacity="0.02400000113993883" TintColor="SkyBlue" FallbackColor="SkyBlue" />
+            TintOpacity="0" TintLuminosityOpacity="0" TintColor="Transparent" FallbackColor="Transparent" />
 
         </ResourceDictionary>
         

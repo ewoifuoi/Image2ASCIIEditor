@@ -13,21 +13,23 @@
 
 
     <Grid Background="Transparent"
-          Opacity="70"
           x:Name="grid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="34"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Border Background="Transparent" x:Name="AppTitleBar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="1">
-            <TextBlock x:Name="AppTitle" Text="字符串图像大杀器" VerticalAlignment="Top" Margin="10,8,0,9" />
+        <Border Opacity="0.5" Background="SlateGray" x:Name="AppTitleBar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="1">
+            
+                <TextBlock Height="30" FontSize="12" x:Name="AppTitle" Text="字符串图像大杀器" VerticalAlignment="Top" Margin="10,8,0,0" />
+            
         </Border>
-        <NavigationView 
+        <NavigationView
             IsFocusEngaged="False"
+            IsBackEnabled="False"
             x:Name="nvSample" Grid.Row="1" Grid.Column="0" PaneDisplayMode="LeftCompact" Grid.RowSpan="1" Grid.ColumnSpan="1" 
             ItemInvoked="nvSample_ItemInvoked"
             IsPaneToggleButtonVisible="False"
-            IsBackEnabled="True"
+            IsTapEnabled="False"
             IsSettingsVisible="False"
             
             >
