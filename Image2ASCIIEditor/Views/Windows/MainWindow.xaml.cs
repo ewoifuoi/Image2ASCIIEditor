@@ -58,14 +58,13 @@ public partial class MainWindow : Window
         frame = this.contentFrame;
         editText = this.EditText;
         showImage = this.ShowImage;
-        
         grid.DataContext = viewModel;
 
         
 
 
 
-            this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
+        this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
         this.SetTitleBar(AppTitleBar);
 
         Welcome.IsSelected = true;
