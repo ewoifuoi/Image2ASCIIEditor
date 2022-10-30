@@ -18,14 +18,15 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Border Opacity="0.5" Background="SlateGray" x:Name="AppTitleBar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="1">
+        <Border  Opacity="0.5" Background="SlateGray" x:Name="AppTitleBar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="1">
             
-                <TextBlock Height="30" FontSize="12" x:Name="AppTitle" Text="字符串图像大杀器" VerticalAlignment="Top" Margin="10,8,0,0" />
+                <TextBlock Foreground="Snow" Height="30" FontSize="12" x:Name="AppTitle" Text="字符串图像大杀器" VerticalAlignment="Top" Margin="10,8,0,0" />
             
         </Border>
         <NavigationView
-            IsFocusEngaged="False"
             IsBackEnabled="False"
+            IsFocusEngaged="False"
+            Foreground="White"
             x:Name="nvSample" Grid.Row="1" Grid.Column="0" PaneDisplayMode="LeftCompact" Grid.RowSpan="1" Grid.ColumnSpan="1" 
             ItemInvoked="nvSample_ItemInvoked"
             IsPaneToggleButtonVisible="False"
@@ -34,9 +35,9 @@
             
             >
             <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="Welcome" Icon="Home" Content="欢迎" Tag="Welcome" />
-                <NavigationViewItem x:Name="ShowImage" Icon="Pictures" Content="图像处理" Tag="ShowImage" />
-                <NavigationViewItem x:Name="EditText" Icon="Save" Content="编辑文本" Tag="EditText" />
+                <NavigationViewItem Foreground="White" x:Name="Welcome" Icon="Home" Content="欢迎" Tag="Welcome" />
+                <NavigationViewItem Foreground="White" x:Name="ShowImage" Icon="Pictures" Content="图像处理" Tag="ShowImage" />
+                <NavigationViewItem Foreground="White" x:Name="EditText" Icon="Save" Content="编辑文本" Tag="EditText" />
 
 
             </NavigationView.MenuItems>

@@ -19,7 +19,7 @@
                     <TextBlock Width="90"></TextBlock>
                 </StackPanel>
                 <TextBox FontSize="14" AcceptsReturn="True" TextWrapping="NoWrap" Margin="10" Width="300" Height="200"></TextBox>
-                <Border BorderThickness="2" BorderBrush="Gray" Margin="10">
+                <Border BorderThickness="2" BorderBrush="Transparent" Margin="10">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="10">
@@ -35,15 +35,21 @@
                         <Button Content="使用空字符填充" Height="75"></Button>
                     </StackPanel>
                 </Border>
-                <Border Margin="10" BorderThickness="3" BorderBrush="Black">
+                <Border Margin="10" BorderThickness="3" BorderBrush="Transparent">
                     <StackPanel Height="100" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Margin="5" Height="80" Width="150" Content="生成点阵"></Button>
+                        <Button Margin="5" Height="80" Width="200" Content="生成点阵"></Button>
                     </StackPanel>
                 </Border>
             </StackPanel>
             <StackPanel Margin="10">
                 <Border BorderThickness="3" BorderBrush="CadetBlue" Margin="5 25 0 0">
-                    <Canvas Height="450" Width="450"></Canvas>
+                    <Canvas x:Name="outside" Height="450" Width="450">
+                        <Canvas x:Name="playground" Height="450" Width="450" Background="Aqua" PointerWheelChanged="playground_PointerWheelChanged">
+                            <Canvas.RenderTransform>
+                                <TransformGroup/>
+                            </Canvas.RenderTransform>
+                        </Canvas>
+                    </Canvas>
                 </Border>
             </StackPanel>
 

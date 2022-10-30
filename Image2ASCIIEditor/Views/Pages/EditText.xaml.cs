@@ -26,4 +26,9 @@ public sealed partial class EditText : Page
     {
         this.InitializeComponent();
     }
+
+    private void playground_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+    {
+        
+    }
 }

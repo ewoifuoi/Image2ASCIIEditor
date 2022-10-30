@@ -12,7 +12,7 @@
         <Grid Opacity="0.6" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
             Height="800" Width="1000"></Grid>
         <Grid Margin="20"
-            Background="{ThemeResource CustomAcrylicInAppLuminosity}" Opacity="0.5" Height="520" Width="360"></Grid>
+            Background="{ThemeResource CustomAcrylicInAppLuminosity}" Opacity="0" Height="520" Width="360"></Grid>
         <StackPanel
             Orientation="Horizontal"
             >
