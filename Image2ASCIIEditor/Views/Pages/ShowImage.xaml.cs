@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using Image2ASCIIEditor.Models;
 using Image2ASCIIEditor.Views.Pages;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -31,6 +32,7 @@ public sealed partial class ShowImage : Page
     {
         this.InitializeComponent();
         ImageModel.IMG.showImage(ref this.image);
+        
     }
 
     private void OpenFile(object sender, RoutedEventArgs e)

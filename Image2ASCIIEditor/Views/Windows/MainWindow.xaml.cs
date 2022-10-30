@@ -18,6 +18,7 @@ using System.Runtime.InteropServices;
 using Image2ASCIIEditor.ViewModels;
 using Image2ASCIIEditor.Views;
 using Image2ASCIIEditor.Views.Pages;
+using Microsoft.UI.Composition.SystemBackdrops;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -36,22 +37,57 @@ public partial class MainWindow : Window
     public static NavigationViewItem showImage;
     public static NavigationViewItem editText;
 
+    [DllImport("User32", CharSet = CharSet.Unicode)]
+    static extern Boolean SetLayeredWindowAttributes(IntPtr hwnd,uint crKey,byte bAlpha, uint dwFlags);
+
+    [DllImport("User32", CharSet = CharSet.Unicode)]
+    static extern uint SetWindowLongA(IntPtr hwnd, int nIndex, uint dwNewLong);
+
+    [DllImport("User32", CharSet = CharSet.Unicode)]
+    static extern uint GetWindowLongA(IntPtr hwnd, int dwNewLong);
+
     public MainWindow()
     {
+        
         this.InitializeComponent();
-        welcome = this.Welcome;
-        frame = this.contentFrame;
-        editText = this.EditText;
-        showImage = this.ShowImage;
         viewModel = new MainWindowViewModel(this);
-        grid.DataContext = viewModel;
 
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
         this.SetTitleBar(AppTitleBar);
 
+        welcome = this.Welcome;
+        frame = this.contentFrame;
+        editText = this.EditText;
+        showImage = this.ShowImage;
+        grid.DataContext = viewModel;
+
+        var wh = new Acrylic();
+        wh.TrySetAcrylicBackdrop(ref window);
+        
+        
+
+
+        
+
         Welcome.IsSelected = true;
         contentFrame.NavigateToType(typeof(Welcome), null, null);
 
+
+        if(SetWindowLongA(MainWindow.hWnd, -20, GetWindowLongA(hWnd, -20) | 0x00080000) == 0)
+        {
+            Console.log("窗体拓展样式设置失败");
+        }
+
+        if (SetLayeredWindowAttributes(MainWindow.hWnd, 0, 255, 0x00000002))
+        {
+
+            Console.log("透明度设置成功");
+        }
+        else
+        {
+            Console.log("透明度设置失败！");
+            Console.log(MainWindow.hWnd.ToString());
+        }
 
 
     }
