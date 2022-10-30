@@ -6,11 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     NavigationCacheMode="Enabled">
 
+
     <Grid Background="Black" >
-    <StackPanel 
+
+        <StackPanel 
         Orientation="Horizontal"
         HorizontalAlignment="Left">
         <StackPanel Margin="10" Width="800"
@@ -44,10 +45,10 @@
             </StackPanel>
             <StackPanel>
                 <TextBlock Height="250"></TextBlock>
-                <Button Click="Start" FontSize="20" Margin="120 100 0 0" Height="100" Width="180" Content="开始使用"></Button>
+                <Button x:Name="start" Click="Start" FontSize="20" Margin="120 100 0 0" Height="100" Width="180" Content="开始使用"></Button>
             </StackPanel>
         </StackPanel>
-        
+            <ListView x:Name="console" Height="600" Width="300" Margin="100"></ListView>
         
         
     </StackPanel>

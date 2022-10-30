@@ -26,6 +26,7 @@ public class MainWindowViewModel : DependencyObject
         MainWindow.hWnd = hWnd;
         var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
         var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
+        
         appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = appWindow.Size.Width * 4 / 5, Height = appWindow.Size.Height });
         ImageModel.IMG = new ImageModel();
     }

@@ -8,10 +8,11 @@
     mc:Ignorable="d"
     x:Name="window"
     xmlns:viewmodels="using:Image2ASCIIEditor.ViewModels"
+    
     >
 
 
-    <Grid Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
+    <Grid Background="Transparent"
           Opacity="70"
           x:Name="grid">
         <Grid.RowDefinitions>
@@ -22,6 +23,7 @@
             <TextBlock x:Name="AppTitle" Text="字符串图像大杀器" VerticalAlignment="Top" Margin="10,8,0,9" />
         </Border>
         <NavigationView 
+            IsFocusEngaged="False"
             x:Name="nvSample" Grid.Row="1" Grid.Column="0" PaneDisplayMode="LeftCompact" Grid.RowSpan="1" Grid.ColumnSpan="1" 
             ItemInvoked="nvSample_ItemInvoked"
             IsPaneToggleButtonVisible="False"
@@ -42,10 +44,9 @@
 
             <Frame x:Name="contentFrame">
 
+
             </Frame>
         </NavigationView>
-
-
     </Grid>
 
 
