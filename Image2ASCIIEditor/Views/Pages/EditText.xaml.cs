@@ -107,20 +107,23 @@ public sealed partial class EditText : Page
                 border.Child = b;
                 border.HorizontalAlignment = HorizontalAlignment.Center;
                 border.VerticalAlignment = VerticalAlignment.Center;
-                border.BorderThickness = new Thickness(1); border.BorderBrush = new SolidColorBrush(Colors.Gray);
-                Canvas.SetTop(border, i * 47);
+                //border.BorderThickness = new Thickness(1); border.BorderBrush = new SolidColorBrush(Colors.Gray);
+                Canvas.SetTop(border, i * 48);
                 Canvas.SetLeft(border, j * 23);
-                Canvas c = new Canvas(); c.Background = new SolidColorBrush(Colors.SlateGray);c.Opacity = 0.5;
+                Canvas.SetZIndex(border, 9);
+                Canvas c = new Canvas(); c.Background = new SolidColorBrush(Colors.Black);c.Opacity = 0.3;
                 c.Width = 20; c.Height = 45;
                 Canvas.SetTop(c, i * 47);
                 Canvas.SetLeft(c, j * 23);
+                Canvas.SetZIndex(c, 0);
                 g.Children.Add(border);
                 g.Children.Add(c);
 
             }
         }
 
-        
+        gg.Height = _StreamModel.n * 48;
+        gg.Width = _StreamModel.m * 23;
 
     }
 }
