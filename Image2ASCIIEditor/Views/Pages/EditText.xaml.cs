@@ -75,12 +75,36 @@ public sealed partial class EditText : Page
         }
     }
 
+
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        for(int i = 0; i < 10; i++)
+        
+        g.ColumnDefinitions.Clear();
+        g.RowDefinitions.Clear();
+        g.Children.Clear();
+        for (int i = 0; i < 10; i++)
         {
-            Button b = new Button();
-            playground.Children.Add(b);
+            g.ColumnDefinitions.Add(new ColumnDefinition());
+            g.RowDefinitions.Add(new RowDefinition());
         }
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+
+                var b = new Button();
+                //b.Background = new SolidColorBrush(p.Color);
+                b.Content = "*";
+                b.Width = g.Width / 10;
+                b.Height = g.Height / 10;
+                //b.Click += B_Click;
+                Grid.SetColumn(b, i);
+                Grid.SetRow(b, j);
+                Grid.SetRowSpan(b, 1); Grid.SetColumnSpan(b, 1);
+                g.Children.Add(b);
+
+            }
+        }
+
     }
 }

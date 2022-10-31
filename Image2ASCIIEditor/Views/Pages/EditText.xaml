@@ -49,6 +49,7 @@
                         </Canvas.Clip>
                         <Canvas PointerPressed="playground_PointerPressed" PointerReleased="playground_PointerReleased" PointerMoved="playground_PointerMoved"  x:Name="playground" Height="450" Width="450" Background="Transparent" >
                             <Grid Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Opacity="0.9" Height="450" Width="450"></Grid>
+                            <Grid Height="450" Width="450" x:Name="g"></Grid>
                             <Canvas.RenderTransform>
                                 <TransformGroup/>
                             </Canvas.RenderTransform>
