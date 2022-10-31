@@ -40,6 +40,23 @@ public class StringStreamModel
             }
         }
     }
+    public StringStreamModel(int n, int m)
+    {
+        this.n = n;
+        this.m = m;
+        for(int i = 0; i < n; i++)
+        {
+            OriginalStream.Add(new List<char>());
+        }
+
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < m; j++)
+            {
+                OriginalStream[i].Add(' ');
+            }
+        }
+    }
 
     
 }

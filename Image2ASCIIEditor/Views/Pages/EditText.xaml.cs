@@ -85,12 +85,33 @@ public sealed partial class EditText : Page
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         _StreamModel = new StringStreamModel(input);
+        GenerateEditor();
+    }
 
-
+    private void UseDefault(object sender, RoutedEventArgs e)
+    {
         
+
+        int g_height = 0; int g_width = 0;
+        if (!int.TryParse(gen_width.Text, out g_width))
+        {
+            MessageBox.Show("请输入宽度", this);
+        }
+        else if (!int.TryParse(gen_height.Text, out g_height))
+        {
+            MessageBox.Show("请输入高度", this);
+        }
+        else
+        {
+            
+            _StreamModel = new StringStreamModel(g_height, g_width);
+            GenerateEditor();
+        }
+    }
+
+    private void GenerateEditor()
+    {
         g.Children.Clear();
-
-        
         for (int i = 0; i < _StreamModel.n; i++)
         {
             for (int j = 0; j < _StreamModel.m; j++)
@@ -111,7 +132,7 @@ public sealed partial class EditText : Page
                 Canvas.SetTop(border, i * 48);
                 Canvas.SetLeft(border, j * 23);
                 Canvas.SetZIndex(border, 9);
-                Canvas c = new Canvas(); c.Background = new SolidColorBrush(Colors.Black);c.Opacity = 0.3;
+                Canvas c = new Canvas(); c.Background = new SolidColorBrush(Colors.Black); c.Opacity = 0.3;
                 c.Width = 20; c.Height = 45;
                 Canvas.SetTop(c, i * 47);
                 Canvas.SetLeft(c, j * 23);
@@ -124,6 +145,5 @@ public sealed partial class EditText : Page
 
         gg.Height = _StreamModel.n * 48;
         gg.Width = _StreamModel.m * 23;
-
     }
 }

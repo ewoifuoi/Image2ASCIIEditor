@@ -35,8 +35,9 @@
             >
             <NavigationView.MenuItems>
                 <NavigationViewItem Foreground="White" x:Name="Welcome" Icon="Home" Content="欢迎" Tag="Welcome" />
-                <NavigationViewItem Foreground="White" x:Name="ShowImage" Icon="Pictures" Content="图像处理" Tag="ShowImage" />
                 <NavigationViewItem Foreground="White" x:Name="EditText" Icon="Save" Content="编辑文本" Tag="EditText" />
+                <NavigationViewItem Foreground="White" x:Name="ShowImage" Icon="Pictures" Content="图像处理" Tag="ShowImage" />
+                
 
 
             </NavigationView.MenuItems>
