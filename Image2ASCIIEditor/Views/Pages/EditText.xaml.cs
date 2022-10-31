@@ -16,6 +16,7 @@ using Windows.Foundation.Collections;
 using Image2ASCIIEditor.Common;
 using Console = Image2ASCIIEditor.Common.Console;
 using Microsoft.UI;
+using Image2ASCIIEditor.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -30,10 +31,14 @@ public sealed partial class EditText : Page
     private PointerPoint _mouseDownPosition;
     private Point _mouseDownControlPosition;
     private Canvas _canvas;
+    StringStreamModel _StreamModel;
 
     public EditText()
     {
         this.InitializeComponent();
+        //Common.Console.console = this.console;
+        Common.Console.log("开始测试");
+
     }
 
     private void outside_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
@@ -79,37 +84,43 @@ public sealed partial class EditText : Page
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
+        _StreamModel = new StringStreamModel(input);
+
+
         
-        g.ColumnDefinitions.Clear();
-        g.RowDefinitions.Clear();
         g.Children.Clear();
-        for (int i = 0; i < 10; i++)
+
+        
+        for (int i = 0; i < _StreamModel.n; i++)
         {
-            g.ColumnDefinitions.Add(new ColumnDefinition());
-            g.RowDefinitions.Add(new RowDefinition());
-        }
-        for (int i = 0; i < 10; i++)
-        {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < _StreamModel.m; j++)
             {
                 var border = new Border();
                 var b = new TextBlock();
                 //b.Background = new SolidColorBrush(p.Color);
-                b.Text = "*";
+                b.Text = _StreamModel.OriginalStream[i][j].ToString();
                 b.TextAlignment = TextAlignment.Center;
-                b.FontSize = 45;
-                b.Width = g.Width / 10;
-                b.Height = g.Height / 10;
+                b.FontSize = 30;
+                b.Width = 20;
+                b.Height = 45;
                 //b.Click += B_Click;
                 border.Child = b;
+                border.HorizontalAlignment = HorizontalAlignment.Center;
+                border.VerticalAlignment = VerticalAlignment.Center;
                 border.BorderThickness = new Thickness(1); border.BorderBrush = new SolidColorBrush(Colors.Gray);
-                Grid.SetColumn(border, i);
-                Grid.SetRow(border, j);
-                Grid.SetRowSpan(border, 1); Grid.SetColumnSpan(border, 1);
+                Canvas.SetTop(border, i * 47);
+                Canvas.SetLeft(border, j * 23);
+                Canvas c = new Canvas(); c.Background = new SolidColorBrush(Colors.SlateGray);c.Opacity = 0.5;
+                c.Width = 20; c.Height = 45;
+                Canvas.SetTop(c, i * 47);
+                Canvas.SetLeft(c, j * 23);
                 g.Children.Add(border);
+                g.Children.Add(c);
 
             }
         }
+
+        
 
     }
 }

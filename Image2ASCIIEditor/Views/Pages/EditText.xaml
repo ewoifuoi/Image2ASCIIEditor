@@ -18,7 +18,7 @@
                     <TextBlock>使用初始化字符串</TextBlock>
                     <TextBlock Width="90"></TextBlock>
                 </StackPanel>
-                <TextBox FontSize="14" AcceptsReturn="True" TextWrapping="NoWrap" Margin="10" Width="300" Height="200"></TextBox>
+                <TextBox x:Name="input" FontSize="14" AcceptsReturn="True" TextWrapping="NoWrap" Margin="10" Width="300" Height="200"></TextBox>
                 <Border BorderThickness="2" BorderBrush="Transparent" Margin="10">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>
@@ -48,8 +48,8 @@
                             <RectangleGeometry Rect="0,0,450,450"/>
                         </Canvas.Clip>
                         <Canvas PointerPressed="playground_PointerPressed" PointerReleased="playground_PointerReleased" PointerMoved="playground_PointerMoved"  x:Name="playground" Height="450" Width="450" Background="Transparent" >
-                            <Grid Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Opacity="0.5" Height="450" Width="450"></Grid>
-                            <Grid Height="450" Width="450" x:Name="g"></Grid>
+                            <Grid Background="Transparent" Opacity="0.5" Height="450" Width="450"></Grid>
+                            <Canvas Height="450" Width="450" x:Name="g"></Canvas>
                             <Canvas.RenderTransform>
                                 <TransformGroup/>
                             </Canvas.RenderTransform>
