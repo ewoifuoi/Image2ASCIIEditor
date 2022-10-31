@@ -24,11 +24,11 @@
                         <StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="10">
                                 <TextBlock Text="宽度 : " Margin="5"></TextBlock>
-                                <TextBox></TextBox>
+                                <TextBox TextWrapping="NoWrap" Width="10"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="10">
                                 <TextBlock Text="高度 : " Margin="5"></TextBlock>
-                                <TextBox></TextBox>
+                                <TextBox TextWrapping="NoWrap" Width="10"></TextBox>
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Width="25"></TextBlock>
@@ -37,18 +37,18 @@
                 </Border>
                 <Border Margin="10" BorderThickness="3" BorderBrush="Transparent">
                     <StackPanel Height="100" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Margin="5" Height="80" Width="200" Content="生成点阵"></Button>
+                        <Button Click="Button_Click" Margin="5" Height="80" Width="200" Content="生成点阵"></Button>
                     </StackPanel>
                 </Border>
             </StackPanel>
             <StackPanel Margin="10">
-                <Border BorderThickness="3" BorderBrush="CadetBlue" Margin="5 25 0 0" >
+                <Border BorderThickness="3" BorderBrush="Gray" Margin="5 25 0 0" >
                     <Canvas  Background="Transparent" x:Name="outside" Height="450" Width="450" PointerWheelChanged="outside_PointerWheelChanged">
                         <Canvas.Clip>
                             <RectangleGeometry Rect="0,0,450,450"/>
                         </Canvas.Clip>
                         <Canvas PointerPressed="playground_PointerPressed" PointerReleased="playground_PointerReleased" PointerMoved="playground_PointerMoved"  x:Name="playground" Height="450" Width="450" Background="Transparent" >
-                            <Grid Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Opacity="0.9" Height="450" Width="450"></Grid>
+                            <Grid Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Opacity="0.5" Height="450" Width="450"></Grid>
                             <Grid Height="450" Width="450" x:Name="g"></Grid>
                             <Canvas.RenderTransform>
                                 <TransformGroup/>

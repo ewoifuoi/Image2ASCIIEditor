@@ -15,6 +15,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Image2ASCIIEditor.Common;
 using Console = Image2ASCIIEditor.Common.Console;
+using Microsoft.UI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -91,17 +92,21 @@ public sealed partial class EditText : Page
         {
             for (int j = 0; j < 10; j++)
             {
-
-                var b = new Button();
+                var border = new Border();
+                var b = new TextBlock();
                 //b.Background = new SolidColorBrush(p.Color);
-                b.Content = "*";
+                b.Text = "*";
+                b.TextAlignment = TextAlignment.Center;
+                b.FontSize = 45;
                 b.Width = g.Width / 10;
                 b.Height = g.Height / 10;
                 //b.Click += B_Click;
-                Grid.SetColumn(b, i);
-                Grid.SetRow(b, j);
-                Grid.SetRowSpan(b, 1); Grid.SetColumnSpan(b, 1);
-                g.Children.Add(b);
+                border.Child = b;
+                border.BorderThickness = new Thickness(1); border.BorderBrush = new SolidColorBrush(Colors.Gray);
+                Grid.SetColumn(border, i);
+                Grid.SetRow(border, j);
+                Grid.SetRowSpan(border, 1); Grid.SetColumnSpan(border, 1);
+                g.Children.Add(border);
 
             }
         }
