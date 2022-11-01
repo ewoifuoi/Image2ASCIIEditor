@@ -17,6 +17,7 @@ using Image2ASCIIEditor.Common;
 using Console = Image2ASCIIEditor.Common.Console;
 using Microsoft.UI;
 using Image2ASCIIEditor.Models;
+using Microsoft.UI.Windowing;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -32,12 +33,14 @@ public sealed partial class EditText : Page
     private Point _mouseDownControlPosition;
     private Canvas _canvas;
     StringStreamModel _StreamModel;
+    private TransformGroup transformGroup;
 
     public EditText()
     {
         this.InitializeComponent();
         //Common.Console.console = this.console;
         Common.Console.log("开始测试");
+        transformGroup = playground.RenderTransform as TransformGroup;
 
     }
 
@@ -46,38 +49,50 @@ public sealed partial class EditText : Page
         PointerPoint currentPoint = e.GetCurrentPoint(outside);
         double s = ((double)currentPoint.Properties.MouseWheelDelta) / 1000 + 1;
 
-        TransformGroup transformGroup = playground.RenderTransform as TransformGroup;
+        
         transformGroup.Children.Add(new ScaleTransform() { CenterX = outside.Width / 2, CenterY = outside.Height / 2, ScaleX = s, ScaleY = s });
     }
 
     private void playground_PointerPressed(object sender, PointerRoutedEventArgs e)
     {
-        var c = sender as Canvas;
-        _isMouseDown = true;
-        _mouseDownPosition = e.GetCurrentPoint(outside);
-        _mouseDownControlPosition = new Point(double.IsNaN(Canvas.GetLeft(c)) ? 0 : Canvas.GetLeft(c), double.IsNaN(Canvas.GetTop(c)) ? 0 : Canvas.GetTop(c));
+        if (!isEditing)
+        {
+            var c = sender as Canvas;
+            _isMouseDown = true;
+            _mouseDownPosition = e.GetCurrentPoint(outside);
+            _mouseDownControlPosition = new Point(double.IsNaN(Canvas.GetLeft(c)) ? 0 : Canvas.GetLeft(c), double.IsNaN(Canvas.GetTop(c)) ? 0 : Canvas.GetTop(c));
 
-        c.CapturePointer(e.Pointer);
+            c.CapturePointer(e.Pointer);
+        }
     }
 
     private void playground_PointerReleased(object sender, PointerRoutedEventArgs e)
     {
-        var c = sender as Canvas;
-        _isMouseDown = false;
-        c.ReleasePointerCapture(e.Pointer);
+        if (!isEditing)
+        {
+            var c = sender as Canvas;
+            _isMouseDown = false;
+            c.ReleasePointerCapture(e.Pointer);
+        }
     }
+
 
     private void playground_PointerMoved(object sender, PointerRoutedEventArgs e)
     {
-        if (_isMouseDown)
+        if (!isEditing)
         {
-            var c = sender as Canvas;
-            _canvas = c;
-            var pos = e.GetCurrentPoint(outside);
-            var dpx = pos.Position.X - _mouseDownPosition.Position.X;
-            var dpy = pos.Position.Y - _mouseDownPosition.Position.Y;
-            Canvas.SetLeft(c, _mouseDownControlPosition.X + dpx);
-            Canvas.SetTop(c, _mouseDownControlPosition.Y + dpy);
+
+
+            if (_isMouseDown)
+            {
+                var c = sender as Canvas;
+                _canvas = c;
+                var pos = e.GetCurrentPoint(outside);
+                var dpx = pos.Position.X - _mouseDownPosition.Position.X;
+                var dpy = pos.Position.Y - _mouseDownPosition.Position.Y;
+                Canvas.SetLeft(c, _mouseDownControlPosition.X + dpx);
+                Canvas.SetTop(c, _mouseDownControlPosition.Y + dpy);
+            }
         }
     }
 
@@ -145,5 +160,26 @@ public sealed partial class EditText : Page
 
         gg.Height = _StreamModel.n * 48;
         gg.Width = _StreamModel.m * 23;
+    }
+
+    private bool isEditing = false;
+
+    private void ChangeEditMode(object sender, RoutedEventArgs e)
+    {
+        isEditing = true;
+        ChangeModeBtn2.IsChecked = false;
+    }
+
+    private void ChangeEditMode2(object sender, RoutedEventArgs e)
+    {
+        isEditing = false;
+        ChangeModeBtn.IsChecked = false;
+    }
+
+    private void refresh(object sender, RoutedEventArgs e)
+    {
+        transformGroup.Children.Clear();
+        Canvas.SetLeft(playground, 0);
+        Canvas.SetTop(playground, 0);
     }
 }

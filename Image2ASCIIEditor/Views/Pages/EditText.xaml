@@ -47,9 +47,7 @@
                             <TextBox Margin="5" Height="20" Width="5"></TextBox>
                             <TextBlock Margin="5" Width="100"></TextBlock>
                         </StackPanel>
-                        
                     </Border>
-                    
                 </StackPanel>
 
                 <TextBlock Height="30" ></TextBlock>
@@ -69,8 +67,8 @@
             </StackPanel>
             <StackPanel Margin="10 5 10 10">
                 <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
-                    <AppBarToggleButton Icon="OpenFile" Label="笔刷"/>
-                    <AppBarToggleButton Icon="Pin" Label="拖拽"/>
+                    <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
+                    <AppBarToggleButton x:Name="ChangeModeBtn" Click="ChangeEditMode" Icon="Edit" Label="编辑"/>
                     <AppBarButton Icon="Add" Label="Add"/>
                     <AppBarButton Icon="Edit" Label="Edit"/>
                     <AppBarButton Icon="Share" Label="Share"/>
@@ -99,6 +97,7 @@
                 
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="0 35 0 0">
+                <AppBarButton Click="refresh" Margin="0 2 0 0" Icon="Refresh" Label="复位" />
                 <AppBarButton Margin="0 2 0 0" Icon="Read" Label="预览" />
                 <AppBarButton Margin="0 2 0 0" Icon="Save" Label="保存" />
                 <AppBarButton Margin="0 2 0 0" Icon="Pictures" Label="导入图片" />
