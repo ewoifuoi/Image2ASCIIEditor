@@ -103,7 +103,7 @@
                 <AppBarButton Margin="0 2 0 0" Icon="Pictures" Label="导入图片" />
             </StackPanel>
             
-            <ListView x:Name="console" Height="600" Width="300" Margin="100"></ListView>
+            <ListView x:Name="console" Height="600" Width="900" Margin="100"></ListView>
         </StackPanel>
     </Canvas>
     

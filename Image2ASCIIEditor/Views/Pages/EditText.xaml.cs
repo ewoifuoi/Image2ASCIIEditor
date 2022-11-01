@@ -35,22 +35,23 @@ public sealed partial class EditText : Page
     StringStreamModel _StreamModel;
     private TransformGroup transformGroup;
 
+
+
     public EditText()
     {
         this.InitializeComponent();
         //Common.Console.console = this.console;
         Common.Console.log("开始测试");
         transformGroup = playground.RenderTransform as TransformGroup;
-
+        
     }
 
     private void outside_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
     {
         PointerPoint currentPoint = e.GetCurrentPoint(outside);
         double s = ((double)currentPoint.Properties.MouseWheelDelta) / 1000 + 1;
-
-        
         transformGroup.Children.Add(new ScaleTransform() { CenterX = outside.Width / 2, CenterY = outside.Height / 2, ScaleX = s, ScaleY = s });
+
     }
 
     private void playground_PointerPressed(object sender, PointerRoutedEventArgs e)
@@ -63,6 +64,24 @@ public sealed partial class EditText : Page
             _mouseDownControlPosition = new Point(double.IsNaN(Canvas.GetLeft(c)) ? 0 : Canvas.GetLeft(c), double.IsNaN(Canvas.GetTop(c)) ? 0 : Canvas.GetTop(c));
 
             c.CapturePointer(e.Pointer);
+        }
+        else
+        {
+            var c = sender as Canvas;
+            PointerPoint p = e.GetCurrentPoint(playground);
+            double x = p.Position.X; double y = p.Position.Y;
+            
+            //Console.log("click x:" + x.ToString() + " " + "y:" + y.ToString());
+
+            int nx = Convert.ToInt32(Math.Floor(x / 23)); int ny = Convert.ToInt32(Math.Floor(y / 48));
+            
+            if(x - nx * 23 <= 20 && y - ny * 48 <= 45)
+            {
+                Console.log(nx.ToString() + " " + ny.ToString());
+            }
+            
+
+
         }
     }
 
@@ -81,8 +100,6 @@ public sealed partial class EditText : Page
     {
         if (!isEditing)
         {
-
-
             if (_isMouseDown)
             {
                 var c = sender as Canvas;
@@ -118,7 +135,6 @@ public sealed partial class EditText : Page
         }
         else
         {
-            
             _StreamModel = new StringStreamModel(g_height, g_width);
             GenerateEditor();
         }
@@ -149,7 +165,7 @@ public sealed partial class EditText : Page
                 Canvas.SetZIndex(border, 9);
                 Canvas c = new Canvas(); c.Background = new SolidColorBrush(Colors.Black); c.Opacity = 0.3;
                 c.Width = 20; c.Height = 45;
-                Canvas.SetTop(c, i * 47);
+                Canvas.SetTop(c, i * 48);
                 Canvas.SetLeft(c, j * 23);
                 Canvas.SetZIndex(c, 0);
                 g.Children.Add(border);
