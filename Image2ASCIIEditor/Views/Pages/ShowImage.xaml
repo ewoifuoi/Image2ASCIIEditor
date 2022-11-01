@@ -12,7 +12,7 @@
         <Grid Opacity="0.6" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
             Height="800" Width="1000"></Grid>
         <Grid Margin="20"
-            Background="{ThemeResource CustomAcrylicInAppLuminosity}" Opacity="0.5" Height="520" Width="360"></Grid>
+            Background="{ThemeResource CustomAcrylicInAppLuminosity}" Opacity="0" Height="520" Width="360"></Grid>
         <StackPanel
             Orientation="Horizontal"
             >
@@ -25,8 +25,7 @@
                            Foreground="Snow"
                            FontWeight="Bold"
                            FontSize="24"
-                        Margin="20"/>
-
+                           Margin="20"/>
                     <Button Click="OpenFile" Content="打开图片" Margin="90 0 0 0" Width="90" Height="45"></Button>
                 </StackPanel>
 
@@ -47,7 +46,7 @@
             <StackPanel
                 Width="700"
                 Orientation="Vertical"
-            Background="Transparent"
+                Background="Transparent"
                 >
                 <TextBlock></TextBlock>
             </StackPanel>

@@ -2,7 +2,8 @@
     x:Class="Image2ASCIIEditor.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Image2ASCIIEditor" xmlns:media="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    xmlns:local="using:Image2ASCIIEditor" xmlns:media="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    RequestedTheme="Dark">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,11 +13,6 @@
             <!-- Other app resources here -->
             <media:AcrylicBrush x:Key="CustomAcrylicInAppLuminosity"
             TintOpacity="0" TintLuminosityOpacity="0" TintColor="Transparent" FallbackColor="Transparent" />
-
         </ResourceDictionary>
-        
-
-        
-           
     </Application.Resources>
 </Application>
