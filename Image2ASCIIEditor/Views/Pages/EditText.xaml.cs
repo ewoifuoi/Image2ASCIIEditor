@@ -183,6 +183,7 @@ public sealed partial class EditText : Page
     private void ChangeEditMode(object sender, RoutedEventArgs e)
     {
         isEditing = true;
+        ChangeModeBtn.IsChecked = true;
         ChangeModeBtn2.IsChecked = false;
     }
 
@@ -190,6 +191,7 @@ public sealed partial class EditText : Page
     {
         isEditing = false;
         ChangeModeBtn.IsChecked = false;
+        ChangeModeBtn2.IsChecked = true;
     }
 
     private void refresh(object sender, RoutedEventArgs e)
