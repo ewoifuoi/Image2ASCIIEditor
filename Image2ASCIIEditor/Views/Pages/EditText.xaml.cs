@@ -38,7 +38,8 @@ public sealed partial class EditText : Page
     private Canvas _canvas;
     StringStreamModel _StreamModel;
     private TransformGroup transformGroup;
-
+    private List<SolidColorBrush> ColorOptions = new List<SolidColorBrush>();
+    private SolidColorBrush CurrentColorBrush = null;
 
 
     public EditText()
@@ -47,7 +48,17 @@ public sealed partial class EditText : Page
         //Common.Console.console = this.console;
         Common.Console.log("开始测试");
         transformGroup = playground.RenderTransform as TransformGroup;
-        
+        _brush = new Brush('*', new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black));
+
+        ColorOptions.Add(new SolidColorBrush(Colors.Black));
+        ColorOptions.Add(new SolidColorBrush(Colors.Red));
+        ColorOptions.Add(new SolidColorBrush(Colors.Orange));
+        ColorOptions.Add(new SolidColorBrush(Colors.Yellow));
+        ColorOptions.Add(new SolidColorBrush(Colors.Green));
+        ColorOptions.Add(new SolidColorBrush(Colors.Blue));
+        ColorOptions.Add(new SolidColorBrush(Colors.Indigo));
+        ColorOptions.Add(new SolidColorBrush(Colors.Violet));
+        ColorOptions.Add(new SolidColorBrush(Colors.White));
     }
 
     private void outside_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
@@ -82,8 +93,10 @@ public sealed partial class EditText : Page
             
             if(x - nx * 23 <= 20 && y - ny * 48 <= 45)
             {
-                Console.log(nx.ToString() + " " + ny.ToString());
+                _StreamModel.Paint(ny, nx, _brush);
             }
+
+
         }
     }
 
@@ -232,4 +245,31 @@ public sealed partial class EditText : Page
             rect.Rect = new Rect() { Height = 450, Width = 450, X = 0, Y = 0 };
         }
     }
+
+
+
+    private void BrushSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        // When the flyout part of the split button is opened and the user selects
+        // an option, set their choice as the current color, apply it, then close the flyout.
+        CurrentColorBrush = (SolidColorBrush)e.AddedItems[0];
+        SelectedColorBorder.Background = CurrentColorBrush;
+        ChangeColor();
+        BrushFlyout.Hide();
+    }
+
+    private void ChangeColor()
+    {
+        _brush.foreground_color = CurrentColorBrush;
+        ChangeEditMode(this, new RoutedEventArgs());
+    }
+
+    private void BrushButtonClick(object sender, object e)
+    {
+        // When the button part of the split button is clicked,
+        // apply the selected color.
+        ChangeColor();
+    }
+
+    
 }

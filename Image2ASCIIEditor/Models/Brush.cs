@@ -9,9 +9,9 @@ using Microsoft.UI.Xaml.Media;
 namespace Image2ASCIIEditor.Models;
 public class Brush
 {
-    private char ch;
-    private SolidColorBrush foreground_color;
-    private SolidColorBrush background_color;
+    public char ch;
+    public SolidColorBrush foreground_color;
+    public SolidColorBrush background_color;
 
     public Brush(char ch, SolidColorBrush f_c, SolidColorBrush b_c)
     {

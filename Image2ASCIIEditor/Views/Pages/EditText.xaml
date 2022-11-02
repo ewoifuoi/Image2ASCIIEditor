@@ -8,7 +8,8 @@
     mc:Ignorable="d"
     Background="Transparent"
     NavigationCacheMode="Enabled"
-    SizeChanged="Page_SizeChanged">
+    SizeChanged="Page_SizeChanged"
+    >
 
     <Canvas>
         <Grid Opacity="0.6" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
@@ -89,31 +90,52 @@
             <!--#region 中部条-->
             <StackPanel Margin="0 10 0 0">
                 
-                <!--#region 工具条-->
+                <!--#region 顶部工具条-->
                 <CommandBar HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
                     <AppBarToggleButton x:Name="ChangeModeBtn" Click="ChangeEditMode" Icon="Edit" Label="编辑"/>
                     <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
                     <AppBarButton Icon="Add" Label="保存笔刷"/>
                     <CommandBar.Content>
+                        <!--#region 画笔颜色-->
                         <Border CornerRadius="5,5,5,5" BorderBrush="Gray" BorderThickness="2"  Margin="3 3 10 3">
                             <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
                                 <TextBlock Padding="10 10 0 10" Text="字符:"></TextBlock>
                                 <Border CornerRadius="4,4,4,4" Width="30" Height="30" Margin="5" BorderBrush="Gray" BorderThickness="2">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBox FontSize="12"></TextBox>
+                                        <TextBox x:Name="brush_ch" FontSize="12"></TextBox>
                                     </StackPanel>
                                 </Border>
                                 <TextBlock Width="10"></TextBlock>
-                                <SplitButton x:Name="myColorButton">
-                                    <Border x:Name="CurrentColor" Height="20" Width="20" Background="Green"/>
+                                <SplitButton ToolTipService.ToolTip="Foreground color"
+             Click="BrushButtonClick">
+                                    <Border x:Name="SelectedColorBorder" Width="20" Height="20"/>
                                     <SplitButton.Flyout>
-                                        <Flyout Placement="Bottom">
-                                            <!-- flyout content -->
+                                        <Flyout x:Name="BrushFlyout">
+                                            <!-- Set SingleSelectionFollowsFocus="False"
+                 so that keyboard navigation works correctly. -->
+                                            <GridView ItemsSource="{x:Bind ColorOptions}"
+                                                  SelectionChanged="BrushSelectionChanged"
+                                                  SingleSelectionFollowsFocus="False"
+                                                  SelectedIndex="0" Padding="0">
+                                                <GridView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Rectangle Fill="{Binding}" Width="20" Height="20"/>
+                                                    </DataTemplate>
+                                                </GridView.ItemTemplate>
+                                                <GridView.ItemContainerStyle>
+                                                    <Style TargetType="GridViewItem">
+                                                        <Setter Property="Margin" Value="2"/>
+                                                        <Setter Property="MinWidth" Value="0"/>
+                                                        <Setter Property="MinHeight" Value="0"/>
+                                                    </Style>
+                                                </GridView.ItemContainerStyle>
+                                            </GridView>
                                         </Flyout>
                                     </SplitButton.Flyout>
                                 </SplitButton>
                             </StackPanel>
                         </Border>
+                        <!--#endregion-->
                     </CommandBar.Content>
                     <CommandBar.SecondaryCommands>
                         <AppBarButton Icon="Setting" Label="Settings">
@@ -127,13 +149,13 @@
                 
                 <!--#region 画布-->
                 <Border x:Name="border" BorderThickness="3" BorderBrush="Gray" Margin="0 10 0 0" Height="456" Width="456">
-                    <Canvas  Background="Transparent" x:Name="outside" Height="450" Width="450" PointerWheelChanged="outside_PointerWheelChanged">
+                    <Canvas Background="Transparent" x:Name="outside" Height="450" Width="450" PointerWheelChanged="outside_PointerWheelChanged">
                         <Canvas.Clip>
                             <RectangleGeometry x:Name="rect" Rect="0,0,450,450"/>
                         </Canvas.Clip>
                         <Canvas PointerPressed="playground_PointerPressed" PointerReleased="playground_PointerReleased" PointerMoved="playground_PointerMoved"  x:Name="playground" Height="450" Width="450" Background="Transparent" >
                             <Grid x:Name="gg" Background="Transparent" Opacity="0.5" Height="450" Width="450"></Grid>
-                            <Canvas Height="450" Width="450" x:Name="g"></Canvas>
+                            <Canvas FocusVisualMargin="1" FocusVisualPrimaryBrush="White" FocusVisualPrimaryThickness="1" Height="450" Width="450" x:Name="g"></Canvas>
                             <Canvas.RenderTransform>
                                 <TransformGroup/>
                             </Canvas.RenderTransform>
