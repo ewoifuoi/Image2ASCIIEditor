@@ -9,6 +9,7 @@ using Image2ASCIIEditor.Common;
 using Console = Image2ASCIIEditor.Common.Console;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
+using Windows.ApplicationModel.Activation;
 
 namespace Image2ASCIIEditor.Models;
 public class StringStreamModel
@@ -36,7 +37,6 @@ public class StringStreamModel
             for(int j = 0; j < split[i].Length; j++)
             {
                 PaintBlocks[i].Add(new PaintBlock(split[i][j], i, j, new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black)));
-
             }
 
             for(int j = split[i].Length; j < _maxLength; j++)
@@ -74,5 +74,10 @@ public class StringStreamModel
             }
         }
 
-     }
+    }
+
+    public void Paint(int x, int y, Brush brush)
+    {
+        PaintBlocks[x][y].ChangePaint(brush);
+    }
 }

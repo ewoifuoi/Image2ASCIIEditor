@@ -20,7 +20,7 @@ public class PaintBlock
     /// <summary>
     /// 前景色
     /// </summary>
-    private SolidColorBrush fontground_color;
+    private SolidColorBrush foreground_color;
     /// <summary>
     /// 背景色
     /// </summary>
@@ -68,5 +68,10 @@ public class PaintBlock
     {
         g.Children.Add(_border);
         g.Children.Add(_c);
+    }
+
+    public void ChangePaint(Brush brush)
+    {
+        brush.SetPaint(ref _b, ref _c);
     }
 }

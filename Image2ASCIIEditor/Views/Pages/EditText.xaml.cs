@@ -162,6 +162,11 @@ public sealed partial class EditText : Page
         ChangeModeBtn2.IsChecked = true;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void refresh(object sender, RoutedEventArgs e)
     {
         transformGroup.Children.Clear();
@@ -169,11 +174,15 @@ public sealed partial class EditText : Page
         Canvas.SetTop(playground, 0);
     }
 
+    /// <summary>
+    /// 页面大小变化用来设置画布的大小改变
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
     {
         if(App.isMax)
         {
-            
             outside.Height = 700;
             outside.Width = 1000;
             playground.Width = 1000;
@@ -194,6 +203,5 @@ public sealed partial class EditText : Page
             border.Width = 456;
             rect.Rect = new Rect() { Height = 450, Width = 450, X = 0, Y = 0 };
         }
-        
     }
 }

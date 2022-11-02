@@ -23,11 +23,11 @@
                         <StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                                 <TextBlock  Text="宽度 : " Margin="5"></TextBlock>
-                                <TextBox x:Name="gen_width" TextWrapping="NoWrap" Width="10"></TextBox>
+                                <TextBox Text="30" x:Name="gen_width" TextWrapping="NoWrap" Width="10"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                 <TextBlock Text="高度 : " Margin="5"></TextBlock>
-                                <TextBox x:Name="gen_height" TextWrapping="NoWrap" Width="10"></TextBox>
+                                <TextBox Text="15" x:Name="gen_height" TextWrapping="NoWrap" Width="10"></TextBox>
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Width="5"></TextBlock>
@@ -81,7 +81,7 @@
                 <CommandBar HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
                     <AppBarToggleButton x:Name="ChangeModeBtn" Click="ChangeEditMode" Icon="Edit" Label="编辑"/>
                     <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
-                    <AppBarButton Icon="Add" Label="添加笔刷"/>
+                    <AppBarButton Icon="Add" Label="保存笔刷"/>
                     <CommandBar.Content>
                         <Border CornerRadius="5,5,5,5" BorderBrush="Gray" BorderThickness="2"  Margin="3 3 10 3">
                             <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
