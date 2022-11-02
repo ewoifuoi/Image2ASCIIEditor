@@ -81,9 +81,6 @@ public sealed partial class EditText : Page
             {
                 Console.log(nx.ToString() + " " + ny.ToString());
             }
-            
-
-
         }
     }
 
