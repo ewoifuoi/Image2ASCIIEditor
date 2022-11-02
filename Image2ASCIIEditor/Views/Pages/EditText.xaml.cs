@@ -72,9 +72,7 @@ public sealed partial class EditText : Page
             var c = sender as Canvas;
             PointerPoint p = e.GetCurrentPoint(playground);
             double x = p.Position.X; double y = p.Position.Y;
-            
             //Console.log("click x:" + x.ToString() + " " + "y:" + y.ToString());
-
             int nx = Convert.ToInt32(Math.Floor(x / 23)); int ny = Convert.ToInt32(Math.Floor(y / 48));
             
             if(x - nx * 23 <= 20 && y - ny * 48 <= 45)
@@ -121,8 +119,6 @@ public sealed partial class EditText : Page
 
     private void UseDefault(object sender, RoutedEventArgs e)
     {
-        
-
         int g_height = 0; int g_width = 0;
         if (!int.TryParse(gen_width.Text, out g_width))
         {
