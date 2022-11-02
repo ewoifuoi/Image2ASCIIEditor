@@ -15,10 +15,13 @@
             Height="800" Width="1600"></Grid>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            
+            <!--#region 左侧条-->
             <StackPanel Margin="10 10 10 10">
                 <TextBlock Height="25"></TextBlock>
-
                 <Border BorderThickness="2" BorderBrush="Transparent" Margin="0 5 5 5">
+                    
+                    <!--#region 空字符矩阵生成框-->
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
@@ -33,18 +36,21 @@
                         <TextBlock Width="5"></TextBlock>
                         <Button Margin="5 0 0 0" Click="UseDefault" Width="130" Content="生成空字符矩阵" Height="76"></Button>
                     </StackPanel>
+                    <!--#endregion-->
+                    
                 </Border>
+                
+                
                 <TextBlock Height="20"></TextBlock>
 
+                <!--#region 历史笔刷保存框-->
                 <TextBlock Height="30" Text="我的笔刷：" ></TextBlock>
                 <Expander x:Name="brushes" IsEnabled="False" Margin="10 0 0 0" Width="240" HorizontalContentAlignment="Left">
                     <Expander.Header>
-                        
                         <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
                             <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
                             <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
                         </StackPanel>
-                        
                     </Expander.Header>
                     <Expander.Content >
                         <ListView Width="210">
@@ -57,13 +63,13 @@
                                 <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
                             </StackPanel>
                         </ListView>
-                        
                     </Expander.Content>
                 </Expander>
+                <!--#endregion-->
 
                 <TextBlock Height="30" ></TextBlock>
 
-
+                <!--#region 使用指定字符生成框-->
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="0 0 0 10">使用初始化字符串</TextBlock>
                     <TextBlock Width="90"></TextBlock>
@@ -75,9 +81,15 @@
                         <Button Click="Button_Click" Margin="5" Height="75" Width="240" Content="使用指定字符生成矩阵"></Button>
                     </StackPanel>
                 </Border>
+                <!--#endregion-->
+                
             </StackPanel>
+            <!--#endregion-->
             
+            <!--#region 中部条-->
             <StackPanel Margin="0 10 0 0">
+                
+                <!--#region 工具条-->
                 <CommandBar HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
                     <AppBarToggleButton x:Name="ChangeModeBtn" Click="ChangeEditMode" Icon="Edit" Label="编辑"/>
                     <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
@@ -111,6 +123,9 @@
                         </AppBarButton>
                     </CommandBar.SecondaryCommands>
                 </CommandBar>
+                <!--#endregion-->
+                
+                <!--#region 画布-->
                 <Border x:Name="border" BorderThickness="3" BorderBrush="Gray" Margin="0 10 0 0" Height="456" Width="456">
                     <Canvas  Background="Transparent" x:Name="outside" Height="450" Width="450" PointerWheelChanged="outside_PointerWheelChanged">
                         <Canvas.Clip>
@@ -125,16 +140,25 @@
                         </Canvas>
                     </Canvas>
                 </Border>
+                <!--#endregion-->
                 
             </StackPanel>
+            <!--#endregion-->
+            
+            <!--#region 左侧功能条-->
             <StackPanel Orientation="Vertical" Margin="0 50 0 0">
                 <AppBarButton Click="refresh" Margin="0 2 0 0" Icon="Refresh" Label="复位" />
                 <AppBarButton Margin="0 2 0 0" Icon="Read" Label="预览" />
                 <AppBarButton Margin="0 2 0 0" Icon="Save" Label="保存" />
                 <AppBarButton Margin="0 2 0 0" Icon="Pictures" Label="导入图片" />
             </StackPanel>
+            <!--#endregion-->
             
+            
+            <!--#region 调试列表-->
             <ListView x:Name="console" Height="600" Width="900" Margin="100"></ListView>
+            <!--#endregion-->
+            
         </StackPanel>
     </Canvas>
     

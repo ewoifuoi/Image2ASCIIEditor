@@ -20,6 +20,7 @@ using Image2ASCIIEditor.Models;
 using Microsoft.UI.Windowing;
 using Windows.Foundation;
 using Rect = Windows.Foundation.Rect;
+using Brush = Image2ASCIIEditor.Models.Brush;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,6 +34,7 @@ public sealed partial class EditText : Page
     private bool _isMouseDown = false;
     private PointerPoint _mouseDownPosition;
     private Point _mouseDownControlPosition;
+    Brush _brush;
     private Canvas _canvas;
     StringStreamModel _StreamModel;
     private TransformGroup transformGroup;
@@ -69,6 +71,9 @@ public sealed partial class EditText : Page
         }
         else
         {
+
+
+            // 计算正在点击的坐标
             var c = sender as Canvas;
             PointerPoint p = e.GetCurrentPoint(playground);
             double x = p.Position.X; double y = p.Position.Y;
@@ -110,13 +115,23 @@ public sealed partial class EditText : Page
         }
     }
 
-
+    /// <summary>
+    /// 用指定字符串生成矩阵
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         _StreamModel = new StringStreamModel(input);
+        
         GenerateEditor();
     }
 
+    /// <summary>
+    /// 生成空字符矩阵
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void UseDefault(object sender, RoutedEventArgs e)
     {
         int g_height = 0; int g_width = 0;
@@ -135,6 +150,9 @@ public sealed partial class EditText : Page
         }
     }
 
+    /// <summary>
+    /// 生成图像
+    /// </summary>
     private void GenerateEditor()
     {
         _StreamModel.Generate(ref g);
@@ -145,6 +163,11 @@ public sealed partial class EditText : Page
 
     private bool isEditing = false;
 
+    /// <summary>
+    /// 现在是编辑模式
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ChangeEditMode(object sender, RoutedEventArgs e)
     {
         isEditing = true;
@@ -153,6 +176,11 @@ public sealed partial class EditText : Page
         ChangeModeBtn2.IsChecked = false;
     }
 
+    /// <summary>
+    /// 现在是拖拽模式
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ChangeEditMode2(object sender, RoutedEventArgs e)
     {
         isEditing = false;
@@ -163,7 +191,7 @@ public sealed partial class EditText : Page
     }
 
     /// <summary>
-    /// 
+    /// 复位画布
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
