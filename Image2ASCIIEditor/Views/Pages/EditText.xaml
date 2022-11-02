@@ -7,14 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="Transparent"
-    NavigationCacheMode="Enabled">
+    NavigationCacheMode="Enabled"
+    SizeChanged="Page_SizeChanged">
 
     <Canvas>
         <Grid Opacity="0.6" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
-            Height="800" Width="1000"></Grid>
+            Height="800" Width="1600"></Grid>
+        
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-            <StackPanel Margin="20 10 10 10">
-                <TextBlock Height="20"></TextBlock>
+            <StackPanel Margin="10 10 10 10">
+                <TextBlock Height="25"></TextBlock>
 
                 <Border BorderThickness="2" BorderBrush="Transparent" Margin="0 5 5 5">
                     <StackPanel Orientation="Horizontal">
@@ -28,50 +30,79 @@
                                 <TextBox x:Name="gen_height" TextWrapping="NoWrap" Width="10"></TextBox>
                             </StackPanel>
                         </StackPanel>
-                        <TextBlock Width="15"></TextBlock>
-                        <Button Margin="5 0 0 0" Click="UseDefault" Width="130" Content="生成空点阵矩阵" Height="76"></Button>
+                        <TextBlock Width="5"></TextBlock>
+                        <Button Margin="5 0 0 0" Click="UseDefault" Width="130" Content="生成空字符矩阵" Height="76"></Button>
                     </StackPanel>
                 </Border>
-                <TextBlock Height="30"></TextBlock>
-                <StackPanel Margin="10 0 0 0" Orientation="Horizontal">
-                    <SplitButton x:Name="myColorButton">
-                        <Border x:Name="CurrentColor" Width="35" Height="35" Background="Green" CornerRadius="4,4,4,4"/>
-                        <SplitButton.Flyout>
-                            <Flyout Placement="Bottom">
-                                <!-- flyout content -->
-                            </Flyout>
-                        </SplitButton.Flyout>
-                    </SplitButton>
-                    <Border CornerRadius="4,4,4,4" Width="90" Margin="10 0 0 0" BorderBrush="Gray" BorderThickness="3">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox Margin="5" Height="20" Width="5"></TextBox>
-                            <TextBlock Margin="5" Width="100"></TextBlock>
+                <TextBlock Height="20"></TextBlock>
+
+                <TextBlock Height="30" Text="我的笔刷：" ></TextBlock>
+                <Expander x:Name="brushes" IsEnabled="False" Margin="10 0 0 0" Width="240" HorizontalContentAlignment="Left">
+                    <Expander.Header>
+                        
+                        <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
+                            <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
                         </StackPanel>
-                    </Border>
-                </StackPanel>
+                        
+                    </Expander.Header>
+                    <Expander.Content >
+                        <ListView Width="210">
+                            <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
+                                <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
+                                <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
+                            </StackPanel>
+                        </ListView>
+                        
+                    </Expander.Content>
+                </Expander>
 
                 <TextBlock Height="30" ></TextBlock>
 
-                
+
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="8 0 0 5">使用初始化字符串</TextBlock>
+                    <TextBlock Margin="0 0 0 10">使用初始化字符串</TextBlock>
                     <TextBlock Width="90"></TextBlock>
                 </StackPanel>
 
-                <TextBox x:Name="input" FontSize="14" AcceptsReturn="True" TextWrapping="NoWrap" Margin="10 10 10 0" Width="250" Height="40"></TextBox>
+                <TextBox x:Name="input" FontSize="14" AcceptsReturn="True" TextWrapping="NoWrap" Margin="10 10 10 0" Width="240" Height="40"></TextBox>
                 <Border Margin="0" BorderThickness="0" BorderBrush="Transparent">
                     <StackPanel Height="100" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Click="Button_Click" Margin="5" Height="75" Width="250" Content="使用指定字符生成点阵"></Button>
+                        <Button Click="Button_Click" Margin="5" Height="75" Width="240" Content="使用指定字符生成矩阵"></Button>
                     </StackPanel>
                 </Border>
             </StackPanel>
-            <StackPanel Margin="10 5 10 10">
-                <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
-                    <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
+            
+            <StackPanel Margin="0 10 0 0">
+                <CommandBar HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
                     <AppBarToggleButton x:Name="ChangeModeBtn" Click="ChangeEditMode" Icon="Edit" Label="编辑"/>
-                    <AppBarButton Icon="Add" Label="Add"/>
-                    <AppBarButton Icon="Edit" Label="Edit"/>
-                    <AppBarButton Icon="Share" Label="Share"/>
+                    <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
+                    <AppBarButton Icon="Add" Label="添加笔刷"/>
+                    <CommandBar.Content>
+                        <Border CornerRadius="5,5,5,5" BorderBrush="Gray" BorderThickness="2"  Margin="3 3 10 3">
+                            <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
+                                <TextBlock Padding="10 10 0 10" Text="字符:"></TextBlock>
+                                <Border CornerRadius="4,4,4,4" Width="30" Height="30" Margin="5" BorderBrush="Gray" BorderThickness="2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox FontSize="12"></TextBox>
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock Width="10"></TextBlock>
+                                <SplitButton x:Name="myColorButton">
+                                    <Border x:Name="CurrentColor" Height="20" Width="20" Background="Green"/>
+                                    <SplitButton.Flyout>
+                                        <Flyout Placement="Bottom">
+                                            <!-- flyout content -->
+                                        </Flyout>
+                                    </SplitButton.Flyout>
+                                </SplitButton>
+                            </StackPanel>
+                        </Border>
+                    </CommandBar.Content>
                     <CommandBar.SecondaryCommands>
                         <AppBarButton Icon="Setting" Label="Settings">
                             <AppBarButton.KeyboardAccelerators>
@@ -80,10 +111,10 @@
                         </AppBarButton>
                     </CommandBar.SecondaryCommands>
                 </CommandBar>
-                <Border BorderThickness="3" BorderBrush="Gray" Margin="5 5 0 0" >
+                <Border x:Name="border" BorderThickness="3" BorderBrush="Gray" Margin="0 10 0 0" Height="456" Width="456">
                     <Canvas  Background="Transparent" x:Name="outside" Height="450" Width="450" PointerWheelChanged="outside_PointerWheelChanged">
                         <Canvas.Clip>
-                            <RectangleGeometry Rect="0,0,450,450"/>
+                            <RectangleGeometry x:Name="rect" Rect="0,0,450,450"/>
                         </Canvas.Clip>
                         <Canvas PointerPressed="playground_PointerPressed" PointerReleased="playground_PointerReleased" PointerMoved="playground_PointerMoved"  x:Name="playground" Height="450" Width="450" Background="Transparent" >
                             <Grid x:Name="gg" Background="Transparent" Opacity="0.5" Height="450" Width="450"></Grid>
@@ -96,7 +127,7 @@
                 </Border>
                 
             </StackPanel>
-            <StackPanel Orientation="Vertical" Margin="0 35 0 0">
+            <StackPanel Orientation="Vertical" Margin="0 50 0 0">
                 <AppBarButton Click="refresh" Margin="0 2 0 0" Icon="Refresh" Label="复位" />
                 <AppBarButton Margin="0 2 0 0" Icon="Read" Label="预览" />
                 <AppBarButton Margin="0 2 0 0" Icon="Save" Label="保存" />

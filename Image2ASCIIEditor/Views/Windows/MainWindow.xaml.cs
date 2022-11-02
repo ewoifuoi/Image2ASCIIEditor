@@ -19,6 +19,8 @@ using Image2ASCIIEditor.ViewModels;
 using Image2ASCIIEditor.Views;
 using Image2ASCIIEditor.Views.Pages;
 using Microsoft.UI.Composition.SystemBackdrops;
+using Microsoft.UI;
+using Microsoft.UI.Windowing;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -50,6 +52,13 @@ public partial class MainWindow : Window
     {
         
         this.InitializeComponent();
+
+        var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
+        WindowId myWndId = Win32Interop.GetWindowIdFromWindow(hWnd);
+        var apw = AppWindow.GetFromWindowId(myWndId).Presenter as OverlappedPresenter;
+        apw.IsResizable = false;
+
+
         viewModel = new MainWindowViewModel(this);
 
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
@@ -127,4 +136,15 @@ public partial class MainWindow : Window
 
     }
 
+    private void window_SizeChanged(object sender, WindowSizeChangedEventArgs args)
+    {
+        if(App.isMax)
+        {
+            App.isMax = false;
+        }
+        else
+        {
+            App.isMax = true;
+        }
+    }
 }

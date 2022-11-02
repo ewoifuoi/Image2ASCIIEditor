@@ -18,6 +18,8 @@ using Console = Image2ASCIIEditor.Common.Console;
 using Microsoft.UI;
 using Image2ASCIIEditor.Models;
 using Microsoft.UI.Windowing;
+using Windows.Foundation;
+using Rect = Windows.Foundation.Rect;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -183,6 +185,7 @@ public sealed partial class EditText : Page
     private void ChangeEditMode(object sender, RoutedEventArgs e)
     {
         isEditing = true;
+        brushes.IsEnabled = true;
         ChangeModeBtn.IsChecked = true;
         ChangeModeBtn2.IsChecked = false;
     }
@@ -190,6 +193,8 @@ public sealed partial class EditText : Page
     private void ChangeEditMode2(object sender, RoutedEventArgs e)
     {
         isEditing = false;
+        brushes.IsEnabled = false;
+        
         ChangeModeBtn.IsChecked = false;
         ChangeModeBtn2.IsChecked = true;
     }
@@ -199,5 +204,33 @@ public sealed partial class EditText : Page
         transformGroup.Children.Clear();
         Canvas.SetLeft(playground, 0);
         Canvas.SetTop(playground, 0);
+    }
+
+    private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if(App.isMax)
+        {
+            
+            outside.Height = 700;
+            outside.Width = 1000;
+            playground.Width = 1000;
+            playground.Height = 700;
+            border.Height = 706;
+            border.Width = 1006;
+            
+            rect.Rect = new Rect() { Height = 700, Width = 1000, X = 0, Y = 0};
+        }
+        else
+        {
+            
+            outside.Height = 450;
+            outside.Width = 450;
+            playground.Width = 450;
+            playground.Height = 450;
+            border.Height = 456;
+            border.Width = 456;
+            rect.Rect = new Rect() { Height = 450, Width = 450, X = 0, Y = 0 };
+        }
+        
     }
 }
