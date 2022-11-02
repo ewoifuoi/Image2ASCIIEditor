@@ -137,40 +137,10 @@ public sealed partial class EditText : Page
 
     private void GenerateEditor()
     {
-        g.Children.Clear();
-        for (int i = 0; i < _StreamModel.n; i++)
-        {
-            for (int j = 0; j < _StreamModel.m; j++)
-            {
-                var border = new Border();
-                var b = new TextBlock();
-                //b.Background = new SolidColorBrush(p.Color);
-                b.Text = _StreamModel.OriginalStream[i][j].ToString();
-                b.TextAlignment = TextAlignment.Center;
-                b.FontSize = 30;
-                b.Width = 20;
-                b.Height = 45;
-                //b.Click += B_Click;
-                border.Child = b;
-                border.HorizontalAlignment = HorizontalAlignment.Center;
-                border.VerticalAlignment = VerticalAlignment.Center;
-                //border.BorderThickness = new Thickness(1); border.BorderBrush = new SolidColorBrush(Colors.Gray);
-                Canvas.SetTop(border, i * 48);
-                Canvas.SetLeft(border, j * 23);
-                Canvas.SetZIndex(border, 9);
-                Canvas c = new Canvas(); c.Background = new SolidColorBrush(Colors.Black); c.Opacity = 0.3;
-                c.Width = 20; c.Height = 45;
-                Canvas.SetTop(c, i * 48);
-                Canvas.SetLeft(c, j * 23);
-                Canvas.SetZIndex(c, 0);
-                g.Children.Add(border);
-                g.Children.Add(c);
+        _StreamModel.Generate(ref g);
 
-            }
-        }
-
-        gg.Height = _StreamModel.n * 48;
-        gg.Width = _StreamModel.m * 23;
+        gg.Height = _StreamModel._n * 48;
+        gg.Width = _StreamModel._m * 23;
     }
 
     private bool isEditing = false;

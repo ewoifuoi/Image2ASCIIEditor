@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Image2ASCIIEditor.Models;
-internal class Brush
+public class Brush
 {
 }
