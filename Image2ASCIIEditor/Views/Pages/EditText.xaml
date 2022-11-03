@@ -14,160 +14,177 @@
     <Canvas>
         <Grid Opacity="0.6" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
             Height="800" Width="1600"></Grid>
-        
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-            
-            <!--#region 左侧条-->
-            <StackPanel Margin="10 10 10 10">
-                <TextBlock Height="25"></TextBlock>
-                <Border BorderThickness="2" BorderBrush="Transparent" Margin="0 5 5 5">
-                    
-                    <!--#region 空字符矩阵生成框-->
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                                <TextBlock  Text="宽度 : " Margin="5"></TextBlock>
-                                <TextBox Text="30" x:Name="gen_width" TextWrapping="NoWrap" Width="10"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                <TextBlock Text="高度 : " Margin="5"></TextBlock>
-                                <TextBox Text="15" x:Name="gen_height" TextWrapping="NoWrap" Width="10"></TextBox>
-                            </StackPanel>
-                        </StackPanel>
-                        <TextBlock Width="5"></TextBlock>
-                        <Button Margin="5 0 0 0" Click="UseDefault" Width="130" Content="生成空字符矩阵" Height="76"></Button>
-                    </StackPanel>
-                    <!--#endregion-->
-                    
-                </Border>
-                
-                
-                <TextBlock Height="20"></TextBlock>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
 
-                <!--#region 历史笔刷保存框-->
-                <TextBlock Height="30" Text="我的笔刷：" ></TextBlock>
-                <Expander x:Name="brushes" IsEnabled="False" Margin="10 0 0 0" Width="240" HorizontalContentAlignment="Left">
-                    <Expander.Header>
-                        <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
-                            <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
-                            <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
-                        </StackPanel>
-                    </Expander.Header>
-                    <Expander.Content >
-                        <ListView Width="210">
-                            <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
-                                <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
-                                <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
-                                <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
-                                <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
-                            </StackPanel>
-                        </ListView>
-                    </Expander.Content>
-                </Expander>
-                <!--#endregion-->
-
-                <TextBlock Height="30" ></TextBlock>
-
-                <!--#region 使用指定字符生成框-->
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="0 0 0 10">使用初始化字符串</TextBlock>
-                    <TextBlock Width="90"></TextBlock>
-                </StackPanel>
-
-                <TextBox x:Name="input" FontSize="14" AcceptsReturn="True" TextWrapping="NoWrap" Margin="10 10 10 0" Width="240" Height="40"></TextBox>
-                <Border Margin="0" BorderThickness="0" BorderBrush="Transparent">
-                    <StackPanel Height="100" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Click="Button_Click" Margin="5" Height="75" Width="240" Content="使用指定字符生成矩阵"></Button>
-                    </StackPanel>
-                </Border>
-                <!--#endregion-->
-                
-            </StackPanel>
-            <!--#endregion-->
-            
-            <!--#region 中部条-->
-            <StackPanel Margin="0 10 0 0">
-                
                 <!--#region 顶部工具条-->
-                <CommandBar HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
-                    <AppBarToggleButton x:Name="ChangeModeBtn" Click="ChangeEditMode" Icon="Edit" Label="编辑"/>
-                    <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
-                    <AppBarButton Icon="Add" Label="保存笔刷"/>
-                    <CommandBar.Content>
-                        <!--#region 画笔颜色-->
-                        <Border CornerRadius="5,5,5,5" BorderBrush="Gray" BorderThickness="2"  Margin="3 3 10 3">
-                            <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
-                                <TextBlock Padding="10 10 0 10" Text="字符:"></TextBlock>
-                                <Border CornerRadius="4,4,4,4" Width="30" Height="30" Margin="5" BorderBrush="Gray" BorderThickness="2">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBox x:Name="brush_ch" FontSize="12"></TextBox>
-                                    </StackPanel>
-                                </Border>
-                                <TextBlock Width="10"></TextBlock>
-                                <SplitButton ToolTipService.ToolTip="Foreground color"
-             Click="BrushButtonClick">
-                                    <Border x:Name="SelectedColorBorder" Width="20" Height="20"/>
-                                    <SplitButton.Flyout>
-                                        <Flyout x:Name="BrushFlyout">
-                                            <!-- Set SingleSelectionFollowsFocus="False"
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                    <!--#region 画笔颜色-->
+                    <Border Height="50" CornerRadius="5,5,5,5" BorderBrush="Gray" BorderThickness="3"  Margin="0 10 10 0">
+                        <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
+                            <!--#region 字符-->
+                            <TextBlock Padding="10 10 0 10" Text="字符:"></TextBlock>
+                            <Border CornerRadius="4,4,4,4" Width="60"  Margin="5" BorderBrush="Gray" BorderThickness="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <ComboBox  x:Name="brush_ch"  IsEditable="True" Width="60" TextSubmitted="brush_ch_TextSubmitted"/>
+                                </StackPanel>
+                            </Border>
+                            <TextBlock Width="10"></TextBlock>
+                            <!--#endregion-->
+
+                            <!--#region 颜色-->
+                            <SplitButton ToolTipService.ToolTip="Foreground color" Click="BrushButtonClick">
+                                <Border x:Name="SelectedColorBorder" Width="20" Height="20"/>
+                                <SplitButton.Flyout>
+                                    <Flyout x:Name="BrushFlyout">
+                                        <!-- Set SingleSelectionFollowsFocus="False"
                  so that keyboard navigation works correctly. -->
-                                            <GridView ItemsSource="{x:Bind ColorOptions}"
+                                        <GridView ItemsSource="{x:Bind ColorOptions}"
                                                   SelectionChanged="BrushSelectionChanged"
                                                   SingleSelectionFollowsFocus="False"
                                                   SelectedIndex="0" Padding="0">
-                                                <GridView.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Rectangle Fill="{Binding}" Width="20" Height="20"/>
-                                                    </DataTemplate>
-                                                </GridView.ItemTemplate>
-                                                <GridView.ItemContainerStyle>
-                                                    <Style TargetType="GridViewItem">
-                                                        <Setter Property="Margin" Value="2"/>
-                                                        <Setter Property="MinWidth" Value="0"/>
-                                                        <Setter Property="MinHeight" Value="0"/>
-                                                    </Style>
-                                                </GridView.ItemContainerStyle>
-                                            </GridView>
-                                        </Flyout>
-                                    </SplitButton.Flyout>
-                                </SplitButton>
+                                            <GridView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Rectangle Fill="{Binding}" Width="20" Height="20"/>
+                                                </DataTemplate>
+                                            </GridView.ItemTemplate>
+                                            <GridView.ItemContainerStyle>
+                                                <Style TargetType="GridViewItem">
+                                                    <Setter Property="Margin" Value="2"/>
+                                                    <Setter Property="MinWidth" Value="0"/>
+                                                    <Setter Property="MinHeight" Value="0"/>
+                                                </Style>
+                                            </GridView.ItemContainerStyle>
+                                        </GridView>
+                                    </Flyout>
+                                </SplitButton.Flyout>
+                            </SplitButton>
+                            <!--#endregion-->
+                        </StackPanel>
+                    </Border>
+                    <!--#endregion-->
+
+                    <!--#region 操作快捷键-->
+                    <CommandBar  Margin="0 10 0 0" HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
+                        <AppBarToggleButton x:Name="ChangeModeBtn" Click="ChangeEditMode" Icon="Edit" Label="编辑"/>
+                        <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
+                        <AppBarButton Icon="Add" Label="保存笔刷"/>
+
+                        <CommandBar.SecondaryCommands>
+                            <AppBarButton Icon="Setting" Label="Settings">
+                                <AppBarButton.KeyboardAccelerators>
+                                    <KeyboardAccelerator Modifiers="Control" Key="I" />
+                                </AppBarButton.KeyboardAccelerators>
+                            </AppBarButton>
+                        </CommandBar.SecondaryCommands>
+                    </CommandBar>
+                    <!--#endregion-->
+
+                </StackPanel>
+                <!--#endregion-->
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+
+                    <!--#region 左侧条-->
+                    <StackPanel Margin="10 0 10 10">
+                        <TextBlock Height="15"></TextBlock>
+                        <Border BorderThickness="2" BorderBrush="Transparent" Margin="0 5 5 5">
+
+                            <!--#region 空字符矩阵生成框-->
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                                        <TextBlock  Text="宽度 : " Margin="5"></TextBlock>
+                                        <TextBox Text="30" x:Name="gen_width" TextWrapping="NoWrap" Width="10"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                        <TextBlock Text="高度 : " Margin="5"></TextBlock>
+                                        <TextBox Text="15" x:Name="gen_height" TextWrapping="NoWrap" Width="10"></TextBox>
+                                    </StackPanel>
+                                </StackPanel>
+                                <TextBlock Width="5"></TextBlock>
+                                <Button Margin="5 0 0 0" Click="UseDefault" Width="130" Content="生成空字符矩阵" Height="76"></Button>
+                            </StackPanel>
+                            <!--#endregion-->
+
+                        </Border>
+
+
+                        <TextBlock Height="20"></TextBlock>
+
+                        <!--#region 历史笔刷保存框-->
+                        <TextBlock Height="30" Text="我的笔刷：" ></TextBlock>
+                        <Expander x:Name="brushes" IsEnabled="False" Margin="10 0 0 0" Width="240" HorizontalContentAlignment="Left">
+                            <Expander.Header>
+                                <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
+                                    <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
+                                </StackPanel>
+                            </Expander.Header>
+                            <Expander.Content >
+                                <ListView Width="210">
+                                    <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
+                                        <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
+                                        <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
+                                    </StackPanel>
+                                </ListView>
+                            </Expander.Content>
+                        </Expander>
+                        <!--#endregion-->
+
+                        <TextBlock Height="30" ></TextBlock>
+
+                        <!--#region 使用指定字符生成框-->
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0 0 0 10">使用初始化字符串</TextBlock>
+                            <TextBlock Width="90"></TextBlock>
+                        </StackPanel>
+
+                        <TextBox x:Name="input" FontSize="14" AcceptsReturn="True" TextWrapping="NoWrap" Margin="10 10 10 0" Width="240" Height="40"></TextBox>
+                        <Border Margin="0" BorderThickness="0" BorderBrush="Transparent">
+                            <StackPanel Height="100" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Click="Button_Click" Margin="5" Height="75" Width="240" Content="使用指定字符生成矩阵"></Button>
                             </StackPanel>
                         </Border>
                         <!--#endregion-->
-                    </CommandBar.Content>
-                    <CommandBar.SecondaryCommands>
-                        <AppBarButton Icon="Setting" Label="Settings">
-                            <AppBarButton.KeyboardAccelerators>
-                                <KeyboardAccelerator Modifiers="Control" Key="I" />
-                            </AppBarButton.KeyboardAccelerators>
-                        </AppBarButton>
-                    </CommandBar.SecondaryCommands>
-                </CommandBar>
-                <!--#endregion-->
-                
-                <!--#region 画布-->
-                <Border x:Name="border" BorderThickness="3" BorderBrush="Gray" Margin="0 10 0 0" Height="456" Width="456">
-                    <Canvas Background="Transparent" x:Name="outside" Height="450" Width="450" PointerWheelChanged="outside_PointerWheelChanged">
-                        <Canvas.Clip>
-                            <RectangleGeometry x:Name="rect" Rect="0,0,450,450"/>
-                        </Canvas.Clip>
-                        <Canvas PointerPressed="playground_PointerPressed" PointerReleased="playground_PointerReleased" PointerMoved="playground_PointerMoved"  x:Name="playground" Height="450" Width="450" Background="Transparent" >
-                            <Grid x:Name="gg" Background="Transparent" Opacity="0.5" Height="450" Width="450"></Grid>
-                            <Canvas FocusVisualMargin="1" FocusVisualPrimaryBrush="White" FocusVisualPrimaryThickness="1" Height="450" Width="450" x:Name="g"></Canvas>
-                            <Canvas.RenderTransform>
-                                <TransformGroup/>
-                            </Canvas.RenderTransform>
-                        </Canvas>
-                    </Canvas>
-                </Border>
-                <!--#endregion-->
-                
+
+                    </StackPanel>
+                    <!--#endregion-->
+
+                    <!--#region 中部条-->
+                    <StackPanel Margin="20 10 0 0">
+
+
+
+                        <!--#region 画布-->
+                        <Border x:Name="border" BorderThickness="3" BorderBrush="Gray" Margin="0 10 0 0" Height="456" Width="456">
+                            <Canvas Background="Transparent" x:Name="outside" Height="450" Width="450" PointerWheelChanged="outside_PointerWheelChanged">
+                                <Canvas.Clip>
+                                    <RectangleGeometry x:Name="rect" Rect="0,0,450,450"/>
+                                </Canvas.Clip>
+                                <Canvas PointerPressed="playground_PointerPressed" PointerReleased="playground_PointerReleased" PointerMoved="playground_PointerMoved"  x:Name="playground" Height="450" Width="450" Background="Transparent" >
+                                    <Grid x:Name="gg" Background="Transparent" Opacity="0.5" Height="450" Width="450"></Grid>
+                                    <Canvas FocusVisualMargin="1" FocusVisualPrimaryBrush="White" FocusVisualPrimaryThickness="1" Height="450" Width="450" x:Name="g"></Canvas>
+                                    <Canvas.RenderTransform>
+                                        <TransformGroup/>
+                                    </Canvas.RenderTransform>
+                                </Canvas>
+                            </Canvas>
+                        </Border>
+                        <!--#endregion-->
+
+                    </StackPanel>
+                    <!--#endregion-->
+
+                </StackPanel>
             </StackPanel>
-            <!--#endregion-->
-            
-            <!--#region 左侧功能条-->
+
+            <!--#region 右侧功能条-->
             <StackPanel Orientation="Vertical" Margin="0 50 0 0">
                 <AppBarButton Click="refresh" Margin="0 2 0 0" Icon="Refresh" Label="复位" />
                 <AppBarButton Margin="0 2 0 0" Icon="Read" Label="预览" />
@@ -175,14 +192,7 @@
                 <AppBarButton Margin="0 2 0 0" Icon="Pictures" Label="导入图片" />
             </StackPanel>
             <!--#endregion-->
-            
-            
-            <!--#region 调试列表-->
-            <ListView x:Name="console" Height="600" Width="900" Margin="100"></ListView>
-            <!--#endregion-->
-            
+
         </StackPanel>
     </Canvas>
-    
-
 </Page>

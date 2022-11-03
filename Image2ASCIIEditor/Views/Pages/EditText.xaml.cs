@@ -40,6 +40,7 @@ public sealed partial class EditText : Page
     private TransformGroup transformGroup;
     private List<SolidColorBrush> ColorOptions = new List<SolidColorBrush>();
     private SolidColorBrush CurrentColorBrush = null;
+    private bool _hasCanvas = false;
 
 
     public EditText()
@@ -80,7 +81,7 @@ public sealed partial class EditText : Page
 
             c.CapturePointer(e.Pointer);
         }
-        else
+        else if(_hasCanvas)
         {
 
 
@@ -169,6 +170,7 @@ public sealed partial class EditText : Page
     private void GenerateEditor()
     {
         _StreamModel.Generate(ref g);
+        _hasCanvas = true;
 
         gg.Height = _StreamModel._n * 48;
         gg.Width = _StreamModel._m * 23;
@@ -260,6 +262,15 @@ public sealed partial class EditText : Page
 
     private void ChangeColor()
     {
+        try
+        {
+            if (brush_ch.Text == "") _brush.ch = ' ';
+            else _brush.ch = Convert.ToChar(brush_ch.Text);
+        }
+        catch
+        {
+            MessageBox.Show("请输入正确笔刷字符", this);
+        }
         _brush.foreground_color = CurrentColorBrush;
         ChangeEditMode(this, new RoutedEventArgs());
     }
@@ -271,5 +282,8 @@ public sealed partial class EditText : Page
         ChangeColor();
     }
 
-    
+    private void brush_ch_TextSubmitted(ComboBox sender, ComboBoxTextSubmittedEventArgs args)
+    {
+
+    }
 }
