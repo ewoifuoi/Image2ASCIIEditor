@@ -7,13 +7,18 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Image2ASCIIEditor.Common;
 using Console = Image2ASCIIEditor.Common.Console;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI;
+using Windows.ApplicationModel.Activation;
 
 namespace Image2ASCIIEditor.Models;
 public class StringStreamModel
 {
     public List<List<char>> OriginalStream = new List<List<char>>();
-    public int n = 0;
-    public int m = 0;
+
+    public List<List<PaintBlock>> PaintBlocks = new List<List<PaintBlock>>();
+    public int _n = 0;
+    public int _m = 0;
 
     public StringStreamModel(TextBox input)
     {
@@ -22,41 +27,57 @@ public class StringStreamModel
         int _maxLength = 0 ;
         for(int i = 0; i < split.Length; i++)
         {
-            OriginalStream.Add(new List<char>());
+            PaintBlocks.Add(new List<PaintBlock>());
             if (_maxLength < split[i].Length) _maxLength = split[i].Length;
         }
-        m = _maxLength;
-        n = split.Length;
+        _m = _maxLength;
+        _n = split.Length;
         for(int i = 0; i < split.Length; i++)
         {
             for(int j = 0; j < split[i].Length; j++)
             {
-                OriginalStream[i].Add(split[i][j]);
+                PaintBlocks[i].Add(new PaintBlock(split[i][j], i, j, new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black)));
             }
 
             for(int j = split[i].Length; j < _maxLength; j++)
             {
-                OriginalStream[i].Add(' ');
+                PaintBlocks[i].Add(new PaintBlock(' ', i, j, new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black)));
             }
         }
     }
     public StringStreamModel(int n, int m)
     {
-        this.n = n;
-        this.m = m;
+        this._n = n;
+        this._m = m;
         for(int i = 0; i < n; i++)
         {
-            OriginalStream.Add(new List<char>());
+            PaintBlocks.Add(new List<PaintBlock>());
         }
 
         for(int i = 0; i < n; i++)
         {
             for(int j = 0; j < m; j++)
             {
-                OriginalStream[i].Add(' ');
+                PaintBlocks[i].Add(new PaintBlock(' ', i, j, new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black)));
             }
         }
     }
 
-    
+    public void Generate(ref Canvas g)
+    {
+        g.Children.Clear();
+        for (int i = 0; i < _n; i++)
+        {
+            for (int j = 0; j < _m; j++)
+            {
+                PaintBlocks[i][j].PutInCanvas(ref g);
+            }
+        }
+
+    }
+
+    public void Paint(int x, int y, Brush brush)
+    {
+        PaintBlocks[x][y].ChangePaint(brush);
+    }
 }
