@@ -284,6 +284,14 @@ public sealed partial class EditText : Page
 
     private void brush_ch_TextSubmitted(ComboBox sender, ComboBoxTextSubmittedEventArgs args)
     {
-
+        try
+        {
+            if (brush_ch.Text == "") _brush.ch = ' ';
+            else _brush.ch = Convert.ToChar(brush_ch.Text);
+        }
+        catch
+        {
+            MessageBox.Show("请输入正确笔刷字符", this);
+        }
     }
 }
