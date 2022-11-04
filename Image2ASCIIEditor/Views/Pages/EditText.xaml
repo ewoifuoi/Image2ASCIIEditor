@@ -123,7 +123,7 @@
                         <!--#region 使用滚轮切换笔刷-->
                         <StackPanel Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Left" Width="200">
                             <TextBlock Margin="10 10 25 0" Text="使用滚动切换笔刷 :"></TextBlock>
-                            <ToggleSwitch></ToggleSwitch>
+                            <ToggleSwitch x:Name="useWheelToSwitchBrush"></ToggleSwitch>
                         </StackPanel>
                         <!--#endregion-->
                         

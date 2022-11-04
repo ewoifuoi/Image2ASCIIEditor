@@ -297,6 +297,7 @@ public sealed partial class EditText : Page
         brushes_list.Items.Clear();
         _brushesList.Clear();
         brushes.IsExpanded = false;
+        useWheelToSwitchBrush.IsOn = false;
     }
 
     private void brush_ch_TextSubmitted(object sender, object e)
