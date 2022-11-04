@@ -14,35 +14,47 @@
         <Grid Margin="20"
             Background="{ThemeResource CustomAcrylicInAppLuminosity}" Opacity="0" Height="520" Width="360"></Grid>
         <StackPanel
-            Orientation="Horizontal"
-            >
+            Orientation="Horizontal">
+            
+            <!--#region 左侧栏-->
             <StackPanel
-                Width="400"
                 Orientation="Vertical"
+                Margin="40 40 0 0"
                 >
-                <StackPanel Orientation="Horizontal" Margin="20">
+                
+                <!--#region 打开图片按钮-->
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
                     <TextBlock Text="当前图片："
                            Foreground="Snow"
                            FontWeight="Bold"
                            FontSize="24"
-                           Margin="20"/>
-                    <Button Click="OpenFile" Content="打开图片" Margin="90 0 0 0" Width="90" Height="45"></Button>
+                           Margin="0 5 0 0"/>
+                    <Button Click="OpenFile" Content="打开图片" Width="90" Height="45"></Button>
                 </StackPanel>
+                <!--#endregion-->
 
-                <Border Height="300" Width="300" BorderThickness="3" BorderBrush="Transparent">
+                <!--#region 图片展示框-->
+                <Canvas x:Name="showground" Margin="10 10 0 0">
                     <Image 
-                    x:Name="image" 
-                    Height="250" Width="250" 
-                    />
-                </Border>
+                        Height="200" Width="200"
+                        x:Name="image"/>
+                </Canvas>
 
-                <StackPanel Margin="10"
-                            Width="250" Height="100"
-                            Orientation="Horizontal">
-                    <Button Content="不使用图片" Click="Next" Margin="10" Width="100" Height="80"></Button>
-                    <Button Content="灰度" Margin="10" Width="100" Height="80"></Button>
+                <!--#endregion-->
+                
+                <!--#region 对图片进行像素-->
+                <StackPanel>
+                    <StackPanel Margin="0 230 0 0" Orientation="Vertical">
+                        <TextBlock Margin="5" Text="分辨率:"></TextBlock>
+                        <Slider ValueChanged="Slider_ValueChanged" Width="200" Minimum="1" Maximum="100" StepFrequency="10" SmallChange="1" LargeChange="10" Value="1" />
+                    </StackPanel>
+                    <Button Margin="0 20 0 0" Content="生成像素矩阵" Height="70" Width="210"></Button>
                 </StackPanel>
+                <!--#endregion-->
+                
             </StackPanel>
+            <!--#endregion-->
+            
             <StackPanel
                 Width="700"
                 Orientation="Vertical"

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
+using Image2ASCIIEditor.Common;
 using Image2ASCIIEditor.Models;
 using Image2ASCIIEditor.Views.Pages;
 using Microsoft.UI;
@@ -15,6 +16,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml.Shapes;
 using Microsoft.VisualBasic;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -57,5 +59,17 @@ public sealed partial class ShowImage : Page
         MainWindow.showImage.IsSelected = false;
         MainWindow.editText.IsSelected = true;
         MainWindow.frame.NavigateToType(typeof(EditText), null, null);
+    }
+
+    private bool t = false;
+    private void Slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+    {
+        
+        if (!t) t = true;
+        else
+        {
+            
+        }
+        
     }
 }
