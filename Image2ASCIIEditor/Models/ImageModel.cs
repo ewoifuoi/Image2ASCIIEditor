@@ -33,7 +33,7 @@ public class ImageModel
     {
         Color srcColor;
         Bitmap srcBitmap = new Bitmap(ImagePath);
-        Bitmap imageBitmap = new Bitmap(rate, Convert.ToInt32(Convert.ToDouble(srcBitmap.Height) * (Convert.ToDouble(rate) / Convert.ToDouble(srcBitmap.Width))));
+        Bitmap imageBitmap = new Bitmap(rate, Convert.ToInt32(Convert.ToDouble(srcBitmap.Height) * (Convert.ToDouble(rate) / Convert.ToDouble(srcBitmap.Width))) / 2);
         Graphics g = Graphics.FromImage(imageBitmap);
         g.DrawImage(srcBitmap, new System.Drawing.Rectangle(0, 0, imageBitmap.Width, imageBitmap.Height), new System.Drawing.Rectangle(0, 0,srcBitmap.Width, srcBitmap.Height),  GraphicsUnit.Pixel);
 
@@ -46,14 +46,14 @@ public class ImageModel
             {
                 
                 Rectangle rect = new Rectangle();// 生成在画布里的矩形
-                rect.Height = canvas.Height / imageBitmap.Height/2;// 矩形的高
+                rect.Height = canvas.Height / imageBitmap.Height;// 矩形的高
                 rect.Width = canvas.Width / imageBitmap.Width;// 矩形的宽
-                srcColor = imageBitmap.GetPixel(i, j);// 取像素RGB
+                srcColor = imageBitmap.GetPixel(j, i);// 取像素RGB
 
                 // 两种颜色类型的转换
                 rect.Fill = new SolidColorBrush(new Windows.UI.Color() {A=srcColor.A, R = srcColor.R, G = srcColor.G, B = srcColor.B });
-                Canvas.SetLeft(rect, i * rect.Width);
-                Canvas.SetTop(rect, j * rect.Height);
+                Canvas.SetLeft(rect, j * rect.Width);
+                Canvas.SetTop(rect, i * rect.Height);
                 canvas.Children.Add(rect);
 
             }
