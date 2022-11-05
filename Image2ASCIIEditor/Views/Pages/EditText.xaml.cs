@@ -46,8 +46,8 @@ public sealed partial class EditText : Page
     public EditText()
     {
         this.InitializeComponent();
-        //Common.Console.console = this.console;
-        Common.Console.log("开始测试");
+        
+        
         transformGroup = playground.RenderTransform as TransformGroup;
         _brush = new Brush('*', new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black));
 

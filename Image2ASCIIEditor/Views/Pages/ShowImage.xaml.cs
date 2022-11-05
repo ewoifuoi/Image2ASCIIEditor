@@ -20,6 +20,7 @@ using Microsoft.UI.Xaml.Shapes;
 using Microsoft.VisualBasic;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Console = Image2ASCIIEditor.Common.Console;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -34,6 +35,7 @@ public sealed partial class ShowImage : Page
     {
         this.InitializeComponent();
         ImageModel.IMG.showImage(ref this.image);
+        Console.console = this.console;
         
     }
 
@@ -50,6 +52,9 @@ public sealed partial class ShowImage : Page
         worker.RunWorkerCompleted += (s, e) => {
             //e.Result"returned" from thread
             ImageModel.IMG.showImage(ref this.image);
+            Console.log(ImageModel.IMG.ImagePath);
+            
+
         };
         worker.RunWorkerAsync();
     }
@@ -71,5 +76,10 @@ public sealed partial class ShowImage : Page
             
         }
         
+    }
+
+    private void GenerateBitMatrix(object sender, RoutedEventArgs e)
+    {
+        ImageModel.IMG.CreateBitmap(ref testground, Convert.ToInt32(Value.Value));
     }
 }

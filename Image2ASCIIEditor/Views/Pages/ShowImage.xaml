@@ -42,26 +42,34 @@
 
                 <!--#endregion-->
                 
-                <!--#region 对图片进行像素-->
+                <!--#region 对图片进行像素分解-->
                 <StackPanel>
                     <StackPanel Margin="0 230 0 0" Orientation="Vertical">
                         <TextBlock Margin="5" Text="分辨率:"></TextBlock>
-                        <Slider ValueChanged="Slider_ValueChanged" Width="200" Minimum="1" Maximum="100" StepFrequency="10" SmallChange="1" LargeChange="10" Value="1" />
+                        <Slider x:Name="Value" ValueChanged="Slider_ValueChanged" Width="200" Minimum="1" Maximum="100" StepFrequency="10" SmallChange="1" LargeChange="10" Value="1" />
                     </StackPanel>
-                    <Button Margin="0 20 0 0" Content="生成像素矩阵" Height="70" Width="210"></Button>
+                    <Button Click="GenerateBitMatrix" Margin="0 20 0 0" Content="生成像素矩阵" Height="70" Width="210"></Button>
                 </StackPanel>
                 <!--#endregion-->
                 
             </StackPanel>
             <!--#endregion-->
             
+            <!--#region 中部栏-->
             <StackPanel
-                Width="700"
-                Orientation="Vertical"
                 Background="Transparent"
+                Margin="50"
                 >
-                <TextBlock></TextBlock>
+                <Border BorderThickness="2" BorderBrush="Gray">
+                    <Canvas x:Name="testground" Height="300" Width="300">
+
+                    </Canvas>
+                </Border>
+                
+                <ListView x:Name="console"  Height="150" ></ListView>
             </StackPanel>
+            <!--#endregion-->
+            
         </StackPanel>
     </Canvas>
     
