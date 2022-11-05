@@ -13,60 +13,80 @@
             Height="800" Width="1000"></Grid>
         <Grid Margin="20"
             Background="{ThemeResource CustomAcrylicInAppLuminosity}" Opacity="0" Height="520" Width="360"></Grid>
-        <StackPanel
-            Orientation="Horizontal">
+        <StackPanel Orientation="Vertical">
             
-            <!--#region 左侧栏-->
+            <!--#region 上栏 (展示区)-->
             <StackPanel
+            Orientation="Horizontal">
+                <!--#region 左侧栏-->
+                <StackPanel
                 Orientation="Vertical"
-                Margin="40 40 0 0"
+                Margin="20 15 0 0"
                 >
-                
-                <!--#region 打开图片按钮-->
-                <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
-                    <TextBlock Text="当前图片："
+
+                    <!--#region 打开图片-->
+                    <StackPanel Width="220" Orientation="Horizontal" Margin="0 0 0 20">
+                        <TextBlock Text="当前图片："
                            Foreground="Snow"
                            FontWeight="Bold"
                            FontSize="24"
                            Margin="0 5 0 0"/>
-                    <Button Click="OpenFile" Content="打开图片" Width="90" Height="45"></Button>
+                    </StackPanel>
+                    <!--#endregion-->
+
+                    <!--#region 图片展示框-->
+                    <Canvas x:Name="showground" Margin="10 10 0 0">
+                        <Image 
+                        Height="200" Width="200"
+                        x:Name="image"/>
+                    </Canvas>
+                    <!--#endregion-->
+                    <Button Margin="20 220 0 0" Click="OpenFile" Content="打开图片" Width="180" Height="60"></Button>
                 </StackPanel>
                 <!--#endregion-->
 
-                <!--#region 图片展示框-->
-                <Canvas x:Name="showground" Margin="10 10 0 0">
-                    <Image 
-                        Height="200" Width="200"
-                        x:Name="image"/>
-                </Canvas>
-
+                <!--#region 中部栏-->
+                <StackPanel
+                Background="Transparent"
+                Margin="40 55 0 0"
+                >
+                    <Border BorderThickness="2" BorderBrush="Gray">
+                        <Canvas x:Name="testground" Height="300" Width="300">
+                        </Canvas>
+                    </Border>
+                </StackPanel>
                 <!--#endregion-->
                 
-                <!--#region 对图片进行像素分解-->
-                <StackPanel>
-                    <StackPanel Margin="0 230 0 0" Orientation="Vertical">
-                        <TextBlock Margin="5" Text="分辨率:"></TextBlock>
-                        <Slider x:Name="Value" ValueChanged="Slider_ValueChanged" Width="200" Minimum="1" Maximum="100" StepFrequency="10" SmallChange="1" LargeChange="10" Value="1" />
-                    </StackPanel>
-                    <Button Click="GenerateBitMatrix" Margin="0 20 0 0" Content="生成像素矩阵" Height="70" Width="210"></Button>
+                <!--#region 测试栏-->
+                <StackPanel Margin="0 40 0 0">
+                    <ListView x:Name="console"  Height="300" ></ListView>
                 </StackPanel>
                 <!--#endregion-->
                 
             </StackPanel>
             <!--#endregion-->
-            
-            <!--#region 中部栏-->
-            <StackPanel
-                Background="Transparent"
-                Margin="50"
-                >
-                <Border BorderThickness="2" BorderBrush="Gray">
-                    <Canvas x:Name="testground" Height="300" Width="300">
 
-                    </Canvas>
-                </Border>
+            <!--#region 下栏(控制区)-->
+            <StackPanel Orientation="Horizontal">
                 
-                <ListView x:Name="console"  Height="150" ></ListView>
+                <!--#region 调节分辨率与锐度-->
+                <StackPanel>
+                    <StackPanel Margin="40 40 0 0" Orientation="Vertical">
+                        <TextBlock Margin="5 5 0 0" Text="分辨率:"></TextBlock>
+                        <Slider x:Name="Value" ValueChanged="Slider_ValueChanged" Width="200" Minimum="1" Maximum="100" StepFrequency="2" SmallChange="1" LargeChange="10" Value="1" />
+                        <TextBlock Margin="5 5 0 0" Text="锐度:"></TextBlock>
+                        <Slider  ValueChanged="Slider_ValueChanged" Width="200" Minimum="1" Maximum="100" StepFrequency="2" SmallChange="1" LargeChange="10" Value="1" />
+                    </StackPanel>
+                </StackPanel>
+                <!--#endregion-->
+
+                <!--#region 两个生成按钮-->
+                <StackPanel Margin="20 20 0 0" Orientation="Vertical">
+                    <Button Click="GenerateBitMatrix" Margin="20 10 0 0" Content="生成像素矩阵" Height="60" Width="180"></Button>
+                    <Button Height="60" Width="180" Margin="20 20 0 0" Content="生成二值化灰度矩阵"></Button>
+                </StackPanel>
+                <!--#endregion-->
+                
             </StackPanel>
             <!--#endregion-->
             
