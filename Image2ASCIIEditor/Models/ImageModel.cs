@@ -28,36 +28,62 @@ public class ImageModel
     private Image imageControl;
     public string ImagePath;
 
+    public List<List<Windows.UI.Color>> PixelList; 
+
 
     public void CreateBitmap(ref Canvas canvas, int rate)
     {
         Color srcColor;
         Bitmap srcBitmap = new Bitmap(ImagePath);
-        Bitmap imageBitmap = new Bitmap(rate, Convert.ToInt32(Convert.ToDouble(srcBitmap.Height) * (Convert.ToDouble(rate) / Convert.ToDouble(srcBitmap.Width))));
+        // 设置目标图片高度时需除2
+        Bitmap imageBitmap = new Bitmap(rate, Convert.ToInt32(Convert.ToDouble(srcBitmap.Height) * (Convert.ToDouble(rate) / Convert.ToDouble(srcBitmap.Width))) / 2);
         Graphics g = Graphics.FromImage(imageBitmap);
         g.DrawImage(srcBitmap, new System.Drawing.Rectangle(0, 0, imageBitmap.Width, imageBitmap.Height), new System.Drawing.Rectangle(0, 0,srcBitmap.Width, srcBitmap.Height),  GraphicsUnit.Pixel);
 
         //var imageBitmap = new Bitmap(ImagePath);
         Console.log(imageBitmap.Size.ToString());
 
+
+        canvas.Children.Clear();
         for(int i = 0; i < imageBitmap.Height; i++)
         {
             for(int j = 0; j < imageBitmap.Width; j++)
             {
-                
+                // 注 ：j为横坐标， i为纵坐标
+
+                // 目标图片高度已除2, 故不需改变矩形的高(矩形的高由计算得出)
                 Rectangle rect = new Rectangle();// 生成在画布里的矩形
-                rect.Height = canvas.Height / imageBitmap.Height/2;// 矩形的高
-                rect.Width = canvas.Width / imageBitmap.Width;// 矩形的宽
-                srcColor = imageBitmap.GetPixel(i, j);// 取像素RGB
+                if(imageBitmap.Height * 2 > imageBitmap.Width)
+                {
+                    rect.Height = canvas.Height / imageBitmap.Height;
+                    rect.Width = rect.Height / 2;
+                }
+                else
+                {
+                    rect.Width = canvas.Height / imageBitmap.Width;// 矩形的宽
+                    rect.Height = rect.Width * 2;// 矩形的高
+                }
+                
+                srcColor = imageBitmap.GetPixel(j, i);// 取像素RGB
 
                 // 两种颜色类型的转换
                 rect.Fill = new SolidColorBrush(new Windows.UI.Color() {A=srcColor.A, R = srcColor.R, G = srcColor.G, B = srcColor.B });
-                Canvas.SetLeft(rect, i * rect.Width);
-                Canvas.SetTop(rect, j * rect.Height);
+                Canvas.SetLeft(rect, j * rect.Width);
+                Canvas.SetTop(rect, i * rect.Height);
                 canvas.Children.Add(rect);
 
             }
         }
+    }
+
+    public void showInRGB(ref Canvas canvas, int rate)
+    {
+    
+    }
+
+    public void showInGRAY(ref Canvas canvas, int rate)
+    {
+    
     }
 
 
