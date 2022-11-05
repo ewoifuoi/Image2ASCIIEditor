@@ -46,8 +46,8 @@ public sealed partial class EditText : Page
     public EditText()
     {
         this.InitializeComponent();
-        //Common.Console.console = this.console;
-        Common.Console.log("开始测试");
+        
+        
         transformGroup = playground.RenderTransform as TransformGroup;
         _brush = new Brush('*', new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black));
 
@@ -186,7 +186,7 @@ public sealed partial class EditText : Page
     private void ChangeEditMode(object sender, RoutedEventArgs e)
     {
         isEditing = true;
-        brushes.IsEnabled = true;
+        
         ChangeModeBtn.IsChecked = true;
         ChangeModeBtn2.IsChecked = false;
     }
@@ -199,7 +199,7 @@ public sealed partial class EditText : Page
     private void ChangeEditMode2(object sender, RoutedEventArgs e)
     {
         isEditing = false;
-        brushes.IsEnabled = false;
+        
         
         ChangeModeBtn.IsChecked = false;
         ChangeModeBtn2.IsChecked = true;
@@ -282,7 +282,25 @@ public sealed partial class EditText : Page
         ChangeColor();
     }
 
-    private void brush_ch_TextSubmitted(ComboBox sender, ComboBoxTextSubmittedEventArgs args)
+    
+    private BrushesList _brushesList = new BrushesList();
+
+    private void save_brush(object sender, RoutedEventArgs e)
+    {
+        brushes.IsExpanded = true;
+        
+        _brushesList.AddBrushToList(ref brushes_list, _brush);
+    }
+
+    private void del_brush(object sender, RoutedEventArgs e)
+    {
+        brushes_list.Items.Clear();
+        _brushesList.Clear();
+        brushes.IsExpanded = false;
+        useWheelToSwitchBrush.IsOn = false;
+    }
+
+    private void brush_ch_TextSubmitted(object sender, object e)
     {
         try
         {
@@ -291,6 +309,21 @@ public sealed partial class EditText : Page
         }
         catch
         {
+            brush_ch.Text = "";
+            MessageBox.Show("请输入正确笔刷字符", this);
+        }
+    }
+
+    private void brush_ch_TextSubmitted_1(ComboBox sender, ComboBoxTextSubmittedEventArgs args)
+    {
+        try
+        {
+            if (brush_ch.Text == "") _brush.ch = ' ';
+            else _brush.ch = Convert.ToChar(brush_ch.Text);
+        }
+        catch
+        {
+            brush_ch.Text = "";
             MessageBox.Show("请输入正确笔刷字符", this);
         }
     }

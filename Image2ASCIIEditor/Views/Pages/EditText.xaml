@@ -27,7 +27,14 @@
                             <TextBlock Padding="10 10 0 10" Text="字符:"></TextBlock>
                             <Border CornerRadius="4,4,4,4" Width="60"  Margin="5" BorderBrush="Gray" BorderThickness="2">
                                 <StackPanel Orientation="Horizontal">
-                                    <ComboBox  x:Name="brush_ch"  IsEditable="True" Width="60" TextSubmitted="brush_ch_TextSubmitted"/>
+                                    <ComboBox  x:Name="brush_ch"  IsEditable="True" Width="60" TextSubmitted="brush_ch_TextSubmitted_1" DropDownClosed="brush_ch_TextSubmitted">
+                                        <ComboBoxItem Content="-"></ComboBoxItem>
+                                        <ComboBoxItem Content="|"></ComboBoxItem>
+                                        <ComboBoxItem Content="+"></ComboBoxItem>
+                                        <ComboBoxItem Content="/"></ComboBoxItem>
+                                        <ComboBoxItem Content="\"></ComboBoxItem>
+                                        <ComboBoxItem Content=","></ComboBoxItem>
+                                    </ComboBox>
                                 </StackPanel>
                             </Border>
                             <TextBlock Width="10"></TextBlock>
@@ -69,8 +76,8 @@
                     <CommandBar  Margin="0 10 0 0" HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
                         <AppBarToggleButton x:Name="ChangeModeBtn" Click="ChangeEditMode" Icon="Edit" Label="编辑"/>
                         <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
-                        <AppBarButton Icon="Add" Label="保存笔刷"/>
-
+                        <AppBarButton Click="save_brush" Icon="Add" Label="保存笔刷"/>
+                        <AppBarButton Foreground="IndianRed" Click="del_brush" Icon="Delete" Label="清空笔刷"/>
                         <CommandBar.SecondaryCommands>
                             <AppBarButton Icon="Setting" Label="Settings">
                                 <AppBarButton.KeyboardAccelerators>
@@ -113,25 +120,21 @@
 
                         <TextBlock Height="20"></TextBlock>
 
+                        <!--#region 使用滚轮切换笔刷-->
+                        <StackPanel Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Left" Width="200">
+                            <TextBlock Margin="10 10 25 0" Text="使用滚动切换笔刷 :"></TextBlock>
+                            <ToggleSwitch x:Name="useWheelToSwitchBrush"></ToggleSwitch>
+                        </StackPanel>
+                        <!--#endregion-->
+                        
                         <!--#region 历史笔刷保存框-->
-                        <TextBlock Height="30" Text="我的笔刷：" ></TextBlock>
-                        <Expander x:Name="brushes" IsEnabled="False" Margin="10 0 0 0" Width="240" HorizontalContentAlignment="Left">
+                        <Expander x:Name="brushes" Margin="10 0 0 0" Width="240" HorizontalContentAlignment="Left">
                             <Expander.Header>
-                                <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
-                                    <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
-                                </StackPanel>
+                                <TextBlock Text="我的笔刷：" ></TextBlock>
                             </Expander.Header>
                             <Expander.Content >
-                                <ListView Width="210">
-                                    <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
-                                        <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Margin="10 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <Rectangle Height="20" Width="20" Fill="Aqua"></Rectangle>
-                                        <TextBlock FontSize="20" Margin="15 0 0 2" Text="1"></TextBlock>
-                                    </StackPanel>
+                                <ListView Height="200" x:Name="brushes_list" Width="210">
+                                    
                                 </ListView>
                             </Expander.Content>
                         </Expander>
@@ -140,19 +143,18 @@
                         <TextBlock Height="30" ></TextBlock>
 
                         <!--#region 使用指定字符生成框-->
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="0 0 0 10">使用初始化字符串</TextBlock>
-                            <TextBlock Width="90"></TextBlock>
-                        </StackPanel>
+                        <Expander Width="240" Margin="10 0 0 0" Header="使用初始化字符串">
+                            <Expander.Content>
+                                <StackPanel>
+                                    <TextBox Margin="0 0 0 10" x:Name="input" FontSize="14" AcceptsReturn="True" TextWrapping="NoWrap" Width="200" Height="40"></TextBox>
+                                    <Button Click="Button_Click" Margin="0" Height="80" Width="200" Content="使用指定字符生成矩阵"></Button>
+                                </StackPanel>
 
-                        <TextBox x:Name="input" FontSize="14" AcceptsReturn="True" TextWrapping="NoWrap" Margin="10 10 10 0" Width="240" Height="40"></TextBox>
-                        <Border Margin="0" BorderThickness="0" BorderBrush="Transparent">
-                            <StackPanel Height="100" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Click="Button_Click" Margin="5" Height="75" Width="240" Content="使用指定字符生成矩阵"></Button>
-                            </StackPanel>
-                        </Border>
+                            </Expander.Content>
+                        </Expander>
                         <!--#endregion-->
 
+                        
                     </StackPanel>
                     <!--#endregion-->
 

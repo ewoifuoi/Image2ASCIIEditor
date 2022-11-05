@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
+using Image2ASCIIEditor.Common;
 using Image2ASCIIEditor.Models;
 using Image2ASCIIEditor.Views.Pages;
 using Microsoft.UI;
@@ -15,9 +16,11 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml.Shapes;
 using Microsoft.VisualBasic;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Console = Image2ASCIIEditor.Common.Console;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -32,6 +35,7 @@ public sealed partial class ShowImage : Page
     {
         this.InitializeComponent();
         ImageModel.IMG.showImage(ref this.image);
+        Console.console = this.console;
         
     }
 
@@ -48,6 +52,9 @@ public sealed partial class ShowImage : Page
         worker.RunWorkerCompleted += (s, e) => {
             //e.Result"returned" from thread
             ImageModel.IMG.showImage(ref this.image);
+            Console.log(ImageModel.IMG.ImagePath);
+            
+
         };
         worker.RunWorkerAsync();
     }
@@ -57,5 +64,22 @@ public sealed partial class ShowImage : Page
         MainWindow.showImage.IsSelected = false;
         MainWindow.editText.IsSelected = true;
         MainWindow.frame.NavigateToType(typeof(EditText), null, null);
+    }
+
+    private bool t = false;
+    private void Slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+    {
+        
+        if (!t) t = true;
+        else
+        {
+            
+        }
+        
+    }
+
+    private void GenerateBitMatrix(object sender, RoutedEventArgs e)
+    {
+        ImageModel.IMG.CreateBitmap(ref testground, Convert.ToInt32(Value.Value));
     }
 }
