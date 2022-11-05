@@ -48,10 +48,10 @@
                 <!--#region 中部栏-->
                 <StackPanel
                 Background="Transparent"
-                Margin="40 55 0 0"
+                Margin="40 18 0 0"
                 >
                     <Border BorderThickness="2" BorderBrush="Gray">
-                        <Canvas x:Name="testground" Height="300" Width="300">
+                        <Canvas x:Name="testground" Height="340" Width="340">
                         </Canvas>
                     </Border>
                 </StackPanel>
@@ -81,9 +81,25 @@
                 <!--#endregion-->
 
                 <!--#region 两个生成按钮-->
-                <StackPanel Margin="20 20 0 0" Orientation="Vertical">
+                <StackPanel Margin="20 10 0 0" Orientation="Vertical">
                     <Button Click="GenerateBitMatrix" Margin="20 10 0 0" Content="生成像素矩阵" Height="60" Width="180"></Button>
                     <Button Height="60" Width="180" Margin="20 20 0 0" Content="生成二值化灰度矩阵"></Button>
+                </StackPanel>
+                <!--#endregion-->
+
+                <!--#region 颜色聚类-->
+                <StackPanel Orientation="Vertical" Margin="20">
+                    <StackPanel Margin="0 10 0 33" Orientation="Horizontal">
+                        <TextBlock Margin="5" Text="使用颜色种类 : "></TextBlock>
+                        <TextBox></TextBox>
+                    </StackPanel>
+                    <Button Margin="5" Height="60" Width="160" Content="生成颜色聚类"></Button>
+                </StackPanel>
+                <!--#endregion-->
+                
+                <!--#region 导入编辑器-->
+                <StackPanel Orientation="Vertical">
+                    <Button Margin="0 30 0 0" Height="130" Width="160" Content="导入字符编辑器"></Button>
                 </StackPanel>
                 <!--#endregion-->
                 

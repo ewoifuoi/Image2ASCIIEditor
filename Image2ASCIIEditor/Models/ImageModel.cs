@@ -28,6 +28,8 @@ public class ImageModel
     private Image imageControl;
     public string ImagePath;
 
+    public List<List<Windows.UI.Color>> PixelList; 
+
 
     public void CreateBitmap(ref Canvas canvas, int rate)
     {
@@ -72,6 +74,16 @@ public class ImageModel
 
             }
         }
+    }
+
+    public void showInRGB(ref Canvas canvas, int rate)
+    {
+    
+    }
+
+    public void showInGRAY(ref Canvas canvas, int rate)
+    {
+    
     }
 
 
