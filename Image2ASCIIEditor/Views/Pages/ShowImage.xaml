@@ -36,9 +36,11 @@
 
                     <!--#region 图片展示框-->
                     <Canvas x:Name="showground" Margin="10 10 0 0">
-                        <Image 
+                        <Border BorderBrush="Gray" BorderThickness="2">
+                            <Image 
                         Height="200" Width="200"
                         x:Name="image"/>
+                        </Border>
                     </Canvas>
                     <!--#endregion-->
                     <Button Margin="20 220 0 0" Click="OpenFile" Content="打开图片" Width="180" Height="60"></Button>
@@ -51,15 +53,24 @@
                 Margin="40 18 0 0"
                 >
                     <Border BorderThickness="2" BorderBrush="Gray">
-                        <Canvas x:Name="testground" Height="340" Width="340">
+                        <Canvas PointerWheelChanged="outside_PointerWheelChanged" Background="Transparent" x:Name="outside" Height="300" Width="300">
+                            <Canvas.Clip>
+                                <RectangleGeometry x:Name="rect" Rect="0,0,300,300"/>
+                            </Canvas.Clip>
+                            <Canvas PointerPressed="playground_PointerPressed" PointerReleased="playground_PointerReleased" PointerMoved="playground_PointerMoved" x:Name="testground" Height="300" Width="300">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup/>
+                                </Canvas.RenderTransform>
+                            </Canvas>
                         </Canvas>
                     </Border>
                 </StackPanel>
                 <!--#endregion-->
                 
                 <!--#region 测试栏-->
-                <StackPanel Margin="0 40 0 0">
-                    <ListView x:Name="console"  Height="300" ></ListView>
+                <StackPanel Margin="75 40 0 0" Height="300">
+                    <TextBlock Height="230"></TextBlock>
+                    
                 </StackPanel>
                 <!--#endregion-->
                 
@@ -73,9 +84,9 @@
                 <StackPanel>
                     <StackPanel Margin="40 40 0 0" Orientation="Vertical">
                         <TextBlock Margin="5 5 0 0" Text="分辨率:"></TextBlock>
-                        <Slider x:Name="Value" ValueChanged="Slider_ValueChanged" Width="200" Minimum="1" Maximum="100" StepFrequency="2" SmallChange="1" LargeChange="10" Value="1" />
-                        <TextBlock Margin="5 5 0 0" Text="锐度:"></TextBlock>
-                        <Slider  ValueChanged="Slider_ValueChanged" Width="200" Minimum="1" Maximum="100" StepFrequency="2" SmallChange="1" LargeChange="10" Value="1" />
+                        <Slider x:Name="Value" Width="200" Minimum="10" Maximum="100" StepFrequency="2" SmallChange="1" LargeChange="10" Value="1" />
+                        <TextBlock Margin="5 5 0 0" Text="抠图系数:"></TextBlock>
+                        <Slider x:Name="eraseWhiteRate"  Width="200" Minimum="0" Maximum="145" StepFrequency="1" SmallChange="1" LargeChange="10" Value="25" />
                     </StackPanel>
                 </StackPanel>
                 <!--#endregion-->
@@ -83,17 +94,23 @@
                 <!--#region 两个生成按钮-->
                 <StackPanel Margin="20 10 0 0" Orientation="Vertical">
                     <Button Click="GenerateBitMatrix" Margin="20 10 0 0" Content="生成像素矩阵" Height="60" Width="180"></Button>
-                    <Button Height="60" Width="180" Margin="20 20 0 0" Content="生成二值化灰度矩阵"></Button>
+                    <Button Click="EraseWhiteBackground"  Height="60" Width="180" Margin="20 20 0 0" Content="消除白色背景"></Button>
                 </StackPanel>
                 <!--#endregion-->
 
                 <!--#region 颜色聚类-->
                 <StackPanel Orientation="Vertical" Margin="20">
-                    <StackPanel Margin="0 10 0 33" Orientation="Horizontal">
-                        <TextBlock Margin="5" Text="使用颜色种类 : "></TextBlock>
-                        <TextBox></TextBox>
+                    <StackPanel Margin="0 0 0 20" Orientation="Horizontal">
+                        <ComboBox SelectionChanged="ColorComboBox_SelectionChanged" Header="使用颜色种类 :" PlaceholderText="请选择" Width="160">
+                            <x:String>2</x:String>
+                            <x:String>3</x:String>
+                            <x:String>4</x:String>
+                            <x:String>5</x:String>
+                            <x:String>6</x:String>
+                            <x:String>7</x:String>
+                        </ComboBox>
                     </StackPanel>
-                    <Button Margin="5" Height="60" Width="160" Content="生成颜色聚类"></Button>
+                    <Button Height="60" Width="160" Content="生成颜色聚类"></Button>
                 </StackPanel>
                 <!--#endregion-->
                 
