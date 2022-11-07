@@ -46,7 +46,7 @@ public sealed partial class EditText : Page
     public EditText()
     {
         this.InitializeComponent();
-        
+        brush_ch.SelectedItem = d;
         
         transformGroup = playground.RenderTransform as TransformGroup;
         _brush = new Brush('*', new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black));
@@ -277,7 +277,7 @@ public sealed partial class EditText : Page
             MessageBox.Show("请输入正确笔刷字符", this);
         }
         _brush.foreground_color = CurrentColorBrush;
-        //ChangeEditMode(this, new RoutedEventArgs());
+        //:ChangeEditMode(this, new RoutedEventArgs());
     }
 
     private void BrushButtonClick(object sender, object e)

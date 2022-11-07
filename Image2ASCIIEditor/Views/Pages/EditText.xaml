@@ -27,10 +27,10 @@
                             <TextBlock Padding="10 10 0 10" Text="字符:"></TextBlock>
                             <Border CornerRadius="4,4,4,4" Width="60"  Margin="5" BorderBrush="Gray" BorderThickness="2">
                                 <StackPanel Orientation="Horizontal">
-                                    <ComboBox  x:Name="brush_ch"  IsEditable="True" Width="60" TextSubmitted="brush_ch_TextSubmitted_1" DropDownClosed="brush_ch_TextSubmitted">
+                                    <ComboBox x:Name="brush_ch"  IsEditable="True" Width="60" TextSubmitted="brush_ch_TextSubmitted_1" DropDownClosed="brush_ch_TextSubmitted">
                                         <ComboBoxItem Content="-"></ComboBoxItem>
                                         <ComboBoxItem Content="|"></ComboBoxItem>
-                                        <ComboBoxItem Content="+"></ComboBoxItem>
+                                        <ComboBoxItem x:Name="d" Content="+"></ComboBoxItem>
                                         <ComboBoxItem Content="/"></ComboBoxItem>
                                         <ComboBoxItem Content="\"></ComboBoxItem>
                                         <ComboBoxItem Content=","></ComboBoxItem>
@@ -174,7 +174,7 @@
                                     <!--#region 工具栏-->
                                     <StackPanel   Canvas.Left="-82" Canvas.Top="-70" >
                                         <StackPanel.Clip>
-                                            <RectangleGeometry Rect="27,100,46,300"/>
+                                            <RectangleGeometry Rect="27,100,46,350"/>
                                         </StackPanel.Clip>
                                         <Expander ExpandDirection="Down" x:Name="toolbar" IsExpanded="False">
                                             <NavigationView x:Name="nvSample" 
@@ -186,12 +186,29 @@
                                                 Height="450">
                                                 <NavigationView.MenuItems>
                                                     <NavigationViewItem Icon="GlobalNavigationButton" IsEnabled="False"></NavigationViewItem>
+                                                    
                                                     <NavigationViewItem Icon="Edit" Content="单点模式" Tag="SamplePage1" />
                                                     <NavigationViewItem Icon="Highlight" Content="绘制直线" Tag="SamplePage2" />
-
-                                                    <NavigationViewItem Icon="Stop" Content="橡皮"></NavigationViewItem>
-                                                    <NavigationViewItem Icon="AllApps" Content="填充"></NavigationViewItem>
                                                     
+                                                    <NavigationViewItem Content="橡皮">
+                                                        <NavigationViewItem.Icon>
+                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE75C;"></FontIcon>
+                                                        </NavigationViewItem.Icon>
+                                                    </NavigationViewItem>
+
+                                                    <NavigationViewItem Content="记号笔">
+                                                        <NavigationViewItem.Icon>
+                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xED64;"></FontIcon>
+                                                        </NavigationViewItem.Icon>
+                                                    </NavigationViewItem>
+
+                                                    <NavigationViewItem Content="标尺">
+                                                        <NavigationViewItem.Icon>
+                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xED5E;"></FontIcon>
+                                                        </NavigationViewItem.Icon>
+                                                    </NavigationViewItem>
+
+
                                                 </NavigationView.MenuItems>
                                             </NavigationView>
                                         </Expander>
