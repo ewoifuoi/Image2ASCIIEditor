@@ -74,7 +74,7 @@
 
                     <!--#region 操作快捷键-->
                     <CommandBar  Margin="0 10 0 0" HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
-                        <AppBarToggleButton x:Name="ChangeModeBtn3" Click="ChangeEditMode3" IsChecked="False" Icon="FullScreen" Label="工具条"></AppBarToggleButton>
+                        <AppBarToggleButton x:Name="ChangeModeBtn3" Click="ChangeEditMode3" IsChecked="False" Icon="Highlight" Label="工具条"></AppBarToggleButton>
                         <AppBarSeparator></AppBarSeparator>
                         <AppBarButton Click="save_brush" Icon="Add" Label="保存笔刷"/>
                         <AppBarButton Foreground="IndianRed" Click="del_brush" Icon="Delete" Label="清空笔刷"/>
@@ -186,10 +186,12 @@
                                                 Height="450">
                                                 <NavigationView.MenuItems>
                                                     <NavigationViewItem Icon="GlobalNavigationButton" IsEnabled="False"></NavigationViewItem>
-                                                    <NavigationViewItem Icon="Play" Content="Menu Item1" Tag="SamplePage1" />
-                                                    <NavigationViewItem Icon="Save" Content="Menu Item2" Tag="SamplePage2" />
-                                                    <NavigationViewItem Icon="Refresh" Content="Menu Item3" Tag="SamplePage3" />
-                                                    <NavigationViewItem Icon="Download" Content="Menu Item4" Tag="SamplePage4" />
+                                                    <NavigationViewItem Icon="Edit" Content="单点模式" Tag="SamplePage1" />
+                                                    <NavigationViewItem Icon="Highlight" Content="绘制直线" Tag="SamplePage2" />
+
+                                                    <NavigationViewItem Icon="Stop" Content="橡皮"></NavigationViewItem>
+                                                    <NavigationViewItem Icon="AllApps" Content="填充"></NavigationViewItem>
+                                                    
                                                 </NavigationView.MenuItems>
                                             </NavigationView>
                                         </Expander>
