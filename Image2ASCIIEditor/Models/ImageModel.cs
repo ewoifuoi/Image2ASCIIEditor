@@ -31,6 +31,10 @@ public class ImageModel
     private Bitmap imageBitmap;
 
     public List<List<Windows.UI.Color>> PixelList;// RGB矩阵
+
+    /// <summary>
+    /// 色块矩阵
+    /// </summary>
     public List<List<Rectangle>> RectangleList;
 
 
@@ -87,6 +91,7 @@ public class ImageModel
             }
         }
         
+        
     }
 
     public void EraseWhiteBackground(ref Canvas testground, int rate)
@@ -106,10 +111,11 @@ public class ImageModel
                         RectangleList[i][j].Fill = new SolidColorBrush(Microsoft.UI.Colors.Transparent);
                         PixelList[i][j] = Microsoft.UI.Colors.Transparent;
                     }
-
                 }
             }
+
         }
+        
         
     }
 

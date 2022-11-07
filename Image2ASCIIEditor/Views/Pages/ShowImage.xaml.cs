@@ -139,4 +139,26 @@ public sealed partial class ShowImage : Page
         }
         ImageModel.IMG.EraseWhiteBackground(ref testground, Convert.ToInt32(eraseWhiteRate.Value));
     }
+
+    List<List<Rectangle>> k_means_rectangles;
+    private void Generate_K_Means(object sender, RoutedEventArgs e)
+    {
+        if (ImageModel.IMG.RectangleList == null)
+        {
+            MessageBox.Show("请先生成像素矩阵", this);
+        }
+        else if (kind_of_color.SelectedItem == null)
+        {
+            MessageBox.Show("请选择使用颜色种类", this);
+        }
+        else 
+        { 
+            K_Means_Algorithm k_Means = new K_Means_Algorithm(ImageModel.IMG.RectangleList, Convert.ToInt32(kind_of_color.SelectedItem.ToString()));
+            k_means_rectangles = k_Means.Execute();
+
+            //
+            MessageBox.Show(k_means_rectangles[0].Count.ToString(), this);
+            //
+        }
+    }
 }

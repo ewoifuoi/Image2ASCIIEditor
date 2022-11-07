@@ -101,7 +101,7 @@
                 <!--#region 颜色聚类-->
                 <StackPanel Orientation="Vertical" Margin="20">
                     <StackPanel Margin="0 0 0 20" Orientation="Horizontal">
-                        <ComboBox SelectionChanged="ColorComboBox_SelectionChanged" Header="使用颜色种类 :" PlaceholderText="请选择" Width="160">
+                        <ComboBox x:Name="kind_of_color" SelectionChanged="ColorComboBox_SelectionChanged" Header="使用颜色种类 :" PlaceholderText="请选择" Width="160">
                             <x:String>2</x:String>
                             <x:String>3</x:String>
                             <x:String>4</x:String>
@@ -110,13 +110,13 @@
                             <x:String>7</x:String>
                         </ComboBox>
                     </StackPanel>
-                    <Button Height="60" Width="160" Content="生成颜色聚类"></Button>
+                    <Button Click="Generate_K_Means" Height="60" Width="160" Content="生成颜色聚类"></Button>
                 </StackPanel>
                 <!--#endregion-->
                 
                 <!--#region 导入编辑器-->
                 <StackPanel Orientation="Vertical">
-                    <Button Margin="0 30 0 0" Height="130" Width="160" Content="导入字符编辑器"></Button>
+                    <Button  Margin="0 30 0 0" Height="130" Width="160" Content="导入字符编辑器"></Button>
                 </StackPanel>
                 <!--#endregion-->
                 
