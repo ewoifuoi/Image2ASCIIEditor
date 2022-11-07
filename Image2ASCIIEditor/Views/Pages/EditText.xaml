@@ -225,6 +225,7 @@
                                     <Canvas PointerExited="playground_PointerExited" PointerPressed="playground_PointerPressed" PointerReleased="playground_PointerReleased" PointerMoved="playground_PointerMoved"  x:Name="playground" Height="450" Width="450" Background="Transparent" >
                                         <Grid x:Name="gg" Background="Transparent" Opacity="0.5" Height="450" Width="450"></Grid>
                                         <Canvas FocusVisualMargin="1" FocusVisualPrimaryBrush="White" FocusVisualPrimaryThickness="1" Height="450" Width="450" x:Name="g"></Canvas>
+                                        <Canvas Height="450" Width="450" x:Name="canvas_showLine" Canvas.ZIndex="999"></Canvas>
                                         <Canvas.RenderTransform>
                                             <TransformGroup/>
                                         </Canvas.RenderTransform>
