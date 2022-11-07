@@ -186,28 +186,30 @@
                                                 Height="450">
                                                 <NavigationView.MenuItems>
                                                     <NavigationViewItem Icon="GlobalNavigationButton" IsEnabled="False"></NavigationViewItem>
-                                                    
-                                                    <NavigationViewItem Icon="Edit" Content="单点模式" Tag="SamplePage1" />
-                                                    <NavigationViewItem Icon="Highlight" Content="绘制直线" Tag="SamplePage2" />
-                                                    
-                                                    <NavigationViewItem Content="橡皮">
+
+                                                    <NavigationViewItem x:Name="toolbar_drawPoint" Content="单点绘制" IsSelected="True" >
                                                         <NavigationViewItem.Icon>
-                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE75C;"></FontIcon>
+                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF271;"></FontIcon>
                                                         </NavigationViewItem.Icon>
                                                     </NavigationViewItem>
 
-                                                    <NavigationViewItem Content="记号笔">
+                                                    <NavigationViewItem x:Name="toolbar_draw" Content="连续绘制" Icon="Edit"/>
+
+                                                    <NavigationViewItem x:Name="toolbar_drawLine" Content="绘制直线" Tag="SamplePage2" >
                                                         <NavigationViewItem.Icon>
                                                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xED64;"></FontIcon>
                                                         </NavigationViewItem.Icon>
                                                     </NavigationViewItem>
 
-                                                    <NavigationViewItem Content="标尺">
+                                                    <NavigationViewItem x:Name="toolbar_erase" Content="橡皮">
                                                         <NavigationViewItem.Icon>
-                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xED5E;"></FontIcon>
+                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE75C;"></FontIcon>
                                                         </NavigationViewItem.Icon>
                                                     </NavigationViewItem>
 
+
+
+                                                    <NavigationViewItem Content="标尺" Icon="Highlight"/>
 
                                                 </NavigationView.MenuItems>
                                             </NavigationView>

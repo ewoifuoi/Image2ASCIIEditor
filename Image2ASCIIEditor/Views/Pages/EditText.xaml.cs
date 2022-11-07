@@ -46,7 +46,6 @@ public sealed partial class EditText : Page
     public EditText()
     {
         this.InitializeComponent();
-        brush_ch.SelectedItem = d;
         
         transformGroup = playground.RenderTransform as TransformGroup;
         _brush = new Brush('*', new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black));
@@ -72,10 +71,11 @@ public sealed partial class EditText : Page
 
     private void playground_PointerPressed(object sender, PointerRoutedEventArgs e)
     {
+        _isMouseDown = true;
         if (!isEditing)
         {
             var c = sender as Canvas;
-            _isMouseDown = true;
+            
             _mouseDownPosition = e.GetCurrentPoint(outside);
             _mouseDownControlPosition = new Point(double.IsNaN(Canvas.GetLeft(c)) ? 0 : Canvas.GetLeft(c), double.IsNaN(Canvas.GetTop(c)) ? 0 : Canvas.GetTop(c));
 
@@ -84,17 +84,22 @@ public sealed partial class EditText : Page
         else if(_hasCanvas)
         {
 
-
+            
             // 计算正在点击的坐标
-            var c = sender as Canvas;
+            
             PointerPoint p = e.GetCurrentPoint(playground);
             double x = p.Position.X; double y = p.Position.Y;
             //Console.log("click x:" + x.ToString() + " " + "y:" + y.ToString());
             int nx = Convert.ToInt32(Math.Floor(x / 23)); int ny = Convert.ToInt32(Math.Floor(y / 48));
             
-            if(x - nx * 23 <= 20 && y - ny * 48 <= 45)
+            if (x - nx * 23 <= 20 && y - ny * 48 <= 45)
             {
-                _StreamModel.Paint(ny, nx, _brush);
+                if (toolbar_drawPoint.IsSelected)
+                {
+                    _StreamModel.Paint(ny, nx, _brush);
+                }
+               
+                
             }
 
 
@@ -103,10 +108,11 @@ public sealed partial class EditText : Page
 
     private void playground_PointerReleased(object sender, PointerRoutedEventArgs e)
     {
+        _isMouseDown = false;
         if (!isEditing)
         {
             var c = sender as Canvas;
-            _isMouseDown = false;
+            
             c.ReleasePointerCapture(e.Pointer);
         }
     }
@@ -125,6 +131,29 @@ public sealed partial class EditText : Page
                 var dpy = pos.Position.Y - _mouseDownPosition.Position.Y;
                 Canvas.SetLeft(c, _mouseDownControlPosition.X + dpx);
                 Canvas.SetTop(c, _mouseDownControlPosition.Y + dpy);
+            }
+        }
+        else if (_hasCanvas)
+        {
+            if (_isMouseDown) // 橡皮的拖拽逻辑
+            {
+                PointerPoint p = e.GetCurrentPoint(playground);
+                double x = p.Position.X; double y = p.Position.Y;
+                //Console.log("click x:" + x.ToString() + " " + "y:" + y.ToString());
+                int nx = Convert.ToInt32(Math.Floor(x / 23)); int ny = Convert.ToInt32(Math.Floor(y / 48));
+
+                if (x - nx * 23 <= 20 && y - ny * 48 <= 45)
+                {
+                    if (toolbar_erase.IsSelected)
+                    {
+                        _StreamModel.Erase(ny, nx);
+                    }
+                    else if (toolbar_draw.IsSelected) // 连续绘制拖拽逻辑
+                    {
+                        _StreamModel.Paint(ny, nx, _brush);
+                    }
+                }
+                
             }
         }
     }

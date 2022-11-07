@@ -10,6 +10,7 @@ using Console = Image2ASCIIEditor.Common.Console;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
 using Windows.ApplicationModel.Activation;
+using System.Drawing;
 
 namespace Image2ASCIIEditor.Models;
 public class StringStreamModel
@@ -83,5 +84,13 @@ public class StringStreamModel
             PaintBlocks[x][y].ChangePaint(brush);
         }
         
+    }
+
+    public void Erase(int x, int y)
+    {
+        if (x < _n && y < _m)
+        {
+            PaintBlocks[x][y].ChangePaint(new Brush('\0',new SolidColorBrush(Colors.Transparent), new SolidColorBrush(Colors.Black)));
+        }
     }
 }
