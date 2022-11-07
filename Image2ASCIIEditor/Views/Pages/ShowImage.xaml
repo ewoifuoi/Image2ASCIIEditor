@@ -85,7 +85,7 @@
                     <StackPanel Margin="40 40 0 0" Orientation="Vertical">
                         <TextBlock Margin="5 5 0 0" Text="分辨率:"></TextBlock>
                         <Slider x:Name="Value" Width="200" Minimum="10" Maximum="100" StepFrequency="2" SmallChange="1" LargeChange="10" Value="1" />
-                        <TextBlock Margin="5 5 0 0" Text="抠图系数:"></TextBlock>
+                        <TextBlock Margin="5 5 0 0" Text="消除系数:"></TextBlock>
                         <Slider x:Name="eraseWhiteRate"  Width="200" Minimum="0" Maximum="145" StepFrequency="1" SmallChange="1" LargeChange="10" Value="25" />
                     </StackPanel>
                 </StackPanel>

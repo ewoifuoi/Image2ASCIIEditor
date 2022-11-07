@@ -27,10 +27,10 @@
                             <TextBlock Padding="10 10 0 10" Text="字符:"></TextBlock>
                             <Border CornerRadius="4,4,4,4" Width="60"  Margin="5" BorderBrush="Gray" BorderThickness="2">
                                 <StackPanel Orientation="Horizontal">
-                                    <ComboBox  x:Name="brush_ch"  IsEditable="True" Width="60" TextSubmitted="brush_ch_TextSubmitted_1" DropDownClosed="brush_ch_TextSubmitted">
+                                    <ComboBox x:Name="brush_ch"  IsEditable="True" Width="60" TextSubmitted="brush_ch_TextSubmitted_1" DropDownClosed="brush_ch_TextSubmitted">
                                         <ComboBoxItem Content="-"></ComboBoxItem>
                                         <ComboBoxItem Content="|"></ComboBoxItem>
-                                        <ComboBoxItem Content="+"></ComboBoxItem>
+                                        <ComboBoxItem x:Name="d" Content="+"></ComboBoxItem>
                                         <ComboBoxItem Content="/"></ComboBoxItem>
                                         <ComboBoxItem Content="\"></ComboBoxItem>
                                         <ComboBoxItem Content=","></ComboBoxItem>
@@ -74,10 +74,13 @@
 
                     <!--#region 操作快捷键-->
                     <CommandBar  Margin="0 10 0 0" HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
-                        <AppBarToggleButton x:Name="ChangeModeBtn" Click="ChangeEditMode" Icon="Edit" Label="编辑"/>
-                        <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
+                        <AppBarToggleButton x:Name="ChangeModeBtn3" Click="ChangeEditMode3" IsChecked="False" Icon="Highlight" Label="工具条"></AppBarToggleButton>
+                        <AppBarSeparator></AppBarSeparator>
                         <AppBarButton Click="save_brush" Icon="Add" Label="保存笔刷"/>
                         <AppBarButton Foreground="IndianRed" Click="del_brush" Icon="Delete" Label="清空笔刷"/>
+                        <AppBarSeparator></AppBarSeparator>
+                        <AppBarToggleButton x:Name="ChangeModeBtn" Click="ChangeEditMode" Icon="Edit" Label="编辑"/>
+                        <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
                         <CommandBar.SecondaryCommands>
                             <AppBarButton Icon="Setting" Label="Settings">
                                 <AppBarButton.KeyboardAccelerators>
@@ -164,19 +167,72 @@
 
 
                         <!--#region 画布-->
-                        <Border x:Name="border" BorderThickness="3" BorderBrush="Gray" Margin="0 10 0 0" Height="456" Width="456">
-                            <Canvas Background="Transparent" x:Name="outside" Height="450" Width="450" PointerWheelChanged="outside_PointerWheelChanged">
-                                <Canvas.Clip>
-                                    <RectangleGeometry x:Name="rect" Rect="0,0,450,450"/>
-                                </Canvas.Clip>
-                                <Canvas PointerPressed="playground_PointerPressed" PointerReleased="playground_PointerReleased" PointerMoved="playground_PointerMoved"  x:Name="playground" Height="450" Width="450" Background="Transparent" >
-                                    <Grid x:Name="gg" Background="Transparent" Opacity="0.5" Height="450" Width="450"></Grid>
-                                    <Canvas FocusVisualMargin="1" FocusVisualPrimaryBrush="White" FocusVisualPrimaryThickness="1" Height="450" Width="450" x:Name="g"></Canvas>
-                                    <Canvas.RenderTransform>
-                                        <TransformGroup/>
-                                    </Canvas.RenderTransform>
+                        <Border x:Name="border" BorderThickness="3" BorderBrush="Gray" Margin="25 10 0 0" Height="456" Width="456">
+                            <Canvas Height="450" Width="450" x:Name="outside2">
+                                <Canvas Height="450" Width="450" x:Name="outside1">
+                                    
+                                    <!--#region 工具栏-->
+                                    <StackPanel   Canvas.Left="-82" Canvas.Top="-70" >
+                                        <StackPanel.Clip>
+                                            <RectangleGeometry Rect="27,100,46,350"/>
+                                        </StackPanel.Clip>
+                                        <Expander ExpandDirection="Down" x:Name="toolbar" IsExpanded="False">
+                                            <NavigationView x:Name="nvSample" 
+                                                PaneDisplayMode="LeftCompact"
+                                                IsPaneToggleButtonVisible="False"
+                                                IsTapEnabled="False"
+                                                IsSettingsVisible="False"
+                                                Width="45"
+                                                Height="450">
+                                                <NavigationView.MenuItems>
+                                                    <NavigationViewItem Icon="GlobalNavigationButton" IsEnabled="False"></NavigationViewItem>
+
+                                                    <NavigationViewItem x:Name="toolbar_drawPoint" Content="单点绘制" IsSelected="True" >
+                                                        <NavigationViewItem.Icon>
+                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF271;"></FontIcon>
+                                                        </NavigationViewItem.Icon>
+                                                    </NavigationViewItem>
+
+                                                    <NavigationViewItem x:Name="toolbar_draw" Content="连续绘制" Icon="Edit"/>
+
+                                                    <NavigationViewItem x:Name="toolbar_drawLine" Content="绘制直线" Tag="SamplePage2" >
+                                                        <NavigationViewItem.Icon>
+                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xED64;"></FontIcon>
+                                                        </NavigationViewItem.Icon>
+                                                    </NavigationViewItem>
+
+                                                    <NavigationViewItem x:Name="toolbar_erase" Content="橡皮">
+                                                        <NavigationViewItem.Icon>
+                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE75C;"></FontIcon>
+                                                        </NavigationViewItem.Icon>
+                                                    </NavigationViewItem>
+
+
+
+                                                    <NavigationViewItem Content="标尺" Icon="Highlight"/>
+
+                                                </NavigationView.MenuItems>
+                                            </NavigationView>
+                                        </Expander>
+                                    </StackPanel>
+                                    <!--#endregion-->
+                                    
+                                </Canvas>
+                                <Canvas Background="Transparent" x:Name="outside" Height="450" Width="450" PointerWheelChanged="outside_PointerWheelChanged">
+                                    <Canvas.Clip>
+                                        <RectangleGeometry x:Name="rect" Rect="0,0,450,450"/>
+                                    </Canvas.Clip>
+                                    <Canvas PointerExited="playground_PointerExited" PointerPressed="playground_PointerPressed" PointerReleased="playground_PointerReleased" PointerMoved="playground_PointerMoved"  x:Name="playground" Height="450" Width="450" Background="Transparent" >
+                                        <Grid x:Name="gg" Background="Transparent" Opacity="0.5" Height="450" Width="450"></Grid>
+                                        <Canvas FocusVisualMargin="1" FocusVisualPrimaryBrush="White" FocusVisualPrimaryThickness="1" Height="450" Width="450" x:Name="g"></Canvas>
+                                        <Canvas Height="450" Width="450" x:Name="canvas_showLine" Canvas.ZIndex="999"></Canvas>
+                                        <Canvas.RenderTransform>
+                                            <TransformGroup/>
+                                        </Canvas.RenderTransform>
+                                    </Canvas>
                                 </Canvas>
                             </Canvas>
+                            
                         </Border>
                         <!--#endregion-->
 

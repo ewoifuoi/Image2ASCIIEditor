@@ -21,6 +21,7 @@ using Microsoft.UI.Windowing;
 using Windows.Foundation;
 using Rect = Windows.Foundation.Rect;
 using Brush = Image2ASCIIEditor.Models.Brush;
+using Microsoft.UI.Xaml.Shapes;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -42,11 +43,14 @@ public sealed partial class EditText : Page
     private SolidColorBrush CurrentColorBrush = null;
     private bool _hasCanvas = false;
 
+    private double _el_x1;
+    private double _el_y1;
+    private double _el_x2;
+    private double _el_y2;
 
     public EditText()
     {
         this.InitializeComponent();
-        
         
         transformGroup = playground.RenderTransform as TransformGroup;
         _brush = new Brush('*', new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black));
@@ -72,42 +76,105 @@ public sealed partial class EditText : Page
 
     private void playground_PointerPressed(object sender, PointerRoutedEventArgs e)
     {
+        _isMouseDown = true;
         if (!isEditing)
         {
             var c = sender as Canvas;
-            _isMouseDown = true;
             _mouseDownPosition = e.GetCurrentPoint(outside);
             _mouseDownControlPosition = new Point(double.IsNaN(Canvas.GetLeft(c)) ? 0 : Canvas.GetLeft(c), double.IsNaN(Canvas.GetTop(c)) ? 0 : Canvas.GetTop(c));
-
             c.CapturePointer(e.Pointer);
         }
         else if(_hasCanvas)
         {
-
-
             // 计算正在点击的坐标
-            var c = sender as Canvas;
+            
             PointerPoint p = e.GetCurrentPoint(playground);
             double x = p.Position.X; double y = p.Position.Y;
             //Console.log("click x:" + x.ToString() + " " + "y:" + y.ToString());
             int nx = Convert.ToInt32(Math.Floor(x / 23)); int ny = Convert.ToInt32(Math.Floor(y / 48));
             
-            if(x - nx * 23 <= 20 && y - ny * 48 <= 45)
+            if (x - nx * 23 <= 20 && y - ny * 48 <= 45)
             {
-                _StreamModel.Paint(ny, nx, _brush);
+                if (toolbar_drawPoint.IsSelected)
+                {
+                    _StreamModel.Paint(ny, nx, _brush);
+                }
+                else if (toolbar_drawLine.IsSelected) // 启动绘制直线
+                {
+                    Ellipse el = new Ellipse() { Width = 20, Height = 20, Fill = new SolidColorBrush(Colors.Aqua) };
+                    Canvas.SetLeft(el, nx * 23 + 11 - 10 ); Canvas.SetTop(el, ny * 48 + 24 - 10);
+                    canvas_showLine.Children.Add(el);
+                    _el_x1 = nx * 23 + 11;
+                    _el_y1 = ny * 48 + 24;
+                }              
             }
-
-
         }
     }
 
     private void playground_PointerReleased(object sender, PointerRoutedEventArgs e)
     {
+        _isMouseDown = false;
         if (!isEditing)
         {
             var c = sender as Canvas;
-            _isMouseDown = false;
+            
             c.ReleasePointerCapture(e.Pointer);
+        }
+        else if (_hasCanvas)
+        {
+            if (toolbar_drawLine.IsSelected) // 直线的绘图判断
+            {
+                canvas_showLine.Children.Clear();
+                int y1 = Math.Max(Convert.ToInt32((_el_y1 - 24) / 48), Convert.ToInt32((_el_y2 - 24) / 48));
+                int y2 = Math.Min(Convert.ToInt32((_el_y1 - 24) / 48), Convert.ToInt32((_el_y2 - 24) / 48));
+                int x1 = Math.Max(Convert.ToInt32((_el_x1 - 11) / 23), Convert.ToInt32((_el_x2 - 11) / 23));
+                int x2 = Math.Min(Convert.ToInt32((_el_x1 - 11) / 23), Convert.ToInt32((_el_x2 - 11) / 23));
+                if (_el_y1 == _el_y2)
+                {
+                    
+                    for (int i = 0; i < x1 -x2 + 1 ; i++)
+                    {
+                        _StreamModel.Paint(Convert.ToInt32((_el_y1 - 24) / 48), i + x2, _brush);
+                    }
+                }
+                else if(_el_x1 == _el_x2)
+                {
+                    
+                    for (int i = 0; i < y1 - y2 + 1; i++)
+                    {
+                        _StreamModel.Paint( i + y2, Convert.ToInt32((_el_x1 - 11) / 23), _brush);
+                    }
+                }
+                else if(x1 - x2 == y1 - y2)
+                {
+                    if((_el_x1 - _el_x2) * (_el_y1 - _el_y2) < 0)
+                    {
+                        for (int i = 0; i < x1 - x2 + 1; i++)
+                        {
+                            for (int j = 0; j < y1 - y2 + 1; j++)
+                            {
+                                if (i + j == y1 - y2) _StreamModel.Paint(i + y2, j + x2, _brush);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < x1 - x2 + 1; i++)
+                        {
+                            for (int j = 0; j < y1 - y2 + 1; j++)
+                            {
+                                if (i == j) _StreamModel.Paint(i + y2, j + x2, _brush);
+                            }
+                        }
+                    }
+                    
+                }
+                
+                _el_x1 =0;
+                _el_y1=0;
+                _el_x2=0;
+                _el_y2=0;
+            }
         }
     }
 
@@ -125,6 +192,44 @@ public sealed partial class EditText : Page
                 var dpy = pos.Position.Y - _mouseDownPosition.Position.Y;
                 Canvas.SetLeft(c, _mouseDownControlPosition.X + dpx);
                 Canvas.SetTop(c, _mouseDownControlPosition.Y + dpy);
+            }
+        }
+        else if (_hasCanvas)
+        {
+            if (_isMouseDown) 
+            {
+                PointerPoint p = e.GetCurrentPoint(playground);
+                double x = p.Position.X; double y = p.Position.Y;
+                //Console.log("click x:" + x.ToString() + " " + "y:" + y.ToString());
+                int nx = Convert.ToInt32(Math.Floor(x / 23)); int ny = Convert.ToInt32(Math.Floor(y / 48));
+
+                if (x - nx * 23 <= 20 && y - ny * 48 <= 45)
+                {
+                    if (toolbar_erase.IsSelected) // 橡皮的拖拽逻辑
+                    {
+                        _StreamModel.Erase(ny, nx);
+                    }
+                    else if (toolbar_draw.IsSelected) // 连续绘制拖拽逻辑
+                    {
+                        _StreamModel.Paint(ny, nx, _brush);
+                    }
+                    else if (toolbar_drawLine.IsSelected) // 绘制直线时,提示直线的生成逻辑
+                    {
+                        canvas_showLine.Children.Clear();
+                        Ellipse el2 = new Ellipse() { Width = 20, Height = 20, Fill = new SolidColorBrush(Colors.Aqua) };
+                        Canvas.SetLeft(el2, _el_x1 - 10); Canvas.SetTop(el2, _el_y1 - 10);
+                        canvas_showLine.Children.Add(el2);
+                        Ellipse el1 = new Ellipse() { Width = 20, Height = 20, Fill = new SolidColorBrush(Colors.Aqua) };
+                        Canvas.SetLeft(el1, x - 10); Canvas.SetTop(el1, y - 10);
+                        canvas_showLine.Children.Add(el1);
+                        Line el = new Line() { X1=_el_x1,Y1=_el_y1, X2 = x, Y2 = y};
+                        el.StrokeThickness = 5;el.Stroke = new SolidColorBrush(Colors.Aqua);
+                        
+                        canvas_showLine.Children.Add(el);
+                        _el_x2 = nx * 23 + 11;
+                        _el_y2 = ny * 48 + 24;
+                    } 
+                }  
             }
         }
     }
@@ -186,7 +291,6 @@ public sealed partial class EditText : Page
     private void ChangeEditMode(object sender, RoutedEventArgs e)
     {
         isEditing = true;
-        
         ChangeModeBtn.IsChecked = true;
         ChangeModeBtn2.IsChecked = false;
     }
@@ -199,8 +303,6 @@ public sealed partial class EditText : Page
     private void ChangeEditMode2(object sender, RoutedEventArgs e)
     {
         isEditing = false;
-        
-        
         ChangeModeBtn.IsChecked = false;
         ChangeModeBtn2.IsChecked = true;
     }
@@ -228,6 +330,10 @@ public sealed partial class EditText : Page
         {
             outside.Height = 700;
             outside.Width = 1000;
+            outside1.Height = 700;
+            outside1.Width = 1000;
+            outside2.Height = 700;
+            outside2.Width = 1000;
             playground.Width = 1000;
             playground.Height = 700;
             border.Height = 706;
@@ -240,6 +346,10 @@ public sealed partial class EditText : Page
             
             outside.Height = 450;
             outside.Width = 450;
+            outside1.Height = 450;
+            outside1.Width = 450;
+            outside2.Height = 450;
+            outside2.Width = 450;
             playground.Width = 450;
             playground.Height = 450;
             border.Height = 456;
@@ -272,7 +382,7 @@ public sealed partial class EditText : Page
             MessageBox.Show("请输入正确笔刷字符", this);
         }
         _brush.foreground_color = CurrentColorBrush;
-        ChangeEditMode(this, new RoutedEventArgs());
+        //:ChangeEditMode(this, new RoutedEventArgs());
     }
 
     private void BrushButtonClick(object sender, object e)
@@ -326,5 +436,31 @@ public sealed partial class EditText : Page
             brush_ch.Text = "";
             MessageBox.Show("请输入正确笔刷字符", this);
         }
+    }
+
+    /// <summary>
+    /// 点击工具条
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ChangeEditMode3(object sender, RoutedEventArgs e)
+    {
+        if(toolbar.IsExpanded == false)
+        {
+            toolbar.IsExpanded = true;
+            isEditing = true;
+            ChangeModeBtn.IsChecked = true;
+            ChangeModeBtn2.IsChecked = false;
+        }
+        else
+        {
+            toolbar.IsExpanded = false;
+        }
+    }
+
+    private void playground_PointerExited(object sender, PointerRoutedEventArgs e)
+    {
+        _isMouseDown = false;
+        canvas_showLine.Children.Clear();
     }
 }
