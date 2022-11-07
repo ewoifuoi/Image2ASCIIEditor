@@ -79,7 +79,7 @@ public class StringStreamModel
 
     public void Paint(int x, int y, Brush brush)
     {
-        if(x < _n && y < _m)
+        if(x < _n && y < _m && x > 0 && y > 0)
         {
             PaintBlocks[x][y].ChangePaint(brush);
         }

@@ -147,26 +147,29 @@ public sealed partial class EditText : Page
                 }
                 else if(x1 - x2 == y1 - y2)
                 {
+                    if((_el_x1 - _el_x2) * (_el_y1 - _el_y2) < 0)
+                    {
+                        for (int i = 0; i < x1 - x2 + 1; i++)
+                        {
+                            for (int j = 0; j < y1 - y2 + 1; j++)
+                            {
+                                if (i + j == y1 - y2) _StreamModel.Paint(i + y2, j + x2, _brush);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < x1 - x2 + 1; i++)
+                        {
+                            for (int j = 0; j < y1 - y2 + 1; j++)
+                            {
+                                if (i == j) _StreamModel.Paint(i + y2, j + x2, _brush);
+                            }
+                        }
+                    }
                     
-                    for (int i = 0; i < x1 - x2 + 1; i++)
-                    {
-                        for (int j = 0; j < y1 - y2 + 1; j++)
-                        {
-                            if(i == j)_StreamModel.Paint(i + y2, j + x2, _brush);
-                        }
-                    }
                 }
-                else if (x1 - x2 == y2 - y1)
-                {
-
-                    for (int i = 0; i < x1 - x2 + 1; i++)
-                    {
-                        for (int j = 0; j < y1 - y2 + 1; j++)
-                        {
-                            if (i + j == y1 - y2) _StreamModel.Paint(i + y2, j + x2, _brush);
-                        }
-                    }
-                }
+                
                 _el_x1 =0;
                 _el_y1=0;
                 _el_x2=0;
