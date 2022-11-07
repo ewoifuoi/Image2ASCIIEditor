@@ -21,6 +21,7 @@ using Microsoft.UI.Windowing;
 using Windows.Foundation;
 using Rect = Windows.Foundation.Rect;
 using Brush = Image2ASCIIEditor.Models.Brush;
+using Microsoft.UI.Xaml.Shapes;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -97,6 +98,12 @@ public sealed partial class EditText : Page
                 if (toolbar_drawPoint.IsSelected)
                 {
                     _StreamModel.Paint(ny, nx, _brush);
+                }
+                else if (toolbar_drawLine.IsSelected) // 启动绘制直线
+                {
+                    Ellipse el = new Ellipse() { Width = 10, Height = 10, Fill = new SolidColorBrush(Colors.IndianRed) };
+                    Canvas.SetLeft(el, nx + 5 ); Canvas.SetTop(el, ny + 5);
+                    outside.Children.Add(el);
                 }
                
                 
@@ -362,15 +369,28 @@ public sealed partial class EditText : Page
         }
     }
 
+    /// <summary>
+    /// 点击工具条
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ChangeEditMode3(object sender, RoutedEventArgs e)
     {
         if(toolbar.IsExpanded == false)
         {
             toolbar.IsExpanded = true;
+            isEditing = true;
+            ChangeModeBtn.IsChecked = true;
+            ChangeModeBtn2.IsChecked = false;
         }
         else
         {
             toolbar.IsExpanded = false;
         }
+    }
+
+    private void playground_PointerExited(object sender, PointerRoutedEventArgs e)
+    {
+        _isMouseDown = false;
     }
 }
