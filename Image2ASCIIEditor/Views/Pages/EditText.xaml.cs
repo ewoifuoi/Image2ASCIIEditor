@@ -186,7 +186,6 @@ public sealed partial class EditText : Page
     private void ChangeEditMode(object sender, RoutedEventArgs e)
     {
         isEditing = true;
-        
         ChangeModeBtn.IsChecked = true;
         ChangeModeBtn2.IsChecked = false;
     }
@@ -199,8 +198,6 @@ public sealed partial class EditText : Page
     private void ChangeEditMode2(object sender, RoutedEventArgs e)
     {
         isEditing = false;
-        
-        
         ChangeModeBtn.IsChecked = false;
         ChangeModeBtn2.IsChecked = true;
     }
@@ -228,6 +225,10 @@ public sealed partial class EditText : Page
         {
             outside.Height = 700;
             outside.Width = 1000;
+            outside1.Height = 700;
+            outside1.Width = 1000;
+            outside2.Height = 700;
+            outside2.Width = 1000;
             playground.Width = 1000;
             playground.Height = 700;
             border.Height = 706;
@@ -240,6 +241,10 @@ public sealed partial class EditText : Page
             
             outside.Height = 450;
             outside.Width = 450;
+            outside1.Height = 450;
+            outside1.Width = 450;
+            outside2.Height = 450;
+            outside2.Width = 450;
             playground.Width = 450;
             playground.Height = 450;
             border.Height = 456;
@@ -325,6 +330,18 @@ public sealed partial class EditText : Page
         {
             brush_ch.Text = "";
             MessageBox.Show("请输入正确笔刷字符", this);
+        }
+    }
+
+    private void ChangeEditMode3(object sender, RoutedEventArgs e)
+    {
+        if(toolbar.IsExpanded == false)
+        {
+            toolbar.IsExpanded = true;
+        }
+        else
+        {
+            toolbar.IsExpanded = false;
         }
     }
 }
