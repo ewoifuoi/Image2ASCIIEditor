@@ -277,7 +277,7 @@ public sealed partial class EditText : Page
             MessageBox.Show("请输入正确笔刷字符", this);
         }
         _brush.foreground_color = CurrentColorBrush;
-        ChangeEditMode(this, new RoutedEventArgs());
+        //ChangeEditMode(this, new RoutedEventArgs());
     }
 
     private void BrushButtonClick(object sender, object e)
