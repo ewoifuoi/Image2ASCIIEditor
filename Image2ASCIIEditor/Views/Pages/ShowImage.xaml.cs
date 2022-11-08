@@ -34,9 +34,13 @@ public sealed partial class ShowImage : Page
 {
     public ShowImage()
     {
+        
+        
         this.InitializeComponent();
+        Console.console = this.console;
         transformGroup = testground.RenderTransform as TransformGroup;
         ImageModel.IMG.showImage(ref this.image);
+        Console.log("开始测试");
 
         
     }
@@ -84,6 +88,7 @@ public sealed partial class ShowImage : Page
             Canvas.SetLeft(testground, 0);
             Canvas.SetTop(testground, 0);
             ImageModel.IMG.CreateBitmap(ref testground, Convert.ToInt32(Value.Value));
+            
         }
         
     }
@@ -152,13 +157,16 @@ public sealed partial class ShowImage : Page
             MessageBox.Show("请选择使用颜色种类", this);
         }
         else 
-        { 
-            K_Means_Algorithm k_Means = new K_Means_Algorithm(ImageModel.IMG.RectangleList, Convert.ToInt32(kind_of_color.SelectedItem.ToString()));
-            k_means_rectangles = k_Means.Execute();
+        {
+            Console.log("开始聚类");
+            Cluster k_Means = new Cluster();
+            k_means_rectangles = k_Means.Execute(ImageModel.IMG.RectangleList, Convert.ToInt32(kind_of_color.SelectedValue.ToString()));
+            Console.log(k_means_rectangles[0].Count.ToString());
 
-            //
-            MessageBox.Show(k_means_rectangles[0].Count.ToString(), this);
-            //
+            for(int i = 0; i < k_means_rectangles[0].Count; i++)
+            {
+                k_means_rectangles[0][i].Fill = new SolidColorBrush(Colors.Aqua);
+            }
         }
     }
 }

@@ -68,9 +68,9 @@
                 <!--#endregion-->
                 
                 <!--#region 测试栏-->
-                <StackPanel Margin="75 40 0 0" Height="300">
-                    <TextBlock Height="230"></TextBlock>
+                <StackPanel Margin="10 0 0 0" Height="300">
                     
+                    <ListView x:Name="console" Height="300" Width="250"></ListView>
                 </StackPanel>
                 <!--#endregion-->
                 
