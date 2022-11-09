@@ -34,9 +34,9 @@ public sealed partial class Welcome : Page
     private void Start(object sender, RoutedEventArgs e)
     {
         
-        MainWindow.frame.NavigateToType(typeof(EditText), null, null);
+        MainWindow.frame.NavigateToType(typeof(ShowImage), null, null);
         MainWindow.welcome.IsSelected = false;
-        MainWindow.editText.IsSelected = true;
+        MainWindow.showImage.IsSelected = true;
 
     }
 }

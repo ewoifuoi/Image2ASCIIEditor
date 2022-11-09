@@ -169,10 +169,7 @@ public sealed partial class ShowImage : Page
             k_means_rectangles = k_Means.Execute(ImageModel.IMG.RectangleList, Convert.ToInt32(kind_of_color.SelectedValue.ToString()));
             Console.log(k_means_rectangles[0].Count.ToString());
 
-            for(int i = 0; i < k_means_rectangles[0].Count; i++)
-            {
-                k_means_rectangles[0][i].Fill = new SolidColorBrush(Colors.Aqua);
-            }
+            
 
             ColorClusterExpander.IsEnabled = true;
             ColorClusterExpander.IsExpanded = true;
@@ -186,7 +183,7 @@ public sealed partial class ShowImage : Page
             {
                 StackPanel s = new StackPanel() { Width = 250, Height = 30, Margin = new Thickness(2), Orientation = Orientation.Horizontal };
                 //s.Background = new SolidColorBrush(Colors.Aqua);
-                ComboBox cb = new ComboBox() { Margin=new Thickness(5,0,5,0), FontSize=12, Width=95,Height=30 };
+                ComboBox cb = new ComboBox() { Margin=new Thickness(25,0,25,0), FontSize=12, Width=95,Height=30 };
                 cb.SelectionChanged += Cb_SelectionChanged;
                 TextBlock tb = new TextBlock() {Padding=new Thickness(0,5,0,0), Text="聚类 "+i.ToString()+" :"};
                 ComboBox Editcb = new ComboBox() { IsEditable = true, Width = 65, Height = 30 };
@@ -210,27 +207,83 @@ public sealed partial class ShowImage : Page
                 s.Children.Add(tb);
                 s.Children.Add(cb);
                 s.Children.Add(rect);
-                s.Children.Add(Editcb);
+                
                 ColorClusterStackPanel.Children.Add(s);
                 colorList.Add(cb);charList.Add(Editcb);rectList.Add(rect);
+                
+            }
+            Button b = new Button() { Content="使用字符替换", Width = 250, Height = 60, Margin = new Thickness(5) };
+            b.Click += Generate_char;
+            ColorClusterStackPanel.Children.Add(b);
+        }
+    }
+
+    public StringStreamModel res;
+    private async void Generate_char(object sender, RoutedEventArgs e)
+    {
+        ContentDialog dialog = new ContentDialog();
+
+        // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+        dialog.XamlRoot = this.XamlRoot;
+        dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+        dialog.Title = "提示";
+        dialog.PrimaryButtonText = "确定";
+        dialog.CloseButtonText = "取消";
+        dialog.DefaultButton = ContentDialogButton.Primary;
+        dialog.Content = "是否使用字符'+'对像素矩阵进行替换？（此过程不可逆）";
+
+        var result = await dialog.ShowAsync();
+       
+        if(result != ContentDialogResult.Primary)
+        {
+            return;
+        }
+        res = new StringStreamModel(ImageModel.IMG.RectangleList.Count, ImageModel.IMG.RectangleList[0].Count);
+        for(int i = 0; i < ImageModel.IMG.RectangleList.Count; i++)//40
+        {
+            for(int j = 0; j < ImageModel.IMG.RectangleList[i].Count; j++)//20
+            {
+                SolidColorBrush scb = ImageModel.IMG.RectangleList[i][j].Fill as SolidColorBrush;
+                res.Paint(i, j, new Models.Brush('+', scb, new SolidColorBrush(Colors.Black)));
             }
         }
+        //res.Generate(ref testground);
+        
     }
 
     private void Cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        bool isColorChanged = false;
+        int ColorChangedInd = -1;SolidColorBrush tempFill = null;
         for (int i = 0; i < Convert.ToInt32(kind_of_color.SelectedValue); i++)
         {
             if (colorList[i].SelectedValue != null)
             {
                 int ind = colorList[i].SelectedIndex;
+                SolidColorBrush scb = rectList[i].Fill as SolidColorBrush;
+                if(scb == null  || scb.Color != selectColors[ind])
+                {
+                    isColorChanged = true;
+                    ColorChangedInd = i;
+                }
+                tempFill = new SolidColorBrush(selectColors[ind]);
                 rectList[i].Fill = new SolidColorBrush(selectColors[ind]);
+                
             }
             else
             {
                 rectList[i].Fill = new SolidColorBrush(Colors.Transparent);
             }
         }
+        if (isColorChanged)
+        {
+            isColorChanged = false;
+            for(int i = 0; i < k_means_rectangles[ColorChangedInd].Count; i++)
+            {
+                k_means_rectangles[ColorChangedInd][i].Fill = tempFill;
+            }
+        }
+
     }
 
     private List<ComboBox> colorList;
@@ -240,18 +293,14 @@ public sealed partial class ShowImage : Page
 
     private void Char_TextSubmitted(ComboBox sender, ComboBoxTextSubmittedEventArgs args)
     {
-        for(int i = 0; i < Convert.ToInt32(kind_of_color.SelectedValue); i++)
-        {
-            if (colorList[i].SelectedValue != null)
-            {
-                int ind = colorList[i].SelectedIndex;
-                rectList[i].Fill = new SolidColorBrush(selectColors[ind]);
-            }
-            else
-            {
-                rectList[i].Fill = new SolidColorBrush(Colors.Transparent);
-            }
-        }
+        
     }
 
+    private void exportToEditor(object sender, RoutedEventArgs e)
+    {
+        EditText.GetStringFromImage(ref res);
+        MainWindow.frame.NavigateToType(typeof(EditText), null, null);
+        MainWindow.showImage.IsSelected = false;
+        MainWindow.editText.IsSelected = true;
+    }
 }

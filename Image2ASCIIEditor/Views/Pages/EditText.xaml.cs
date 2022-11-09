@@ -37,11 +37,12 @@ public sealed partial class EditText : Page
     private Point _mouseDownControlPosition;
     Brush _brush;
     private Canvas _canvas;
-    StringStreamModel _StreamModel;
+    private static StringStreamModel _StreamModel;
     private TransformGroup transformGroup;
     private List<SolidColorBrush> ColorOptions = new List<SolidColorBrush>();
     private SolidColorBrush CurrentColorBrush = null;
     private bool _hasCanvas = false;
+    private static bool has_streamModel = false;
 
     private double _el_x1;
     private double _el_y1;
@@ -64,6 +65,11 @@ public sealed partial class EditText : Page
         ColorOptions.Add(new SolidColorBrush(Colors.Indigo));
         ColorOptions.Add(new SolidColorBrush(Colors.Violet));
         ColorOptions.Add(new SolidColorBrush(Colors.White));
+
+        if(has_streamModel && _StreamModel != null)
+        {
+            _StreamModel.Generate(ref playground);
+        } 
     }
 
     private void outside_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
@@ -72,6 +78,12 @@ public sealed partial class EditText : Page
         double s = ((double)currentPoint.Properties.MouseWheelDelta) / 1000 + 1;
         transformGroup.Children.Add(new ScaleTransform() { CenterX = outside.Width / 2, CenterY = outside.Height / 2, ScaleX = s, ScaleY = s });
 
+    }
+
+    public static void GetStringFromImage(ref StringStreamModel res)
+    {
+       _StreamModel = res;
+        has_streamModel = true;
     }
 
     private void playground_PointerPressed(object sender, PointerRoutedEventArgs e)

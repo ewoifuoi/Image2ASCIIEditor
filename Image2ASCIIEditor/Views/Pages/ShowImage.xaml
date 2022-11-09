@@ -71,6 +71,7 @@
                 <StackPanel Margin="10 0 0 0" Height="300">
                     <Expander IsEnabled="False" x:Name="ColorClusterExpander" Header="颜色聚类映射表" Width="295">
                         <StackPanel x:Name="ColorClusterStackPanel"></StackPanel>
+                        
                     </Expander>
                     <ListView x:Name="console" Height="300" Width="285"></ListView>
                 </StackPanel>
@@ -118,7 +119,7 @@
                 
                 <!--#region 导入编辑器-->
                 <StackPanel Orientation="Vertical">
-                    <Button  Margin="0 30 0 0" Height="130" Width="160" Content="导入字符编辑器"></Button>
+                    <Button Click="exportToEditor"  Margin="0 30 0 0" Height="130" Width="160" Content="导入字符编辑器"></Button>
                 </StackPanel>
                 <!--#endregion-->
                 

@@ -43,7 +43,7 @@
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Height="250"></TextBlock>
-                    <Button x:Name="start" Click="Start" FontSize="20" Margin="120 100 0 0" Height="100" Width="180" Content="开始使用"></Button>
+                    <Button x:Name="start" Click="Start" FontSize="20" Margin="120 100 0 0" Height="100" Width="180" Content="快速开始"></Button>
                 </StackPanel>
             </StackPanel>
             <ListView x:Name="console" Height="600" Width="300" Margin="100"></ListView>
