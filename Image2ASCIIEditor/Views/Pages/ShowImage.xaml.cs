@@ -21,6 +21,7 @@ using Microsoft.UI.Xaml.Shapes;
 using Microsoft.VisualBasic;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Console = Image2ASCIIEditor.Common.Console;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -85,10 +86,15 @@ public sealed partial class ShowImage : Page
         else
         {
             transformGroup.Children.Clear();
+            
+            ColorClusterStackPanel.Children.Clear();
+            ColorClusterExpander.IsExpanded = false;
+            
+            
             Canvas.SetLeft(testground, 0);
             Canvas.SetTop(testground, 0);
             ImageModel.IMG.CreateBitmap(ref testground, Convert.ToInt32(Value.Value));
-            
+            ColorClusterExpander.IsEnabled = false;
         }
         
     }
@@ -167,6 +173,85 @@ public sealed partial class ShowImage : Page
             {
                 k_means_rectangles[0][i].Fill = new SolidColorBrush(Colors.Aqua);
             }
+
+            ColorClusterExpander.IsEnabled = true;
+            ColorClusterExpander.IsExpanded = true;
+            ColorClusterStackPanel.Children.Clear();
+
+            colorList = new List<ComboBox>();
+            charList = new List<ComboBox>();
+            rectList = new List<Rectangle>();
+            selectColors = new List<Color>();
+            for (int i = 0; i < Convert.ToInt32(kind_of_color.SelectedValue); i++)
+            {
+                StackPanel s = new StackPanel() { Width = 250, Height = 30, Margin = new Thickness(2), Orientation = Orientation.Horizontal };
+                //s.Background = new SolidColorBrush(Colors.Aqua);
+                ComboBox cb = new ComboBox() { Margin=new Thickness(5,0,5,0), FontSize=12, Width=95,Height=30 };
+                cb.SelectionChanged += Cb_SelectionChanged;
+                TextBlock tb = new TextBlock() {Padding=new Thickness(0,5,0,0), Text="聚类 "+i.ToString()+" :"};
+                ComboBox Editcb = new ComboBox() { IsEditable = true, Width = 65, Height = 30 };
+                Editcb.TextSubmitted += Char_TextSubmitted;
+                selectColors.Add(Colors.Red);
+                selectColors.Add(Colors.Green);
+                selectColors.Add(Colors.Yellow);
+                selectColors.Add(Colors.Blue);
+                selectColors.Add(Colors.Magenta);
+                selectColors.Add(Colors.Cyan);
+                selectColors.Add(Colors.White);
+                cb.Items.Add(new string("Red"));
+                cb.Items.Add(new string("Green"));
+                cb.Items.Add(new string("Yellow"));
+                cb.Items.Add(new string("Blue"));
+                cb.Items.Add(new string("Magenta"));
+                cb.Items.Add(new string("Cyan"));
+                cb.Items.Add(new string("White"));
+                Rectangle rect = new Rectangle() { Margin = new Thickness(0, 0, 5, 0), Height =30,Width=30,Stroke=new SolidColorBrush(Colors.Gray),StrokeThickness=2};
+                
+                s.Children.Add(tb);
+                s.Children.Add(cb);
+                s.Children.Add(rect);
+                s.Children.Add(Editcb);
+                ColorClusterStackPanel.Children.Add(s);
+                colorList.Add(cb);charList.Add(Editcb);rectList.Add(rect);
+            }
         }
     }
+
+    private void Cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        for (int i = 0; i < Convert.ToInt32(kind_of_color.SelectedValue); i++)
+        {
+            if (colorList[i].SelectedValue != null)
+            {
+                int ind = colorList[i].SelectedIndex;
+                rectList[i].Fill = new SolidColorBrush(selectColors[ind]);
+            }
+            else
+            {
+                rectList[i].Fill = new SolidColorBrush(Colors.Transparent);
+            }
+        }
+    }
+
+    private List<ComboBox> colorList;
+    private List<ComboBox> charList;
+    private List<Rectangle> rectList;
+    private List<Color> selectColors;
+
+    private void Char_TextSubmitted(ComboBox sender, ComboBoxTextSubmittedEventArgs args)
+    {
+        for(int i = 0; i < Convert.ToInt32(kind_of_color.SelectedValue); i++)
+        {
+            if (colorList[i].SelectedValue != null)
+            {
+                int ind = colorList[i].SelectedIndex;
+                rectList[i].Fill = new SolidColorBrush(selectColors[ind]);
+            }
+            else
+            {
+                rectList[i].Fill = new SolidColorBrush(Colors.Transparent);
+            }
+        }
+    }
+
 }

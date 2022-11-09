@@ -21,7 +21,7 @@
                 <!--#region 左侧栏-->
                 <StackPanel
                 Orientation="Vertical"
-                Margin="20 15 0 0"
+                Margin="10 15 0 0"
                 >
 
                     <!--#region 打开图片-->
@@ -50,7 +50,7 @@
                 <!--#region 中部栏-->
                 <StackPanel
                 Background="Transparent"
-                Margin="40 18 0 0"
+                Margin="10 30 0 0"
                 >
                     <Border BorderThickness="2" BorderBrush="Gray">
                         <Canvas PointerWheelChanged="outside_PointerWheelChanged" Background="Transparent" x:Name="outside" Height="300" Width="300">
@@ -69,8 +69,10 @@
                 
                 <!--#region 测试栏-->
                 <StackPanel Margin="10 0 0 0" Height="300">
-                    
-                    <ListView x:Name="console" Height="300" Width="250"></ListView>
+                    <Expander IsEnabled="False" x:Name="ColorClusterExpander" Header="颜色聚类映射表" Width="295">
+                        <StackPanel x:Name="ColorClusterStackPanel"></StackPanel>
+                    </Expander>
+                    <ListView x:Name="console" Height="300" Width="285"></ListView>
                 </StackPanel>
                 <!--#endregion-->
                 
