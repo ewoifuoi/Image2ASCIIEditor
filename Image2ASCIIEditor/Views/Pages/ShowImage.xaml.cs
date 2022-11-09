@@ -247,7 +247,16 @@ public sealed partial class ShowImage : Page
                 res.Paint(i, j, new Models.Brush('+', scb, new SolidColorBrush(Colors.Black)));
             }
         }
-        //res.Generate(ref testground);
+        StringStreamModel res1 = new StringStreamModel(ImageModel.IMG.RectangleList.Count, ImageModel.IMG.RectangleList[0].Count);
+        for (int i = 0; i < ImageModel.IMG.RectangleList.Count; i++)//40
+        {
+            for (int j = 0; j < ImageModel.IMG.RectangleList[i].Count; j++)//20
+            {
+                SolidColorBrush scb = ImageModel.IMG.RectangleList[i][j].Fill as SolidColorBrush;
+                res1.Paint(i, j, new Models.Brush('+', scb, new SolidColorBrush(Colors.Black)));
+            }
+        }
+        res1.Generate(ref testground);
         
     }
 

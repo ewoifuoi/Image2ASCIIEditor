@@ -56,19 +56,24 @@ public sealed partial class EditText : Page
         transformGroup = playground.RenderTransform as TransformGroup;
         _brush = new Brush('*', new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black));
 
-        ColorOptions.Add(new SolidColorBrush(Colors.Black));
+
         ColorOptions.Add(new SolidColorBrush(Colors.Red));
-        ColorOptions.Add(new SolidColorBrush(Colors.Orange));
         ColorOptions.Add(new SolidColorBrush(Colors.Yellow));
-        ColorOptions.Add(new SolidColorBrush(Colors.Green));
+        ColorOptions.Add(new SolidColorBrush(Colors.Cyan));
+        ColorOptions.Add(new SolidColorBrush(Colors.Magenta));
         ColorOptions.Add(new SolidColorBrush(Colors.Blue));
-        ColorOptions.Add(new SolidColorBrush(Colors.Indigo));
-        ColorOptions.Add(new SolidColorBrush(Colors.Violet));
         ColorOptions.Add(new SolidColorBrush(Colors.White));
+        ColorOptions.Add(new SolidColorBrush(Colors.Green));
+
 
         if(has_streamModel && _StreamModel != null)
         {
-            _StreamModel.Generate(ref playground);
+            has_streamModel = false;
+            _StreamModel.Generate(ref g);
+            _hasCanvas = true;
+
+            gg.Height = _StreamModel._n * 48;
+            gg.Width = _StreamModel._m * 23;
         } 
     }
 
@@ -84,6 +89,7 @@ public sealed partial class EditText : Page
     {
        _StreamModel = res;
         has_streamModel = true;
+        
     }
 
     private void playground_PointerPressed(object sender, PointerRoutedEventArgs e)
