@@ -496,8 +496,13 @@ public sealed partial class EditText : Page
     {
         BackgroundWorker worker = new BackgroundWorker();// 新建一后台线程
         worker.DoWork += (s, e) => {
+            if (StringStreamModel.charsList == null)
+            {
+                return;
+            }
             AllocConsole(); // 为调用进程分配一个新的控制台。
             System.Console.WriteLine("当前效果预览 :\n");
+            
             for(int j = 0; j < StringStreamModel.charsList.Count; j++)
             {
                 for(int i = 0; i < StringStreamModel.charsList[j].Count; i++)
@@ -510,6 +515,7 @@ public sealed partial class EditText : Page
             }
             System.Console.WriteLine("按任意键继续");
             System.Console.Read();
+            
         };
         worker.RunWorkerCompleted += (s, e) => { // 释放后台线程
             //e.Result"returned" from thread
@@ -517,5 +523,29 @@ public sealed partial class EditText : Page
 
         };
         worker.RunWorkerAsync();
+    }
+
+    private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+    {
+        MainWindow.frame.NavigateToType(typeof(ShowImage), null, null);
+        MainWindow.editText.IsSelected = false;
+        MainWindow.showImage.IsSelected = true;
+    }
+
+    private async void AppBarButton_Click_2(object sender, RoutedEventArgs e)//导出逻辑
+    {
+        ContentDialog dialog = new ContentDialog();
+
+        // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+        dialog.XamlRoot = this.XamlRoot;
+        dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+        dialog.Title = "选择导出格式";
+        dialog.PrimaryButtonText = "确定";
+        dialog.CloseButtonText = "取消";
+        dialog.DefaultButton = ContentDialogButton.Primary;
+        dialog.Content = new ExportPage();
+
+        var result = await dialog.ShowAsync();
+
     }
 }

@@ -73,6 +73,15 @@
                         <StackPanel x:Name="ColorClusterStackPanel"></StackPanel>
                         
                     </Expander>
+                    <StackPanel>
+                        <InfoBar
+                        Width="295"
+                        Margin="0 5 5 5"
+                        IsOpen="True"
+                        Severity="Informational"
+                        Title="提示"
+                        Message="由于Linux终端显示的前景色最多为7种(第八种为黑色与背景一致),聚类最多只能设为7类" />
+                    </StackPanel>
                     <ListView x:Name="console" Height="300" Width="285"></ListView>
                 </StackPanel>
                 <!--#endregion-->
