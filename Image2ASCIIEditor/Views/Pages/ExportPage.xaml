@@ -17,7 +17,6 @@
         <RadioButtons Margin="10">
             <RadioButton x:Name="env1" Content="使用Win32终端api生成" Checked="RadioButton_Checked"/>
             <RadioButton x:Name="env2" Content="使用Linux字符颜色转义生成" Checked="RadioButton_Checked"/>
-            <RadioButton x:Name="env3" Content="导出为PNG图片" Checked="RadioButton_Checked"/>
         </RadioButtons>
         <HyperlinkButton Content="什么是字符显示环境?" Click="HyperlinkButton_Click"/>
         
@@ -39,7 +38,7 @@
         </TeachingTip>
         <TeachingTip x:Name="showENV2"
             Target="{x:Bind env2}"
-            Title="使用Win32终端api生成"
+            Title="使用Linux字符颜色转义生成"
             Subtitle="It's easier than ever to see control samples in both light and dark theme!"
             ActionButtonClick="HyperlinkButton_Click3"
 	        ActionButtonContent="下一条"
@@ -52,21 +51,7 @@
                 <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">使用</TextBlock>
             </TeachingTip.Content>
         </TeachingTip>
-        <TeachingTip x:Name="showENV3"
-            Target="{x:Bind env3}"
-            Title="使用Win32终端api生成"
-            Subtitle="It's easier than ever to see control samples in both light and dark theme!"
-            ActionButtonClick="HyperlinkButton_Click4"
-	        ActionButtonContent="下一条"
-	        CloseButtonContent="Got it!"
-            >
-            <TeachingTip.HeroContent>
-                <Image Source="/Assets/SampleMedia/sunset.jpg" AutomationProperties.Name="Sunset" />
-            </TeachingTip.HeroContent>
-            <TeachingTip.Content>
-                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">使用</TextBlock>
-            </TeachingTip.Content>
-        </TeachingTip>
+        
         <!--#endregion-->
         
     </StackPanel>
