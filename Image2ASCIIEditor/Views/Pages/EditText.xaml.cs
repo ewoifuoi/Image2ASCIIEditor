@@ -22,6 +22,9 @@ using Windows.Foundation;
 using Rect = Windows.Foundation.Rect;
 using Brush = Image2ASCIIEditor.Models.Brush;
 using Microsoft.UI.Xaml.Shapes;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -480,5 +483,38 @@ public sealed partial class EditText : Page
     {
         _isMouseDown = false;
         canvas_showLine.Children.Clear();
+    }
+
+    
+
+    private void AppBarButton_Click(object sender, RoutedEventArgs e)
+    {
+        BackgroundWorker worker = new BackgroundWorker();
+        Process p=null; StreamWriter sw=null; StreamReader sr = null;
+        worker.DoWork += (s, e) => {
+
+            p = new Process();
+            p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardInput = true;
+            p.StartInfo.UseShellExecute = false;
+
+            
+
+            
+            sw = p.StandardInput;
+            sr = p.StandardOutput;
+            while(sr.Read() != '\r') { Thread.Sleep(100); }
+  
+        };
+        worker.RunWorkerCompleted += (s, e) => {
+            //e.Result"returned" from thread
+
+            sr.Close();
+            sw.Close();
+            p.WaitForExit();
+
+        };
+        worker.RunWorkerAsync();
     }
 }

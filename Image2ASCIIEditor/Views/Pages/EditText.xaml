@@ -245,7 +245,7 @@
             <!--#region 右侧功能条-->
             <StackPanel Orientation="Vertical" Margin="0 50 0 0">
                 <AppBarButton Click="refresh" Margin="0 2 0 0" Icon="Refresh" Label="复位" />
-                <AppBarButton Margin="0 2 0 0" Icon="Read" Label="预览" />
+                <AppBarButton Click="AppBarButton_Click" Margin="0 2 0 0" Icon="Read" Label="预览" />
                 <AppBarButton Margin="0 2 0 0" Icon="Save" Label="保存" />
                 <AppBarButton Margin="0 2 0 0" Icon="Pictures" Label="导入图片" />
             </StackPanel>
