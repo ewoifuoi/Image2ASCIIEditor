@@ -76,11 +76,12 @@
                     <CommandBar  Margin="0 10 0 0" HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
                         <AppBarToggleButton x:Name="ChangeModeBtn3" Click="ChangeEditMode3" IsChecked="False" Icon="Highlight" Label="工具条"></AppBarToggleButton>
                         <AppBarSeparator></AppBarSeparator>
-                        <AppBarButton Click="save_brush" Icon="Add" Label="保存笔刷"/>
-                        <AppBarButton Foreground="IndianRed" Click="del_brush" Icon="Delete" Label="清空笔刷"/>
+                        <AppBarButton Foreground="IndianRed" Click="clear_canvas" Icon="Delete" Label="清空画布"/>
                         <AppBarSeparator></AppBarSeparator>
                         <AppBarToggleButton x:Name="ChangeModeBtn" Click="ChangeEditMode" Icon="Edit" Label="编辑"/>
                         <AppBarToggleButton x:Name="ChangeModeBtn2" Click="ChangeEditMode2" IsChecked="True" Icon="FullScreen" Label="拖拽"/>
+                        <AppBarSeparator></AppBarSeparator>
+                        <AppBarButton Click="refresh_canvas" Icon="Refresh"  Label="刷新画布"/>
                         <CommandBar.SecondaryCommands>
                             <AppBarButton Icon="Setting" Label="Settings">
                                 <AppBarButton.KeyboardAccelerators>

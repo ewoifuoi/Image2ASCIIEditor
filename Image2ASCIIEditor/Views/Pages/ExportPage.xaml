@@ -14,7 +14,7 @@
             Severity="Informational"
             Message="由于Windows和Linux终端显示字符颜色方式不同,因此需要指定导出字符的显示环境" />
 
-        <RadioButtons Margin="10">
+        <RadioButtons Margin="10" x:Name="selection">
             <RadioButton x:Name="env1" Content="使用Win32终端api生成" Checked="RadioButton_Checked"/>
             <RadioButton x:Name="env2" Content="使用Linux字符颜色转义生成" Checked="RadioButton_Checked"/>
         </RadioButtons>
@@ -28,6 +28,9 @@
             ActionButtonClick="HyperlinkButton_Click2"
 	        ActionButtonContent="下一条"
 	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
             >
             <TeachingTip.HeroContent>
                 <Image Source="/Assets/SampleMedia/sunset.jpg" AutomationProperties.Name="Sunset" />
@@ -40,9 +43,10 @@
             Target="{x:Bind env2}"
             Title="使用Linux字符颜色转义生成"
             Subtitle="It's easier than ever to see control samples in both light and dark theme!"
-            ActionButtonClick="HyperlinkButton_Click3"
-	        ActionButtonContent="下一条"
 	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
             >
             <TeachingTip.HeroContent>
                 <Image Source="/Assets/SampleMedia/sunset.jpg" AutomationProperties.Name="Sunset" />

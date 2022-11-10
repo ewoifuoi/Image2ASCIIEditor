@@ -68,9 +68,15 @@ public sealed partial class EditText : Page
         ColorOptions.Add(new SolidColorBrush(Colors.Blue));
         ColorOptions.Add(new SolidColorBrush(Colors.White));
         ColorOptions.Add(new SolidColorBrush(Colors.Green));
+        ColorOptions.Add(new SolidColorBrush(Colors.DarkRed));
+        ColorOptions.Add(new SolidColorBrush(Colors.DarkCyan));
+        ColorOptions.Add(new SolidColorBrush(Colors.DarkMagenta));
+        ColorOptions.Add(new SolidColorBrush(Colors.DarkBlue));
+        ColorOptions.Add(new SolidColorBrush(Colors.DarkGreen));
+        ColorOptions.Add(new SolidColorBrush(Colors.Gray));
 
 
-        if(has_streamModel && _StreamModel != null)
+        if (has_streamModel && _StreamModel != null)
         {
             has_streamModel = false;
             _StreamModel.Generate(ref g);
@@ -534,6 +540,12 @@ public sealed partial class EditText : Page
 
     private async void AppBarButton_Click_2(object sender, RoutedEventArgs e)//导出逻辑
     {
+
+        if(_StreamModel == null || StringStreamModel.charsList == null)
+        {
+            MessageBox.Show("请先生成画布", this);
+            return;
+        }
         ContentDialog dialog = new ContentDialog();
 
         // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
@@ -543,9 +555,36 @@ public sealed partial class EditText : Page
         dialog.PrimaryButtonText = "确定";
         dialog.CloseButtonText = "取消";
         dialog.DefaultButton = ContentDialogButton.Primary;
-        dialog.Content = new ExportPage();
+        RadioButtons selection = null;
+        dialog.Content = new ExportPage(ref selection);
 
         var result = await dialog.ShowAsync();
+        if (result == ContentDialogResult.Primary)
+        {
+            int op = selection.SelectedIndex;
+            if(op == -1) MessageBox.Show("请选择导出格式!", this);
+            else
+            {
+                ExportModel exportmodel = new ExportModel(op);
+            }
+        }
+        else
+        {
+            return;
+        }
 
+    }
+
+    private void clear_canvas(object sender, RoutedEventArgs e)
+    {
+        g.Children.Clear();
+        _StreamModel = null;
+        StringStreamModel.charsList = null;
+        StringStreamModel.colorList = null;
+    }
+
+    private void refresh_canvas(object sender, RoutedEventArgs e)
+    {
+       
     }
 }

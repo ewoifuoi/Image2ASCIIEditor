@@ -20,11 +20,14 @@ namespace Image2ASCIIEditor.Views.Pages;
 /// <summary>
 /// An empty page that can be used on its own or navigated to within a Frame.
 /// </summary>
-public sealed partial class ExportPage : Page
+public partial class ExportPage : Page
 {
-    public ExportPage()
+
+    public ExportPage(ref RadioButtons inr)
     {
         this.InitializeComponent();
+        inr = selection;
+        
     }
 
     private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -41,12 +44,6 @@ public sealed partial class ExportPage : Page
     {
         showENV1.IsOpen = false;
         showENV2.IsOpen = true;
-    }
-
-    private void HyperlinkButton_Click3(TeachingTip sender, object args)
-    {
-        showENV2.IsOpen = false;
-        
     }
 
     

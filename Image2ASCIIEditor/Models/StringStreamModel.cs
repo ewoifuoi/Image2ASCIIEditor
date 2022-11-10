@@ -54,6 +54,34 @@ public class StringStreamModel
         {
             return 15;
         }
+        else if (color == Colors.DarkRed)
+        {
+            return 4;
+        }
+        else if (color == Colors.DarkBlue)
+        {
+            return 1;
+        }
+        else if (color == Colors.DarkMagenta)
+        {
+            return 5;
+        }
+        else if (color == Colors.DarkGreen)
+        {
+            return 2;
+        }
+        else if (color == Colors.DarkCyan)
+        {
+            return 3;
+        }
+        else if (color == Colors.White)
+        {
+            return 15;
+        }
+        else if (color == Colors.Gray)
+        {
+            return 7;
+        }
         else
         {
             return 0;
