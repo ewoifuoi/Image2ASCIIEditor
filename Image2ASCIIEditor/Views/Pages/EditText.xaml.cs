@@ -25,6 +25,7 @@ using Microsoft.UI.Xaml.Shapes;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -485,34 +486,46 @@ public sealed partial class EditText : Page
         canvas_showLine.Children.Clear();
     }
 
-    
+    [DllImport("Kernel32")]
+    public static extern void AllocConsole();
+
+    [DllImport("Kernel32")]
+    public static extern void FreeConsole();
+
+    [DllImport("Kernel32")]
+    public static extern void AttachConsole();
+
 
     private void AppBarButton_Click(object sender, RoutedEventArgs e)
     {
         BackgroundWorker worker = new BackgroundWorker();
-        Process p=null; StreamWriter sw=null; StreamReader sr = null;
+        
         worker.DoWork += (s, e) => {
 
-            p = new Process();
-            p.StartInfo.FileName = "cmd.exe";
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.RedirectStandardInput = true;
-            p.StartInfo.UseShellExecute = false;
+           
+            AllocConsole();
+            System.Console.WriteLine("test\n");
 
-            
 
+            for(int j = 0; j < StringStreamModel.charsList.Count; j++)
+            {
+                for(int i = 0; i < StringStreamModel.charsList[j].Count; i++)
+                {
+                    System.Console.Write(StringStreamModel.charsList[j][i]);
+                }
+                System.Console.Write('\n');
+            }
+
+            System.Console.Read();
             
-            sw = p.StandardInput;
-            sr = p.StandardOutput;
-            while(sr.Read() != '\r') { Thread.Sleep(100); }
+            
+            
   
         };
         worker.RunWorkerCompleted += (s, e) => {
             //e.Result"returned" from thread
-
-            sr.Close();
-            sw.Close();
-            p.WaitForExit();
+            
+            FreeConsole();
 
         };
         worker.RunWorkerAsync();

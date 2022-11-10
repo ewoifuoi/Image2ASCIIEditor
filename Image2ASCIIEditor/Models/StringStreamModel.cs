@@ -15,6 +15,8 @@ using System.Drawing;
 namespace Image2ASCIIEditor.Models;
 public class StringStreamModel
 {
+    public static List<List<char>> charsList;
+
     public List<List<char>> OriginalStream = new List<List<char>>();
 
     public List<List<PaintBlock>> PaintBlocks = new List<List<PaintBlock>>();
@@ -23,11 +25,14 @@ public class StringStreamModel
 
     public StringStreamModel(TextBox input)
     {
+        charsList = new List<List<char>>();
+
         string s = input.Text;
         string[] split = s.Split(new char[2] {'\r','\n'});
         int _maxLength = 0 ;
         for(int i = 0; i < split.Length; i++)
         {
+            charsList.Add(new List<char>());
             PaintBlocks.Add(new List<PaintBlock>());
             if (_maxLength < split[i].Length) _maxLength = split[i].Length;
         }
@@ -37,11 +42,13 @@ public class StringStreamModel
         {
             for(int j = 0; j < split[i].Length; j++)
             {
+                charsList[i].Add(split[i][j]);
                 PaintBlocks[i].Add(new PaintBlock(split[i][j], i, j, new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black)));
             }
 
             for(int j = split[i].Length; j < _maxLength; j++)
             {
+                charsList[i].Add(' ');
                 PaintBlocks[i].Add(new PaintBlock(' ', i, j, new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black)));
             }
         }
@@ -50,8 +57,10 @@ public class StringStreamModel
     {
         this._n = n;
         this._m = m;
-        for(int i = 0; i < n; i++)
+        charsList = new List<List<char>>();
+        for (int i = 0; i < n; i++)
         {
+            charsList.Add(new List<char>());
             PaintBlocks.Add(new List<PaintBlock>());
         }
 
@@ -59,6 +68,7 @@ public class StringStreamModel
         {
             for(int j = 0; j < m; j++)
             {
+                charsList[i].Add(' ');
                 PaintBlocks[i].Add(new PaintBlock(' ', i, j, new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black)));
             }
         }
@@ -82,6 +92,7 @@ public class StringStreamModel
         if(x < _n && y < _m && x >= 0 && y >= 0)
         {
             PaintBlocks[x][y].ChangePaint(brush);
+            StringStreamModel.charsList[x][y] = Convert.ToChar(brush.ch);
         }
         
     }

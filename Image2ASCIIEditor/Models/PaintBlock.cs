@@ -66,12 +66,14 @@ public class PaintBlock
 
     public void PutInCanvas(ref Canvas g)
     {
+        StringStreamModel.charsList[y][x] = Convert.ToChar(_b.Text);
         g.Children.Add(_border);
         g.Children.Add(_c);
     }
 
     public void ChangePaint(Brush brush)
     {
+        
         brush.SetPaint(ref _b, ref _c);
     }
 }
