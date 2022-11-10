@@ -499,14 +499,9 @@ public sealed partial class EditText : Page
     private void AppBarButton_Click(object sender, RoutedEventArgs e)
     {
         BackgroundWorker worker = new BackgroundWorker();
-        
         worker.DoWork += (s, e) => {
-
-           
             AllocConsole();
             System.Console.WriteLine("test\n");
-
-
             for(int j = 0; j < StringStreamModel.charsList.Count; j++)
             {
                 for(int i = 0; i < StringStreamModel.charsList[j].Count; i++)
@@ -517,10 +512,6 @@ public sealed partial class EditText : Page
             }
 
             System.Console.Read();
-            
-            
-            
-  
         };
         worker.RunWorkerCompleted += (s, e) => {
             //e.Result"returned" from thread

@@ -24,7 +24,7 @@ public class StringStreamModel
     public int _n = 0;
     public int _m = 0;
 
-    public static int ColorConvert(Windows.UI.Color color)
+    public static int ColorConvertForWindows(Windows.UI.Color color)
     {
         if (color == Colors.Red)
         {
@@ -136,6 +136,8 @@ public class StringStreamModel
         {
             PaintBlocks[x][y].ChangePaint(brush);
             StringStreamModel.charsList[x][y] = Convert.ToChar(brush.ch);
+            SolidColorBrush scb = brush.foreground_color as SolidColorBrush;
+            StringStreamModel.colorList[x][y] = ColorConvertForWindows(scb.Color);
         }
         
     }
