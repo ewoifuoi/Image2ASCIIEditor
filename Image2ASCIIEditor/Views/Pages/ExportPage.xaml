@@ -17,6 +17,7 @@
         <RadioButtons Margin="10" x:Name="selection">
             <RadioButton x:Name="env1" Content="使用Win32终端api生成" Checked="RadioButton_Checked"/>
             <RadioButton x:Name="env2" Content="使用Linux字符颜色转义生成" Checked="RadioButton_Checked"/>
+            <RadioButton x:Name="env3" Content="导出为纯文本" Checked="RadioButton_Checked"/>
         </RadioButtons>
         <HyperlinkButton Content="什么是字符显示环境?" Click="HyperlinkButton_Click"/>
         
@@ -44,6 +45,8 @@
             Title="使用Linux字符颜色转义生成"
             Subtitle="It's easier than ever to see control samples in both light and dark theme!"
 	        CloseButtonContent="Got it!"
+            ActionButtonClick="HyperlinkButton_Click3"
+	        ActionButtonContent="下一条"
             PlacementMargin="20"
 	        IsLightDismissEnabled="True"
             PreferredPlacement="Right"
@@ -55,7 +58,20 @@
                 <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">使用</TextBlock>
             </TeachingTip.Content>
         </TeachingTip>
-        
+        <TeachingTip x:Name="showENV3"
+            Target="{x:Bind env3}"
+            Title="导出为纯文本"
+	        CloseButtonContent="Got it!"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            >
+            <TeachingTip.HeroContent>
+                <Image Source="../../Images/txt.png" />
+            </TeachingTip.HeroContent>
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">将直接生成一个包含该字符图像的txt文件(不包含颜色信息)</TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
         <!--#endregion-->
         
     </StackPanel>

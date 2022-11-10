@@ -46,5 +46,9 @@ public partial class ExportPage : Page
         showENV2.IsOpen = true;
     }
 
-    
+    private void HyperlinkButton_Click3(TeachingTip sender, object args)
+    {
+        showENV2.IsOpen = false;
+        showENV3.IsOpen = true;
+    }
 }

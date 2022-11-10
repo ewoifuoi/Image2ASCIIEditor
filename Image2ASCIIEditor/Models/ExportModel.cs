@@ -14,7 +14,7 @@ public class ExportModel
         switch (id)
         {
             case 0:
-                return "\\033[1;30m";
+                return "\\033[0;30m";
                 break;
             case 12:
                 return "\\033[1;31m";
@@ -74,14 +74,20 @@ public class ExportModel
         }
         else if(op == 1)
         {
+            outputForLinux = "";
+            outputForLinux += "echo \"";
             for(int i = 0; i < StringStreamModel.charsList.Count; i++)
             {
                 for(int j = 0; j < StringStreamModel.charsList[i].Count; j++)
                 {
-
-
+                    outputForLinux += ColorConvertForLinux(StringStreamModel.colorList[i][j]);
+                    outputForLinux += StringStreamModel.charsList[i][j].ToString();
+                    outputForLinux += "\\033[0m";
                 }
+                outputForLinux += "\\n";
             }
+            outputForLinux += "\"";
         }
+        System.Console.WriteLine(outputForLinux);
     }
 }
