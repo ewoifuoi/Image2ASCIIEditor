@@ -492,30 +492,27 @@ public sealed partial class EditText : Page
     [DllImport("Kernel32")]
     public static extern void FreeConsole();
 
-    [DllImport("Kernel32")]
-    public static extern void AttachConsole();
-
-
     private void AppBarButton_Click(object sender, RoutedEventArgs e)
     {
-        BackgroundWorker worker = new BackgroundWorker();
+        BackgroundWorker worker = new BackgroundWorker();// 新建一后台线程
         worker.DoWork += (s, e) => {
-            AllocConsole();
-            System.Console.WriteLine("test\n");
+            AllocConsole(); // 为调用进程分配一个新的控制台。
+            System.Console.WriteLine("当前效果预览 :\n");
             for(int j = 0; j < StringStreamModel.charsList.Count; j++)
             {
                 for(int i = 0; i < StringStreamModel.charsList[j].Count; i++)
                 {
+                    System.Console.ForegroundColor = (ConsoleColor)StringStreamModel.colorList[j][i];
                     System.Console.Write(StringStreamModel.charsList[j][i]);
+                    System.Console.ResetColor();
                 }
                 System.Console.Write('\n');
             }
-
+            System.Console.WriteLine("按任意键继续");
             System.Console.Read();
         };
-        worker.RunWorkerCompleted += (s, e) => {
+        worker.RunWorkerCompleted += (s, e) => { // 释放后台线程
             //e.Result"returned" from thread
-            
             FreeConsole();
 
         };
