@@ -566,6 +566,7 @@ public sealed partial class EditText : Page
             else
             {
                 ExportModel exportmodel = new ExportModel(op);
+                MessageBox.Show("导出成功", this);
             }
         }
         else

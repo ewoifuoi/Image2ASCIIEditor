@@ -245,7 +245,8 @@ public sealed partial class ShowImage : Page
         dialog.Content = "是否使用字符'+'对像素矩阵进行替换？（此过程不可逆）";
 
         var result = await dialog.ShowAsync();
-       
+
+        iswaiting.Opacity = 1;
         if(result != ContentDialogResult.Primary)
         {
             return;

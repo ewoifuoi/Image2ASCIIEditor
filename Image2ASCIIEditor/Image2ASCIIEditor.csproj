@@ -53,6 +53,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Images\bash.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Images\txt.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

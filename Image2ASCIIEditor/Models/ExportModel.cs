@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
+using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 
 namespace Image2ASCIIEditor.Models;
 public class ExportModel
 {
     private int op;
     private string outputForLinux;
+    private string filePath = null;
     private string ColorConvertForLinux(int id)
     {
         switch (id)
@@ -65,6 +73,9 @@ public class ExportModel
                 return "";
         }
     }
+
+    private bool isok = false;
+
     public ExportModel(int op)
     {
         this.op = op;
@@ -74,20 +85,64 @@ public class ExportModel
         }
         else if(op == 1)
         {
-            outputForLinux = "";
-            outputForLinux += "echo \"";
+            outputForLinux = "#!/bin/bash\n";
+            
             for(int i = 0; i < StringStreamModel.charsList.Count; i++)
             {
-                for(int j = 0; j < StringStreamModel.charsList[i].Count; j++)
+                outputForLinux += "echo -e \"";
+                for (int j = 0; j < StringStreamModel.charsList[i].Count; j++)
                 {
                     outputForLinux += ColorConvertForLinux(StringStreamModel.colorList[i][j]);
                     outputForLinux += StringStreamModel.charsList[i][j].ToString();
                     outputForLinux += "\\033[0m";
                 }
-                outputForLinux += "\\n";
+                outputForLinux += "\"\n";
             }
-            outputForLinux += "\"";
+            
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (s, e) => {
+                //Some work...
+                SaveTXTFile("bash Script", ".sh");
+                while (isok == false) { Thread.Sleep(100); };
+            };
+            worker.RunWorkerCompleted += (s, e) => {
+                //e.Result"returned" from thread
+
+                FileStream fs = new FileStream(filePath, FileMode.Create);
+                StreamWriter sw = new StreamWriter(fs, Encoding.Default);
+                sw.Write(outputForLinux);
+                //【3】释放资源
+                sw.Close();
+                fs.Close();
+
+            };
+            worker.RunWorkerAsync();
         }
-        System.Console.WriteLine(outputForLinux);
+    }
+
+    public async void SaveTXTFile(string a, string b)
+    {
+        var savePicker = new FileSavePicker();
+        WinRT.Interop.InitializeWithWindow.Initialize(savePicker, MainWindow.hWnd);
+        savePicker.SuggestedStartLocation =
+            Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+        
+        savePicker.FileTypeChoices.Add(a, new List<string>() { b });
+        
+        savePicker.SuggestedFileName = "字符图像"+DateTime.Now.ToString("t");
+
+
+        // 打开文件选择对话框
+        var file = await savePicker.PickSaveFileAsync();
+
+        
+        if (file != null)
+        {
+            filePath = file.Path; // 暂存绝对路径
+            isok = true;
+        }
+
+
     }
 }

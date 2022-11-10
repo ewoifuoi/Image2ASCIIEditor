@@ -9,10 +9,15 @@
     NavigationCacheMode="Enabled">
 
     <Canvas>
+        <StackPanel Canvas.ZIndex="999" Opacity="0" x:Name="iswaiting">
+            <ProgressRing Height="200" Width="200" IsActive="false" x:Name="waitingRing"></ProgressRing>
+            <TextBlock Text="正在生成字符矩阵"></TextBlock>
+        </StackPanel>
         <Grid Opacity="0.6" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
             Height="800" Width="1000"></Grid>
         <Grid Margin="20"
             Background="{ThemeResource CustomAcrylicInAppLuminosity}" Opacity="0" Height="520" Width="360"></Grid>
+        
         <StackPanel Orientation="Vertical">
             
             <!--#region 上栏 (展示区)-->

@@ -43,7 +43,6 @@
         <TeachingTip x:Name="showENV2"
             Target="{x:Bind env2}"
             Title="使用Linux字符颜色转义生成"
-            Subtitle="It's easier than ever to see control samples in both light and dark theme!"
 	        CloseButtonContent="Got it!"
             ActionButtonClick="HyperlinkButton_Click3"
 	        ActionButtonContent="下一条"
@@ -52,10 +51,10 @@
             PreferredPlacement="Right"
             >
             <TeachingTip.HeroContent>
-                <Image Source="/Assets/SampleMedia/sunset.jpg" AutomationProperties.Name="Sunset" />
+                <Image Source="../../Images/bash.png"/>
             </TeachingTip.HeroContent>
             <TeachingTip.Content>
-                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">使用</TextBlock>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">将会生成一个.sh的bash脚本文件,使用echo命令在Linux中输出颜色转义字符</TextBlock>
             </TeachingTip.Content>
         </TeachingTip>
         <TeachingTip x:Name="showENV3"
