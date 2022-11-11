@@ -194,6 +194,7 @@ public sealed partial class ShowImage : Page
                 TextBlock tb = new TextBlock() {Padding=new Thickness(0,5,0,0), Text="聚类 "+i.ToString()+" :"};
                 ComboBox Editcb = new ComboBox() { IsEditable = true, Width = 65, Height = 30 };
                 Editcb.TextSubmitted += Char_TextSubmitted;
+                selectColors.Clear();
                 selectColors.Add(Colors.Red);
                 selectColors.Add(Colors.Green);
                 selectColors.Add(Colors.Blue);
@@ -207,6 +208,7 @@ public sealed partial class ShowImage : Page
                 selectColors.Add(Colors.DarkMagenta);
                 selectColors.Add(Colors.DarkCyan);
                 selectColors.Add(Colors.Gray);
+                cb.Items.Clear();
                 cb.Items.Add(new string("Red"));
                 cb.Items.Add(new string("Green"));
                 cb.Items.Add(new string("Blue"));
@@ -298,8 +300,9 @@ public sealed partial class ShowImage : Page
                 {
                     isColorChanged = true;
                     ColorChangedInd = i;
+                    tempFill = new SolidColorBrush(selectColors[ind]);
                 }
-                tempFill = new SolidColorBrush(selectColors[ind]);
+                
                 rectList[i].Fill = new SolidColorBrush(selectColors[ind]);
                 
             }
