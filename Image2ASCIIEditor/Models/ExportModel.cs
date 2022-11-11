@@ -22,7 +22,7 @@ public class ExportModel
         switch (id)
         {
             case 0:
-                return "\\033[0;30m";
+                return "\\033[0m";
                 break;
             case 12:
                 return "\\033[1;31m";
