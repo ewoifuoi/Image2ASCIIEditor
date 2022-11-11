@@ -6,17 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    NavigationCacheMode="Enabled">
-
+    NavigationCacheMode="Enabled"
+    Loaded="Page_Loaded"
+    >
     <Canvas >
-        
         <Grid Opacity="0.8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
           x:Name="father"  Height="800" Width="1000"></Grid>
         <Grid Margin="20"
             Background="{ThemeResource CustomAcrylicInAppLuminosity}" Opacity="0" Height="520" Width="360"></Grid>
-        
+
         <StackPanel Orientation="Vertical">
-            
+
             <!--#region 上栏 (展示区)-->
             <StackPanel
             Orientation="Horizontal">
@@ -45,7 +45,7 @@
                         </Border>
                     </Canvas>
                     <!--#endregion-->
-                    <Button Margin="20 220 0 0" Click="OpenFile" Content="打开图片" Width="180" Height="60"></Button>
+                    <Button x:Name="openPicture" Margin="20 220 0 0" Click="OpenFile" Content="打开图片" Width="180" Height="60"></Button>
                 </StackPanel>
                 <!--#endregion-->
 
@@ -68,12 +68,12 @@
                     </Border>
                 </StackPanel>
                 <!--#endregion-->
-                
+
                 <!--#region 测试栏-->
                 <StackPanel Margin="10 0 0 0" Height="300">
                     <Expander IsEnabled="False" x:Name="ColorClusterExpander" Header="颜色聚类映射表" Width="295">
                         <StackPanel x:Name="ColorClusterStackPanel"></StackPanel>
-                        
+
                     </Expander>
                     <StackPanel>
                         <InfoBar
@@ -87,13 +87,13 @@
                     <ListView x:Name="console" Height="300" Width="285"></ListView>
                 </StackPanel>
                 <!--#endregion-->
-                
+
             </StackPanel>
             <!--#endregion-->
 
             <!--#region 下栏(控制区)-->
             <StackPanel Orientation="Horizontal">
-                
+
                 <!--#region 调节分辨率与锐度-->
                 <StackPanel>
                     <StackPanel Margin="40 40 0 0" Orientation="Vertical">
@@ -107,13 +107,13 @@
 
                 <!--#region 两个生成按钮-->
                 <StackPanel Margin="20 10 0 0" Orientation="Vertical">
-                    <Button Click="GenerateBitMatrix" Margin="20 10 0 0" Content="生成像素矩阵" Height="60" Width="180"></Button>
-                    <Button Click="EraseWhiteBackground"  Height="60" Width="180" Margin="20 20 0 0" Content="消除白色背景"></Button>
+                    <Button x:Name="generate1" Click="GenerateBitMatrix" Margin="20 10 0 0" Content="生成像素矩阵" Height="60" Width="180"></Button>
+                    <Button x:Name="generate2" Click="EraseWhiteBackground"  Height="60" Width="180" Margin="20 20 0 0" Content="消除白色背景"></Button>
                 </StackPanel>
                 <!--#endregion-->
 
                 <!--#region 颜色聚类-->
-                <StackPanel Orientation="Vertical" Margin="20">
+                <StackPanel x:Name="julei" Orientation="Vertical" Margin="20">
                     <StackPanel Margin="0 0 0 20" Orientation="Horizontal">
                         <ComboBox x:Name="kind_of_color" SelectionChanged="ColorComboBox_SelectionChanged" Header="使用颜色种类 :" PlaceholderText="请选择" Width="160">
                             <x:String>2</x:String>
@@ -127,17 +127,134 @@
                     <Button Click="Generate_K_Means" Height="60" Width="160" Content="生成颜色聚类"></Button>
                 </StackPanel>
                 <!--#endregion-->
-                
+
                 <!--#region 导入编辑器-->
                 <StackPanel Orientation="Vertical">
-                    <Button Click="exportToEditor"  Margin="0 30 0 0" Height="130" Width="160" Content="导入字符编辑器"></Button>
+                    <Button x:Name="input" Click="exportToEditor"  Margin="0 30 0 0" Height="130" Width="160" Content="导入字符编辑器"></Button>
                 </StackPanel>
                 <!--#endregion-->
-                
+
             </StackPanel>
             <!--#endregion-->
-            
+
         </StackPanel>
+
+        <!--#region 教学框-->
+        <TeachingTip x:Name="t2"
+            Target="{x:Bind openPicture}"
+            Title="第一步：点击打开图片" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next2"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    首先需要导入外部图片，支持jpg，png等格式，打开图片后将自适应窗口大小显示，若不使用图片请通过左侧导航栏进入编辑界面
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t3"
+            Target="{x:Bind Value}"
+            Title="第二步：设置图像的分辨率" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next3"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    图像处理界面的意义在于将一个高分辨率的图片提取关键像素点，生成一个可以在终端中显示的字符画，因此需要指定待生成的字符图像的大小，新的图片每一个像素都将在终端中占据一个字符大小，因此，请合理设置分辨率
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t4"
+            Target="{x:Bind generate1}"
+            Title="生成像素矩阵" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next4"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    设置分辨率后可生成对应像素矩阵
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t5"
+            Target="{x:Bind eraseWhiteRate}"
+            Title="第三步：消除白色背景" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next5"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    如果导入的图片拥有接近于纯白的背景，且图像主体部分浅色较少，可以设置白色背景消除系数对其进行消除。（建议从小到大设置该值，后点击右侧按钮进行消除），若消除效果不理想，可以重新生成像素矩阵进行覆盖
+                    （该步操作可省略）
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t6"
+            Target="{x:Bind julei}"
+            Title="第四步：设置颜色种类，进行K-means聚类" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next6"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    由于终端中只能显示有限种前景色，因此需要将我们导入的图片中提取出来具有代表性的像素块，并将其替换为终端支持的颜色
+                    （建议使用颜色较为单一的图片，且聚类个数尽量不要超过4，否则有一定概率聚类失败）
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t7"
+            Target="{x:Bind ColorClusterExpander}"
+            Title="第五步：进行颜色替换" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next7"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    根据刚才的聚类个数，设置每一类像素块对应颜色，点击使用字符替换后等待片刻，将会使对应字符在左侧显示框中生成
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t8"
+            Target="{x:Bind input}"
+            Title="最后：将该字符图像导入字符编辑器" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next8"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    由于聚类效果可能不理想等诸多原因，需要将图像导入字符编辑器进行微调，点此按钮等待片刻即可导入
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <!--#endregion-->
+
     </Canvas>
-    
 </Page>

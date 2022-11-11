@@ -592,4 +592,55 @@ public sealed partial class EditText : Page
     {
        
     }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (MainWindow.isTeaching == true)
+        {
+            if (t1.IsOpen == false) t1.IsOpen = true;
+            else t1.IsOpen = false;
+        }
+
+    }
+
+    #region 教学栏
+    private void next1(TeachingTip sender, object args)
+    {
+        
+        t2.IsOpen = true;
+        t1.IsOpen = false;
+        
+
+    }
+    private void next2(TeachingTip sender, object args)
+    {
+        
+        
+        t2.IsOpen = false;
+        t3.IsOpen = true;
+        
+    }
+    private void next3(TeachingTip sender, object args)
+    {
+
+        t3.IsOpen = false;
+        t4.IsOpen = true;
+    }
+    private void next4(TeachingTip sender, object args)
+    {
+
+        t4.IsOpen = false;
+        t5.IsOpen = true;
+    }
+    private void next5(TeachingTip sender, object args)
+    {
+        t5.IsOpen = false;
+        t6.IsOpen = true;
+    }
+    private void next6(TeachingTip sender, object args)
+    {
+        t6.IsOpen = false;
+        t7.IsOpen = true;
+    }
+    #endregion
 }

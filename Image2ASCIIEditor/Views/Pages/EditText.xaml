@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="Transparent"
     NavigationCacheMode="Enabled"
-    SizeChanged="Page_SizeChanged"
+    SizeChanged="Page_SizeChanged"   
     >
 
     <Canvas>
@@ -21,7 +21,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
                     <!--#region 画笔颜色-->
-                    <Border Height="50" CornerRadius="5,5,5,5" BorderBrush="Gray" BorderThickness="3"  Margin="0 10 10 0">
+                    <Border x:Name="c"  Height="50" CornerRadius="5,5,5,5" BorderBrush="Gray" BorderThickness="3"  Margin="0 10 10 0">
                         <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
                             <!--#region 字符-->
                             <TextBlock Padding="10 10 0 10" Text="字符:"></TextBlock>
@@ -73,7 +73,7 @@
                     <!--#endregion-->
 
                     <!--#region 操作快捷键-->
-                    <CommandBar  Margin="0 10 0 0" HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
+                    <CommandBar x:Name="f"  Margin="0 10 0 0" HorizontalAlignment="Right" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
                         <AppBarToggleButton x:Name="ChangeModeBtn3" Click="ChangeEditMode3" IsChecked="False" Icon="Highlight" Label="工具条"></AppBarToggleButton>
                         <AppBarSeparator></AppBarSeparator>
                         <AppBarButton Foreground="IndianRed" Click="clear_canvas" Icon="Delete" Label="清空画布"/>
@@ -103,7 +103,7 @@
                         <Border BorderThickness="2" BorderBrush="Transparent" Margin="0 5 5 5">
 
                             <!--#region 空字符矩阵生成框-->
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" x:Name="a">
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                                         <TextBlock  Text="宽度 : " Margin="5"></TextBlock>
@@ -147,7 +147,7 @@
                         <TextBlock Height="30" ></TextBlock>
 
                         <!--#region 使用指定字符生成框-->
-                        <Expander Width="240" Margin="10 0 0 0" Header="使用初始化字符串">
+                        <Expander x:Name="b" Width="240" Margin="10 0 0 0" Header="使用初始化字符串">
                             <Expander.Content>
                                 <StackPanel>
                                     <TextBox Margin="0 0 0 10" x:Name="input" FontSize="14" AcceptsReturn="True" TextWrapping="NoWrap" Width="200" Height="40"></TextBox>
@@ -179,6 +179,7 @@
                                         </StackPanel.Clip>
                                         <Expander ExpandDirection="Down" x:Name="toolbar" IsExpanded="False">
                                             <NavigationView x:Name="nvSample" 
+                                                            
                                                 PaneDisplayMode="LeftCompact"
                                                 IsPaneToggleButtonVisible="False"
                                                 IsTapEnabled="False"
@@ -244,7 +245,7 @@
             </StackPanel>
 
             <!--#region 右侧功能条-->
-            <StackPanel Orientation="Vertical" Margin="0 50 0 0">
+            <StackPanel x:Name="e" Orientation="Vertical" Margin="0 50 0 0">
                 <AppBarButton Click="refresh" Margin="0 2 0 0" Icon="Refresh" Label="复位" />
                 <AppBarButton Click="AppBarButton_Click" Margin="0 2 0 0" Icon="Read" Label="预览" />
                 <AppBarButton Click="AppBarButton_Click_2" Margin="0 2 0 0" Icon="Save" Label="导出" />
@@ -253,5 +254,129 @@
             <!--#endregion-->
 
         </StackPanel>
+        
+        <!--#region 教学框-->
+        <TeachingTip x:Name="t1"
+            Target="{x:Bind a}"
+            Title="使用指定宽，高 生成空字符矩阵" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next1"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    通过指定宽度高度，在右侧框中生成一个未被填充的矩阵
+                    （背景半透明黑色矩形代表每个像素块的识别区域）
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t2"
+            Target="{x:Bind b}"
+            Title="使用指定字符串初始化" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next2"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    将待编辑的字符串粘贴于此，
+                    即可将其在右侧框中初始化
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t3"
+            Target="{x:Bind c}"
+            Title="笔刷" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next3"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    左侧设置所使用的字符，右侧设置该字符的颜色
+                    （进行绘图前必须指定该值）
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t4"
+            Target="{x:Bind nvSample}"
+            Title="工具条" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next4"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    绘图工具条
+                    （包含单点绘制，拖拽绘制，直线工具，橡皮等绘图工具）
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t5"
+            Target="{x:Bind f}"
+            Title="顶部工具栏" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next5"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    指定当前模式为拖拽还是编辑
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t6"
+            Target="{x:Bind e}"
+            Title="右侧功能条" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next6"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    复位：将画布居中显示
+                    预览：调用命令行呈现当前字符图像（打开后请不要关闭）
+                    导出：将编辑后的字符图像导出为生成代码或纯文本
+                    导入图片：切换到图像编辑界面
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <TeachingTip x:Name="t7"
+            Target="{x:Bind playground}"
+            Title="画布" 
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">
+                    在此呈现字符图像
+                    使用鼠标滚轮对画布进行放大缩小
+                    （生成矩阵后）在上方工具栏指定为拖拽模式时，鼠标左键按下即可拖拽画布
+                    在上方工具栏指定为编辑模式时，鼠标左键按下和拖拽进行相应绘图操作
+                </TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <!--#endregion-->
+        
     </Canvas>
 </Page>

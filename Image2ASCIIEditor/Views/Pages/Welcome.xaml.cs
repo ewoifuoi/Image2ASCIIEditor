@@ -45,4 +45,19 @@ public sealed partial class Welcome : Page
     {
         LaunchUriAsync(new Uri("https://github.com/ewoifuoi/Image2ASCIIEditor"));
     }
+
+    private void next1(TeachingTip sender, object args)
+    {
+        t1.IsOpen = false;
+        MainWindow.frame.NavigateToType(typeof(ShowImage), null, null);
+        MainWindow.welcome.IsSelected = false;
+        MainWindow.showImage.IsSelected = true;
+
+    }
+
+    private void Button_Click_1(object sender, RoutedEventArgs e)
+    {
+        MainWindow.isTeaching = true;
+        t1.IsOpen = true;
+    }
 }
