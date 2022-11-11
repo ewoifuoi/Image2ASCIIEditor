@@ -9,7 +9,7 @@
   <Identity
     Name="1ec5fd77-2137-4fde-9f98-786c0d4c3a4e"
     Publisher="CN=ewoifuoi"
-    Version="0.1.5.0" />
+    Version="1.0.20.0" />
 
   <Properties>
     <DisplayName>Image2ASCIIEditor (Package)</DisplayName>
@@ -31,15 +31,17 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="Image2ASCIIEditor"
-        Description="字符图像大杀器"
+        DisplayName="字符图像大杀器"
+        Description="一个使用图片生成字符图像并进行编辑的APP"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
+        <uap:DefaultTile  Square71x71Logo="Images\SmallTile.png" Square310x310Logo="Images\LargeTile.png" Wide310x150Logo="Images\WideTile.png">
+        </uap:DefaultTile >
         <uap:SplashScreen Image="Images\SplashScreen.png" />
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
+        <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
     </Application>
   </Applications>
