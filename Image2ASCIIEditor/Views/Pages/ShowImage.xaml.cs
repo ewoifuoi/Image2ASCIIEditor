@@ -9,7 +9,9 @@ using System.Threading;
 using Image2ASCIIEditor.Common;
 using Image2ASCIIEditor.Models;
 using Image2ASCIIEditor.Views.Pages;
+using Image2ASCIIEditor.Views.Windows;
 using Microsoft.UI;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -34,6 +36,7 @@ namespace Image2ASCIIEditor.Views;
 /// </summary>
 public sealed partial class ShowImage : Page
 {
+    private DispatcherQueue dispatcher;
     public ShowImage()
     {
         
@@ -43,7 +46,7 @@ public sealed partial class ShowImage : Page
         transformGroup = testground.RenderTransform as TransformGroup;
         ImageModel.IMG.showImage(ref this.image);
         Console.log("开始测试");
-
+        dispatcher = DispatcherQueue.GetForCurrentThread();
         
     }
 
@@ -86,7 +89,7 @@ public sealed partial class ShowImage : Page
         }
         else
         {
-            Wait("正在生成像素矩阵");
+            
             transformGroup.Children.Clear();
             
             ColorClusterStackPanel.Children.Clear();
@@ -97,7 +100,7 @@ public sealed partial class ShowImage : Page
             Canvas.SetTop(testground, 0);
             ImageModel.IMG.CreateBitmap(ref testground, Convert.ToInt32(Value.Value));
             ColorClusterExpander.IsEnabled = false;
-            Continue();
+           
         }
         
     }
@@ -233,26 +236,7 @@ public sealed partial class ShowImage : Page
         }
     }
 
-    private void Wait(string text)
-    {
-        iswaiting.Opacity = 1;
-        waitingRing.IsActive = true;
-        shadow.Opacity = 0.7;
-        waitingText.Text = text;
-        Canvas.SetLeft(iswaiting, 310);
-        Canvas.SetTop(iswaiting, 120);
-        shadow.Height = 800;
-        shadow.Width = 1000;
-    }
 
-    private void Continue()
-    {
-        iswaiting.Opacity = 0;
-        waitingRing.IsActive = false;
-        shadow.Opacity = 0;
-        shadow.Height = 0;
-        shadow.Width = 0;
-    }
 
     public StringStreamModel res;
     private async void Generate_char(object sender, RoutedEventArgs e)
@@ -276,19 +260,8 @@ public sealed partial class ShowImage : Page
             return;
         }
 
-        BackgroundWorker worker = new BackgroundWorker();
-        worker.DoWork += (s, e) => {
-            //Some work...
-            Wait("正在替换");
-
-        };
-        worker.RunWorkerCompleted += (s, e) => {
-            //e.Result"returned" from thread
-
-           
-
-        };
-        worker.RunWorkerAsync();
+        
+        
         res = new StringStreamModel(ImageModel.IMG.RectangleList.Count, ImageModel.IMG.RectangleList[0].Count);
         for(int i = 0; i < ImageModel.IMG.RectangleList.Count; i++)//40
         {
@@ -308,7 +281,7 @@ public sealed partial class ShowImage : Page
             }
         }
         res1.Generate(ref testground);
-        Continue();
+
     }
 
     private void Cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -358,10 +331,10 @@ public sealed partial class ShowImage : Page
 
     private void exportToEditor(object sender, RoutedEventArgs e)
     {
-        Wait("正在导入");
+        
         Thread.Sleep(500);
         EditText.GetStringFromImage(ref res);
-        Continue();
+      
         MainWindow.frame.NavigateToType(typeof(EditText), null, null);
         MainWindow.showImage.IsSelected = false;
         MainWindow.editText.IsSelected = true;
