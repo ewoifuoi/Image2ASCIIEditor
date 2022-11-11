@@ -81,7 +81,72 @@ public class ExportModel
         this.op = op;
         if(op == 0)
         {
+            outputForLinux = "#include<stdio.h>\n#include<stdlib.h>\n#include<windows.h>\nvoid set_console_color(unsigned short color_index) {\n    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_index);\n    return ;\n}\n\nchar OUTPUT_list[";
+            outputForLinux += StringStreamModel.charsList.Count.ToString();
+            outputForLinux += "][";
+            outputForLinux += StringStreamModel.charsList[0].Count.ToString();
+            outputForLinux += "] = {\n";
+            
 
+            for (int i = 0; i < StringStreamModel.charsList.Count; i++)
+            {
+                outputForLinux += "    ";
+                for (int j = 0; j < StringStreamModel.charsList[i].Count; j++)
+                {
+                    outputForLinux += "'";
+                    outputForLinux += StringStreamModel.charsList[i][j].ToString();
+                    outputForLinux += "'";
+                    if(i != StringStreamModel.charsList.Count - 1 || j != StringStreamModel.charsList[i].Count - 1)
+                    {
+                        outputForLinux += ",";
+                    }
+                }
+                outputForLinux += "\n";
+            }
+            outputForLinux += "};\n\n";
+            outputForLinux += "int COLOR_list[";
+            outputForLinux += StringStreamModel.colorList.Count.ToString();
+            outputForLinux += "][";
+            outputForLinux += StringStreamModel.colorList[0].Count.ToString();
+            outputForLinux += "] = {\n";
+            for (int i = 0; i < StringStreamModel.colorList.Count; i++)
+            {
+                outputForLinux += "    ";
+                for (int j = 0; j < StringStreamModel.colorList[i].Count; j++)
+                {
+                    outputForLinux += StringStreamModel.colorList[i][j].ToString();
+                    if (i != StringStreamModel.colorList.Count - 1 || j != StringStreamModel.colorList[i].Count - 1)
+                    {
+                        outputForLinux += ",";
+                    }
+                }
+                outputForLinux += "\n";
+            }
+            outputForLinux += "};\n\n";
+            outputForLinux += "int main(){\n    for(int i = 0; i < ";
+            outputForLinux += StringStreamModel.charsList.Count.ToString();
+            outputForLinux += "; i++) {\n        for(int j = 0; j < ";
+            outputForLinux += StringStreamModel.charsList[0].Count.ToString();
+            outputForLinux += "; j++) {\n            set_console_color(COLOR_list[i][j]);\n            printf(\"%c\", OUTPUT_list[i][j]);\n            set_console_color(7);\n        }\n        printf(\"\\n\");\n    }\n    getchar();\n    return 0;\n}\n";
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (s, e) => {
+                //Some work...
+                SaveTXTFile("C源代码", ".c");
+                while (isok == false) { Thread.Sleep(100); };
+            };
+            worker.RunWorkerCompleted += (s, e) => {
+                //e.Result"returned" from thread
+
+                FileStream fs = new FileStream(filePath, FileMode.Create);
+                StreamWriter sw = new StreamWriter(fs, Encoding.Default);
+                sw.Write(outputForLinux);
+                //【3】释放资源
+                sw.Close();
+                fs.Close();
+
+            };
+            worker.RunWorkerAsync();
         }
         else if(op == 1)
         {
@@ -103,7 +168,41 @@ public class ExportModel
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (s, e) => {
                 //Some work...
-                SaveTXTFile("bash Script", ".sh");
+                SaveTXTFile("bash脚本", ".sh");
+                while (isok == false) { Thread.Sleep(100); };
+            };
+            worker.RunWorkerCompleted += (s, e) => {
+                //e.Result"returned" from thread
+
+                FileStream fs = new FileStream(filePath, FileMode.Create);
+                StreamWriter sw = new StreamWriter(fs, Encoding.Default);
+                sw.Write(outputForLinux);
+                //【3】释放资源
+                sw.Close();
+                fs.Close();
+
+            };
+            worker.RunWorkerAsync();
+        }
+        else if(op == 2)
+        {
+            outputForLinux = "";
+
+            for (int i = 0; i < StringStreamModel.charsList.Count; i++)
+            {
+                for (int j = 0; j < StringStreamModel.charsList[i].Count; j++)
+                {
+                    if (StringStreamModel.colorList[i][j] != 0) outputForLinux += StringStreamModel.charsList[i][j].ToString();
+                    else outputForLinux += " ";
+                }
+                outputForLinux += "\n";
+            }
+
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (s, e) => {
+                //Some work...
+                SaveTXTFile("纯文本", ".txt");
                 while (isok == false) { Thread.Sleep(100); };
             };
             worker.RunWorkerCompleted += (s, e) => {

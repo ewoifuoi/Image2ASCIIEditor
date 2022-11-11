@@ -24,8 +24,7 @@
         <!--#region 教学弹窗-->
         <TeachingTip x:Name="showENV1"
             Target="{x:Bind env1}"
-            Title="使用Win32终端api生成"
-            Subtitle="It's easier than ever to see control samples in both light and dark theme!"
+            Title="使用Win32终端api生成" 
             ActionButtonClick="HyperlinkButton_Click2"
 	        ActionButtonContent="下一条"
 	        CloseButtonContent="Got it!"
@@ -34,10 +33,10 @@
             PreferredPlacement="Right"
             >
             <TeachingTip.HeroContent>
-                <Image Source="/Assets/SampleMedia/sunset.jpg" AutomationProperties.Name="Sunset" />
+                <Image Source="../../Images/c.png"/>
             </TeachingTip.HeroContent>
             <TeachingTip.Content>
-                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">使用</TextBlock>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">将会生成一个.c文件（需自行编译）,使用Windows API SetConsoleTextAttribute控制颜色，在Windows命令行中输出字符图像</TextBlock>
             </TeachingTip.Content>
         </TeachingTip>
         <TeachingTip x:Name="showENV2"
