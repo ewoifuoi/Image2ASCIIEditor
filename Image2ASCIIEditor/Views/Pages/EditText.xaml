@@ -12,7 +12,7 @@
     >
 
     <Canvas>
-        <Grid Opacity="0.6" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+        <Grid Opacity="0.8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
             Height="800" Width="1600"></Grid>
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical">

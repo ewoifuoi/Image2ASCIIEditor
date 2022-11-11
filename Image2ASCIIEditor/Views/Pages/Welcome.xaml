@@ -9,7 +9,7 @@
     NavigationCacheMode="Enabled">
 
     <Canvas>
-        <Grid Height="10000" Width="10000" Canvas.ZIndex="1" Background="Black" Opacity="0.85"></Grid>
+        <Grid Height="10000" Width="10000" Canvas.ZIndex="1" Background="Black" Opacity="0.9"></Grid>
         <StackPanel Canvas.ZIndex="9"
         Orientation="Horizontal"
         HorizontalAlignment="Left">

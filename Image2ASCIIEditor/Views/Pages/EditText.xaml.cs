@@ -498,8 +498,12 @@ public sealed partial class EditText : Page
     [DllImport("Kernel32")]
     public static extern void FreeConsole();
 
+    [DllImport("Kernel32")]
+    public static extern void CreateProcessA();
+
     private void AppBarButton_Click(object sender, RoutedEventArgs e)
     {
+
         BackgroundWorker worker = new BackgroundWorker();// 新建一后台线程
         worker.DoWork += (s, e) => {
             if (StringStreamModel.charsList == null)

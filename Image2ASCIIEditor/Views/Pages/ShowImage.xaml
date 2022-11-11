@@ -10,7 +10,7 @@
 
     <Canvas >
         
-        <Grid Opacity="0.6" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
+        <Grid Opacity="0.8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" 
           x:Name="father"  Height="800" Width="1000"></Grid>
         <Grid Margin="20"
             Background="{ThemeResource CustomAcrylicInAppLuminosity}" Opacity="0" Height="520" Width="360"></Grid>
@@ -82,7 +82,7 @@
                         IsOpen="True"
                         Severity="Informational"
                         Title="提示"
-                        Message="由于Linux终端显示的前景色最多为7种(第八种为黑色与背景一致),聚类最多只能设为7类" />
+                        Message="当前使用Linux终端配色风格" />
                     </StackPanel>
                     <ListView x:Name="console" Height="300" Width="285"></ListView>
                 </StackPanel>
