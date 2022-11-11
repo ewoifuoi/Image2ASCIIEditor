@@ -22,6 +22,10 @@ using Windows.Foundation;
 using Rect = Windows.Foundation.Rect;
 using Brush = Image2ASCIIEditor.Models.Brush;
 using Microsoft.UI.Xaml.Shapes;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
+using System.Runtime.InteropServices;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -37,11 +41,12 @@ public sealed partial class EditText : Page
     private Point _mouseDownControlPosition;
     Brush _brush;
     private Canvas _canvas;
-    StringStreamModel _StreamModel;
+    private static StringStreamModel _StreamModel;
     private TransformGroup transformGroup;
     private List<SolidColorBrush> ColorOptions = new List<SolidColorBrush>();
     private SolidColorBrush CurrentColorBrush = null;
     private bool _hasCanvas = false;
+    private static bool has_streamModel = false;
 
     private double _el_x1;
     private double _el_y1;
@@ -55,15 +60,31 @@ public sealed partial class EditText : Page
         transformGroup = playground.RenderTransform as TransformGroup;
         _brush = new Brush('*', new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Black));
 
-        ColorOptions.Add(new SolidColorBrush(Colors.Black));
+
         ColorOptions.Add(new SolidColorBrush(Colors.Red));
-        ColorOptions.Add(new SolidColorBrush(Colors.Orange));
         ColorOptions.Add(new SolidColorBrush(Colors.Yellow));
-        ColorOptions.Add(new SolidColorBrush(Colors.Green));
+        ColorOptions.Add(new SolidColorBrush(Colors.Cyan));
+        ColorOptions.Add(new SolidColorBrush(Colors.Magenta));
         ColorOptions.Add(new SolidColorBrush(Colors.Blue));
-        ColorOptions.Add(new SolidColorBrush(Colors.Indigo));
-        ColorOptions.Add(new SolidColorBrush(Colors.Violet));
         ColorOptions.Add(new SolidColorBrush(Colors.White));
+        ColorOptions.Add(new SolidColorBrush(Colors.Green));
+        ColorOptions.Add(new SolidColorBrush(Colors.DarkRed));
+        ColorOptions.Add(new SolidColorBrush(Colors.DarkCyan));
+        ColorOptions.Add(new SolidColorBrush(Colors.DarkMagenta));
+        ColorOptions.Add(new SolidColorBrush(Colors.DarkBlue));
+        ColorOptions.Add(new SolidColorBrush(Colors.DarkGreen));
+        ColorOptions.Add(new SolidColorBrush(Colors.Gray));
+
+
+        if (has_streamModel && _StreamModel != null)
+        {
+            has_streamModel = false;
+            _StreamModel.Generate(ref g);
+            _hasCanvas = true;
+
+            gg.Height = _StreamModel._n * 48;
+            gg.Width = _StreamModel._m * 23;
+        } 
     }
 
     private void outside_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
@@ -72,6 +93,13 @@ public sealed partial class EditText : Page
         double s = ((double)currentPoint.Properties.MouseWheelDelta) / 1000 + 1;
         transformGroup.Children.Add(new ScaleTransform() { CenterX = outside.Width / 2, CenterY = outside.Height / 2, ScaleX = s, ScaleY = s });
 
+    }
+
+    public static void GetStringFromImage(ref StringStreamModel res)
+    {
+       _StreamModel = res;
+        has_streamModel = true;
+        
     }
 
     private void playground_PointerPressed(object sender, PointerRoutedEventArgs e)
@@ -463,4 +491,156 @@ public sealed partial class EditText : Page
         _isMouseDown = false;
         canvas_showLine.Children.Clear();
     }
+
+    [DllImport("Kernel32")]
+    public static extern void AllocConsole();
+
+    [DllImport("Kernel32")]
+    public static extern void FreeConsole();
+
+    [DllImport("Kernel32")]
+    public static extern void CreateProcessA();
+
+    private void AppBarButton_Click(object sender, RoutedEventArgs e)
+    {
+
+        BackgroundWorker worker = new BackgroundWorker();// 新建一后台线程
+        worker.DoWork += (s, e) => {
+            if (StringStreamModel.charsList == null)
+            {
+                return;
+            }
+            AllocConsole(); // 为调用进程分配一个新的控制台。
+            System.Console.WriteLine("当前效果预览 :\n");
+            
+            for(int j = 0; j < StringStreamModel.charsList.Count; j++)
+            {
+                for(int i = 0; i < StringStreamModel.charsList[j].Count; i++)
+                {
+                    System.Console.ForegroundColor = (ConsoleColor)StringStreamModel.colorList[j][i];
+                    System.Console.Write(StringStreamModel.charsList[j][i]);
+                    System.Console.ResetColor();
+                }
+                System.Console.Write('\n');
+            }
+            System.Console.WriteLine("按任意键继续");
+            System.Console.Read();
+            
+        };
+        worker.RunWorkerCompleted += (s, e) => { // 释放后台线程
+            //e.Result"returned" from thread
+            FreeConsole();
+
+        };
+        worker.RunWorkerAsync();
+    }
+
+    private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+    {
+        MainWindow.frame.NavigateToType(typeof(ShowImage), null, null);
+        MainWindow.editText.IsSelected = false;
+        MainWindow.showImage.IsSelected = true;
+    }
+
+    private async void AppBarButton_Click_2(object sender, RoutedEventArgs e)//导出逻辑
+    {
+
+        if(_StreamModel == null || StringStreamModel.charsList == null)
+        {
+            MessageBox.Show("请先生成画布", this);
+            return;
+        }
+        ContentDialog dialog = new ContentDialog();
+
+        // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+        dialog.XamlRoot = this.XamlRoot;
+        dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+        dialog.Title = "选择导出格式";
+        dialog.PrimaryButtonText = "确定";
+        dialog.CloseButtonText = "取消";
+        dialog.DefaultButton = ContentDialogButton.Primary;
+        RadioButtons selection = null;
+        dialog.Content = new ExportPage(ref selection);
+
+        var result = await dialog.ShowAsync();
+        if (result == ContentDialogResult.Primary)
+        {
+            int op = selection.SelectedIndex;
+            if(op == -1) MessageBox.Show("请选择导出格式!", this);
+            else
+            {
+                ExportModel exportmodel = new ExportModel(op);
+                MessageBox.Show("导出成功", this);
+            }
+        }
+        else
+        {
+            return;
+        }
+
+    }
+
+    private void clear_canvas(object sender, RoutedEventArgs e)
+    {
+        g.Children.Clear();
+        _StreamModel = null;
+        StringStreamModel.charsList = null;
+        StringStreamModel.colorList = null;
+    }
+
+    private void refresh_canvas(object sender, RoutedEventArgs e)
+    {
+       
+    }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (MainWindow.isTeaching == true)
+        {
+            if (t1.IsOpen == false) t1.IsOpen = true;
+            else t1.IsOpen = false;
+        }
+
+    }
+
+    #region 教学栏
+    private void next1(TeachingTip sender, object args)
+    {
+        
+        t2.IsOpen = true;
+        t1.IsOpen = false;
+        
+
+    }
+    private void next2(TeachingTip sender, object args)
+    {
+        
+        
+        t2.IsOpen = false;
+        t3.IsOpen = true;
+        
+    }
+    private void next3(TeachingTip sender, object args)
+    {
+
+        t3.IsOpen = false;
+        t4.IsOpen = true;
+    }
+    private void next4(TeachingTip sender, object args)
+    {
+
+        t4.IsOpen = false;
+        t5.IsOpen = true;
+    }
+    private void next5(TeachingTip sender, object args)
+    {
+        t5.IsOpen = false;
+        t6.IsOpen = true;
+    }
+    private void next6(TeachingTip sender, object args)
+    {
+        t6.IsOpen = false;
+        t7.IsOpen = true;
+    }
+    #endregion
 }

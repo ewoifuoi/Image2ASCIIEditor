@@ -12,21 +12,25 @@
     >
 
 
-    <Grid Background="Transparent"
-          x:Name="grid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Border  Opacity="0.5" Background="SlateGray" x:Name="AppTitleBar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="1">
-            
+    <Canvas>
+        <Grid Background="Snow" Opacity="0.01" Height="800" Width="50" Margin="0 20 0 0"></Grid>
+        <Grid Background="Transparent"
+          x:Name="grid" Height="800" Width="1000">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <Border  Opacity="0.5" Background="SlateGray" x:Name="AppTitleBar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="1">
+
                 <TextBlock Foreground="Snow" Height="30" FontSize="12" x:Name="AppTitle" Text="字符串图像大杀器" VerticalAlignment="Top" Margin="10,8,0,0" />
-            
-        </Border>
-        <NavigationView
+
+            </Border>
+            <NavigationView
             IsBackEnabled="False"
             IsFocusEngaged="False"
-            Foreground="White"
+            Foreground="Snow"
             x:Name="nvSample" Grid.Row="1" Grid.Column="0" PaneDisplayMode="LeftCompact" Grid.RowSpan="1" Grid.ColumnSpan="1" 
             ItemInvoked="nvSample_ItemInvoked"
             IsPaneToggleButtonVisible="False"
@@ -34,24 +38,25 @@
             IsSettingsVisible="False"
             
             >
-            <NavigationView.MenuItems>
-                <NavigationViewItem Foreground="White" x:Name="Welcome" Icon="Home" Content="欢迎" Tag="Welcome" />
-                <NavigationViewItem Foreground="White" x:Name="EditText" Icon="Save" Content="编辑文本" Tag="EditText" />
-                <NavigationViewItem Foreground="White" x:Name="ShowImage" Icon="Pictures" Content="图像处理" Tag="ShowImage" />
-                
+                <NavigationView.MenuItems>
+                    <NavigationViewItem Foreground="Snow" x:Name="Welcome" Icon="Home" Content="欢迎" Tag="Welcome" />
+                    <NavigationViewItem Foreground="Snow" x:Name="EditText" Icon="Save" Content="编辑文本" Tag="EditText" />
+                    <NavigationViewItem Foreground="Snow" x:Name="ShowImage" Icon="Pictures" Content="图像处理" Tag="ShowImage" />
 
 
-            </NavigationView.MenuItems>
-            <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="阅读源码" Tag="Web" Icon="Globe" />
-            </NavigationView.FooterMenuItems>
 
-            <Frame x:Name="contentFrame">
+                </NavigationView.MenuItems>
+                <NavigationView.FooterMenuItems>
+                    <NavigationViewItem Content="阅读源码" Tag="Web" Icon="Globe" />
+                </NavigationView.FooterMenuItems>
+
+                <Frame x:Name="contentFrame">
 
 
-            </Frame>
-        </NavigationView>
-    </Grid>
+                </Frame>
+            </NavigationView>
+        </Grid>
+    </Canvas>
 
 
 

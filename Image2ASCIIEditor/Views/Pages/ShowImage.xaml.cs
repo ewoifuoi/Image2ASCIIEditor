@@ -4,11 +4,14 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using System.Threading;
 using Image2ASCIIEditor.Common;
 using Image2ASCIIEditor.Models;
 using Image2ASCIIEditor.Views.Pages;
+using Image2ASCIIEditor.Views.Windows;
 using Microsoft.UI;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -21,6 +24,7 @@ using Microsoft.UI.Xaml.Shapes;
 using Microsoft.VisualBasic;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Console = Image2ASCIIEditor.Common.Console;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -32,6 +36,7 @@ namespace Image2ASCIIEditor.Views;
 /// </summary>
 public sealed partial class ShowImage : Page
 {
+    private DispatcherQueue dispatcher;
     public ShowImage()
     {
         
@@ -41,7 +46,7 @@ public sealed partial class ShowImage : Page
         transformGroup = testground.RenderTransform as TransformGroup;
         ImageModel.IMG.showImage(ref this.image);
         Console.log("开始测试");
-
+        dispatcher = DispatcherQueue.GetForCurrentThread();
         
     }
 
@@ -84,11 +89,18 @@ public sealed partial class ShowImage : Page
         }
         else
         {
+            
             transformGroup.Children.Clear();
+            
+            ColorClusterStackPanel.Children.Clear();
+            ColorClusterExpander.IsExpanded = false;
+            
+            
             Canvas.SetLeft(testground, 0);
             Canvas.SetTop(testground, 0);
             ImageModel.IMG.CreateBitmap(ref testground, Convert.ToInt32(Value.Value));
-            
+            ColorClusterExpander.IsEnabled = false;
+           
         }
         
     }
@@ -163,10 +175,221 @@ public sealed partial class ShowImage : Page
             k_means_rectangles = k_Means.Execute(ImageModel.IMG.RectangleList, Convert.ToInt32(kind_of_color.SelectedValue.ToString()));
             Console.log(k_means_rectangles[0].Count.ToString());
 
-            for(int i = 0; i < k_means_rectangles[0].Count; i++)
+            
+
+            ColorClusterExpander.IsEnabled = true;
+            ColorClusterExpander.IsExpanded = true;
+            ColorClusterStackPanel.Children.Clear();
+
+            colorList = new List<ComboBox>();
+            charList = new List<ComboBox>();
+            rectList = new List<Rectangle>();
+            selectColors = new List<Color>();
+            for (int i = 0; i < Convert.ToInt32(kind_of_color.SelectedValue); i++)
             {
-                k_means_rectangles[0][i].Fill = new SolidColorBrush(Colors.Aqua);
+                StackPanel s = new StackPanel() { Width = 250, Height = 30, Margin = new Thickness(2), Orientation = Orientation.Horizontal };
+                //s.Background = new SolidColorBrush(Colors.Aqua);
+                ComboBox cb = new ComboBox() { Margin=new Thickness(25,0,25,0), FontSize=12, Width=95,Height=30 };
+                cb.SelectionChanged += Cb_SelectionChanged;
+                TextBlock tb = new TextBlock() {Padding=new Thickness(0,5,0,0), Text="聚类 "+i.ToString()+" :"};
+                ComboBox Editcb = new ComboBox() { IsEditable = true, Width = 65, Height = 30 };
+                Editcb.TextSubmitted += Char_TextSubmitted;
+                selectColors.Clear();
+                selectColors.Add(Colors.Red);
+                selectColors.Add(Colors.Green);
+                selectColors.Add(Colors.Blue);
+                selectColors.Add(Colors.Magenta);
+                selectColors.Add(Colors.Cyan);
+                selectColors.Add(Colors.White);
+                selectColors.Add(Colors.DarkRed);
+                selectColors.Add(Colors.DarkGreen);
+                selectColors.Add(Colors.Yellow);
+                selectColors.Add(Colors.DarkBlue);
+                selectColors.Add(Colors.DarkMagenta);
+                selectColors.Add(Colors.DarkCyan);
+                selectColors.Add(Colors.Gray);
+                cb.Items.Clear();
+                cb.Items.Add(new string("Red"));
+                cb.Items.Add(new string("Green"));
+                cb.Items.Add(new string("Blue"));
+                cb.Items.Add(new string("Magenta"));
+                cb.Items.Add(new string("Cyan"));
+                cb.Items.Add(new string("White"));
+                cb.Items.Add(new string("DarkRed"));
+                cb.Items.Add(new string("DarkGreen"));
+                cb.Items.Add(new string("Yellow"));
+                cb.Items.Add(new string("DarkBlue"));
+                cb.Items.Add(new string("DarkMagenta"));
+                cb.Items.Add(new string("DarkCyan"));
+                cb.Items.Add(new string("Gray"));
+                Rectangle rect = new Rectangle() { Margin = new Thickness(0, 0, 5, 0), Height =30,Width=30,Stroke=new SolidColorBrush(Colors.Gray),StrokeThickness=2};
+                
+                s.Children.Add(tb);
+                s.Children.Add(cb);
+                s.Children.Add(rect);
+                
+                ColorClusterStackPanel.Children.Add(s);
+                colorList.Add(cb);charList.Add(Editcb);rectList.Add(rect);
+                
             }
+            Button b = new Button() { Content="使用字符替换", Width = 250, Height = 60, Margin = new Thickness(5) };
+            b.Click += Generate_char;
+            ColorClusterStackPanel.Children.Add(b);
         }
     }
+
+
+
+    public StringStreamModel res;
+    private async void Generate_char(object sender, RoutedEventArgs e)
+    {
+        ContentDialog dialog = new ContentDialog();
+
+        // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+        dialog.XamlRoot = this.XamlRoot;
+        dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+        dialog.Title = "提示";
+        dialog.PrimaryButtonText = "确定";
+        dialog.CloseButtonText = "取消";
+        dialog.DefaultButton = ContentDialogButton.Primary;
+        dialog.Content = "是否使用字符'+'对像素矩阵进行替换？（此过程不可逆）";
+
+        var result = await dialog.ShowAsync();
+
+        
+        if (result != ContentDialogResult.Primary)
+        {
+            return;
+        }
+
+        
+        
+        res = new StringStreamModel(ImageModel.IMG.RectangleList.Count, ImageModel.IMG.RectangleList[0].Count);
+        for(int i = 0; i < ImageModel.IMG.RectangleList.Count; i++)//40
+        {
+            for(int j = 0; j < ImageModel.IMG.RectangleList[i].Count; j++)//20
+            {
+                SolidColorBrush scb = ImageModel.IMG.RectangleList[i][j].Fill as SolidColorBrush;
+                res.Paint(i, j, new Models.Brush('+', scb, new SolidColorBrush(Colors.Black)));
+            }
+        }
+        StringStreamModel res1 = new StringStreamModel(ImageModel.IMG.RectangleList.Count, ImageModel.IMG.RectangleList[0].Count);
+        for (int i = 0; i < ImageModel.IMG.RectangleList.Count; i++)//40
+        {
+            for (int j = 0; j < ImageModel.IMG.RectangleList[i].Count; j++)//20
+            {
+                SolidColorBrush scb = ImageModel.IMG.RectangleList[i][j].Fill as SolidColorBrush;
+                res1.Paint(i, j, new Models.Brush('+', scb, new SolidColorBrush(Colors.Black)));
+            }
+        }
+        res1.Generate(ref testground);
+
+    }
+
+    private void Cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        bool isColorChanged = false;
+        int ColorChangedInd = -1;SolidColorBrush tempFill = null;
+        for (int i = 0; i < Convert.ToInt32(kind_of_color.SelectedValue); i++)
+        {
+            if (colorList[i].SelectedValue != null)
+            {
+                int ind = colorList[i].SelectedIndex;
+                SolidColorBrush scb = rectList[i].Fill as SolidColorBrush;
+                if(scb == null  || scb.Color != selectColors[ind])
+                {
+                    isColorChanged = true;
+                    ColorChangedInd = i;
+                    tempFill = new SolidColorBrush(selectColors[ind]);
+                }
+                
+                rectList[i].Fill = new SolidColorBrush(selectColors[ind]);
+                
+            }
+            else
+            {
+                rectList[i].Fill = new SolidColorBrush(Colors.Transparent);
+            }
+        }
+        if (isColorChanged)
+        {
+            isColorChanged = false;
+            for(int i = 0; i < k_means_rectangles[ColorChangedInd].Count; i++)
+            {
+                k_means_rectangles[ColorChangedInd][i].Fill = tempFill;
+            }
+        }
+
+    }
+
+    private List<ComboBox> colorList;
+    private List<ComboBox> charList;
+    private List<Rectangle> rectList;
+    private List<Color> selectColors;
+
+    private void Char_TextSubmitted(ComboBox sender, ComboBoxTextSubmittedEventArgs args)
+    {
+        
+    }
+
+    private void exportToEditor(object sender, RoutedEventArgs e)
+    {
+        
+        Thread.Sleep(500);
+        EditText.GetStringFromImage(ref res);
+      
+        MainWindow.frame.NavigateToType(typeof(EditText), null, null);
+        MainWindow.showImage.IsSelected = false;
+        MainWindow.editText.IsSelected = true;
+    }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        if(MainWindow.isTeaching == true)
+        {
+            t2.IsOpen = true;
+        }
+    }
+
+    #region 教学栏
+    private void next2(TeachingTip sender, object args)
+    {
+        t2.IsOpen = false;
+        t3.IsOpen = true;
+    }
+
+    private void next3(TeachingTip sender, object args)
+    {
+        t3.IsOpen = false;
+        t4.IsOpen = true;
+    }
+    private void next4(TeachingTip sender, object args)
+    {
+        t4.IsOpen = false;
+        t5.IsOpen = true;
+    }
+    private void next5(TeachingTip sender, object args)
+    {
+        t5.IsOpen = false;
+        t6.IsOpen = true;
+    }
+    private void next6(TeachingTip sender, object args)
+    {
+        t6.IsOpen = false;
+        t7.IsOpen = true;
+    }
+    private void next7(TeachingTip sender, object args)
+    {
+        t7.IsOpen = false;
+        t8.IsOpen = true;
+    }
+    private void next8(TeachingTip sender, object args)
+    {
+        t8.IsOpen = false;
+        MainWindow.frame.NavigateToType(typeof(Welcome), null, null);
+        MainWindow.showImage.IsSelected = false;
+        MainWindow.welcome.IsSelected = true;
+        MainWindow.isTeaching = false;
+    }
+    #endregion
 }

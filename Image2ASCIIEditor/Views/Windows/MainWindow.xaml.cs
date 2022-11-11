@@ -31,7 +31,7 @@ namespace Image2ASCIIEditor;
 /// </summary>
 public partial class MainWindow : Window
 {
-
+    public static bool isTeaching = false;
     MainWindowViewModel viewModel;
     public static IntPtr hWnd;
     public static Frame frame;
@@ -57,13 +57,16 @@ public partial class MainWindow : Window
         WindowId myWndId = Win32Interop.GetWindowIdFromWindow(hWnd);
         var apw = AppWindow.GetFromWindowId(myWndId).Presenter as OverlappedPresenter;
         apw.IsResizable = false;
+        apw.IsMinimizable = true;
+        
 
 
         viewModel = new MainWindowViewModel(this);
 
         this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
+        
         this.SetTitleBar(AppTitleBar);
-
+        
         welcome = this.Welcome;
         frame = this.contentFrame;
         editText = this.EditText;

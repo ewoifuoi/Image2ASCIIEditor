@@ -15,6 +15,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Image2ASCIIEditor.Common;
 using System.Runtime.InteropServices;
+using static Windows.System.Launcher;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -34,9 +35,29 @@ public sealed partial class Welcome : Page
     private void Start(object sender, RoutedEventArgs e)
     {
         
-        MainWindow.frame.NavigateToType(typeof(EditText), null, null);
+        MainWindow.frame.NavigateToType(typeof(ShowImage), null, null);
         MainWindow.welcome.IsSelected = false;
-        MainWindow.editText.IsSelected = true;
+        MainWindow.showImage.IsSelected = true;
 
+    }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        LaunchUriAsync(new Uri("https://github.com/ewoifuoi/Image2ASCIIEditor"));
+    }
+
+    private void next1(TeachingTip sender, object args)
+    {
+        t1.IsOpen = false;
+        MainWindow.frame.NavigateToType(typeof(ShowImage), null, null);
+        MainWindow.welcome.IsSelected = false;
+        MainWindow.showImage.IsSelected = true;
+
+    }
+
+    private void Button_Click_1(object sender, RoutedEventArgs e)
+    {
+        MainWindow.isTeaching = true;
+        t1.IsOpen = true;
     }
 }

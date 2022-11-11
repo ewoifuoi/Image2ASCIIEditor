@@ -66,12 +66,16 @@ public class PaintBlock
 
     public void PutInCanvas(ref Canvas g)
     {
+        StringStreamModel.charsList[y][x] = Convert.ToChar(_b.Text);
+        SolidColorBrush scb = _b.Foreground as SolidColorBrush;
+        StringStreamModel.colorList[y][x] = StringStreamModel.ColorConvertForWindows(scb.Color);
         g.Children.Add(_border);
         g.Children.Add(_c);
     }
 
     public void ChangePaint(Brush brush)
     {
+        
         brush.SetPaint(ref _b, ref _c);
     }
 }

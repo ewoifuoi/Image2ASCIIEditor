@@ -9,7 +9,7 @@
     NavigationCacheMode="Enabled">
 
     <Canvas>
-        <Grid Height="10000" Width="10000" Canvas.ZIndex="1" Background="Black" Opacity="0.85"></Grid>
+        <Grid Height="10000" Width="10000" Canvas.ZIndex="1" Background="Black" Opacity="0.9"></Grid>
         <StackPanel Canvas.ZIndex="9"
         Orientation="Horizontal"
         HorizontalAlignment="Left">
@@ -37,17 +37,35 @@
                 Margin="45 20 0 0"
                 Orientation="Horizontal"
                 HorizontalAlignment="Left">
-                        <Button Margin="10" Height="50" Width="120" Content="使用教程"></Button>
-                        <Button Margin="10" Height="50" Width="120" Content="查阅源码"></Button>
+                        <Button Click="Button_Click_1" Margin="10" Height="50" Width="120" Content="使用教程"></Button>
+                        <Button Click="Button_Click" Margin="10" Height="50" Width="120" Content="查阅源码"></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Height="250"></TextBlock>
-                    <Button x:Name="start" Click="Start" FontSize="20" Margin="120 100 0 0" Height="100" Width="180" Content="开始使用"></Button>
+                    <Button x:Name="start" Click="Start" FontSize="20" Margin="120 100 0 0" Height="100" Width="180" Content="快速开始"></Button>
                 </StackPanel>
             </StackPanel>
             <ListView x:Name="console" Height="600" Width="300" Margin="100"></ListView>
         </StackPanel>
+        
+        <!--#region 教学框-->
+        <TeachingTip x:Name="t1"
+            Target="{x:Bind start}"
+            Title="首先点击快速开始" 
+	        ActionButtonContent="下一条"
+	        CloseButtonContent="Got it!"
+            PlacementMargin="20"
+	        IsLightDismissEnabled="True"
+            PreferredPlacement="Right"
+            ActionButtonClick="next1"
+            >
+            <TeachingTip.Content>
+                <TextBlock TextWrapping="WrapWholeWords" Margin="0,16,0,0">点击快速开始后将进入图片导入界面处理您自己的图片，也可以通过左侧导航栏直接进入编辑界面</TextBlock>
+            </TeachingTip.Content>
+        </TeachingTip>
+        <!--#endregion-->
+        
     </Canvas>
     
 </Page>
