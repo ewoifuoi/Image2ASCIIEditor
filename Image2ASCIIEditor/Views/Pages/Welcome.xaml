@@ -38,7 +38,7 @@
                 Orientation="Horizontal"
                 HorizontalAlignment="Left">
                         <Button Margin="10" Height="50" Width="120" Content="使用教程"></Button>
-                        <Button Margin="10" Height="50" Width="120" Content="查阅源码"></Button>
+                        <Button Click="Button_Click" Margin="10" Height="50" Width="120" Content="查阅源码"></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel>
