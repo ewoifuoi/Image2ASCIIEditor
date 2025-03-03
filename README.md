@@ -2,6 +2,8 @@
 ![](Logo.png)
 一个提取图片特征像素点生成字符图像并进行编辑的APP
 
+<a href="https://hellogithub.com/repository/ead6a822bd02407fa31ecf001ae3e5dd" target="_blank"><img src="https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=ead6a822bd02407fa31ecf001ae3e5dd&claim_uid=aq6Eu2jX7AHBKGe" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 <br/><br/>
 
 # Features
